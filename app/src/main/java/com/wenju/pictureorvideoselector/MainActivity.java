@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
                     // 结果回调
                     List<LocalMedia> selectList = new ArrayList<>(PictureOrVideoSelectorManager.obtainMultipleResult(data));
                     Log.d("获取选择图片数据成功----》",selectList.get(0).getRealPath());
-
                     break;
                 default:
                     break;
