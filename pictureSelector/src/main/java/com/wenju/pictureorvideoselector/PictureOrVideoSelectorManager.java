@@ -8,7 +8,6 @@ import android.graphics.Color;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.language.LanguageConfig;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.tools.ScreenUtils;
@@ -23,6 +22,27 @@ import java.util.List;
  */
 public class PictureOrVideoSelectorManager {
     public final static int CHOOSE_REQUEST = 188;
+    private Context context;
+    private int type = PictureMimeType.TYPE_IMAGE;
+    private int maxSelectNum = 8;
+    private int drawableTopCompleteDefaultBtnBackground = R.drawable.picture_send_button_default_bg;
+    private int drawableTopCompleteNormalBtnBackground = R.drawable.picture_send_button_bg;
+    private boolean isSingleselect = false;
+    private boolean isCrop = false;
+    private int aspectRatioX = 1;
+    private int aspectatioY = 1;
+    private boolean isGif = false;
+    private List<LocalMedia> oldList = new ArrayList<>();
+    private int requestCode = CHOOSE_REQUEST;
+
+    public PictureOrVideoSelectorManager(Context context) {
+        this.context = context;
+    }
+
+    public void create() {
+        pictureSelector(context,type,maxSelectNum,drawableTopCompleteDefaultBtnBackground,
+                drawableTopCompleteNormalBtnBackground,isSingleselect,isCrop,aspectRatioX,aspectatioY,isGif,oldList,requestCode);
+    }
 
     /**
      * @param type 查看类型，全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
@@ -34,7 +54,8 @@ public class PictureOrVideoSelectorManager {
      * @param isGif 是否支持Gif
      * @param oldList 传入选中的图片
      */
-    public static void pictureSelector(Context context,int type,int maxSelectNum,int drawableTopCompleteDefaultBtnBackground,int drawableTopCompleteNormalBtnBackground,boolean isSingleselect,boolean isCrop,int aspectRatioX,int aspectatioY,boolean isGif,List<LocalMedia> oldList) {
+    public static void pictureSelector(Context context,int type,int maxSelectNum,int drawableTopCompleteDefaultBtnBackground,int drawableTopCompleteNormalBtnBackground
+            ,boolean isSingleselect,boolean isCrop,int aspectRatioX,int aspectatioY,boolean isGif,List<LocalMedia> oldList,int requestCode) {
         PictureSelector.create((Activity) context)
                 .openGallery(type)
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
@@ -60,59 +81,7 @@ public class PictureOrVideoSelectorManager {
                 .isGif(isGif)
                 .selectionData(getData(oldList))// 是否传入已选图片
                 .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
-                .forResult(PictureConfig.CHOOSE_REQUEST);
-    }
-
-    public static void pictureSelector(Context context){
-        pictureSelector(context,PictureMimeType.ofImage(),9,R.drawable.picture_send_button_default_bg,
-                R.drawable.picture_send_button_bg,false,false,1,1,false,null);
-    }
-
-    /**
-     * @param maxSelectNum 最大图片选择数量
-     */
-    public static void pictureSelector(Context context,int maxSelectNum){
-        pictureSelector(context,PictureMimeType.ofImage(),maxSelectNum,R.drawable.picture_send_button_default_bg,
-                R.drawable.picture_send_button_bg,false,false,1,1,false,null);
-    }
-
-    /**
-     * @param drawableTopCompleteDefaultBtnBackground 顶部确认按钮默认样式
-     * @param drawableTopCompleteNormalBtnBackground 顶部确认按钮选择样式
-     */
-    public static void pictureSelector(Context context,int drawableTopCompleteDefaultBtnBackground,int drawableTopCompleteNormalBtnBackground){
-        pictureSelector(context,PictureMimeType.ofImage(),9,drawableTopCompleteDefaultBtnBackground,
-                drawableTopCompleteNormalBtnBackground,false,false,1,1,false,null);
-    }
-
-    /**
-     * @param maxSelectNum 最大图片选择数量
-     * @param drawableTopCompleteDefaultBtnBackground 顶部确认按钮默认样式
-     * @param drawableTopCompleteNormalBtnBackground 顶部确认按钮选择样式
-     */
-    public static void pictureSelector(Context context,int maxSelectNum,int drawableTopCompleteDefaultBtnBackground,int drawableTopCompleteNormalBtnBackground){
-        pictureSelector(context,PictureMimeType.ofImage(),maxSelectNum,drawableTopCompleteDefaultBtnBackground,
-                drawableTopCompleteNormalBtnBackground,false,false,1,1,false,null);
-    }
-
-    /**
-     * @param isCrop 是否裁剪图片
-     * @param aspectRatioX  // 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-     * @param aspectatioY  // 裁剪比例 如16:9 3:2 3:4 1:1 可自定义
-     */
-    public static void pictureIsCropSelector(Context context,boolean isCrop,int aspectRatioX,int aspectatioY){
-        pictureSelector(context,PictureMimeType.ofImage(),9,R.drawable.picture_send_button_default_bg,
-                R.drawable.picture_send_button_bg,false,isCrop,aspectRatioX,aspectatioY,false,null);
-    }
-
-    public static void pictureisSingleSelectSelector(Context context){
-        pictureSelector(context,PictureMimeType.ofImage(),9,R.drawable.picture_send_button_default_bg,
-                R.drawable.picture_send_button_bg,true,false,1,1,false,null);
-    }
-
-    public static void VideoSelectSelector(Context context){
-        pictureSelector(context,PictureMimeType.ofVideo(),9,R.drawable.picture_send_button_default_bg
-                ,R.drawable.picture_send_button_bg,false,false,1,1,false,null);
+                .forResult(requestCode);
     }
 
 
@@ -266,6 +235,106 @@ public class PictureOrVideoSelectorManager {
 
         }
         return list;
+    }
+
+
+    public int getType() {
+        return type;
+    }
+
+    public PictureOrVideoSelectorManager setType(int type) {
+        this.type = type;
+        return this;
+    }
+
+    public int getMaxSelectNum() {
+        return maxSelectNum;
+    }
+
+    public PictureOrVideoSelectorManager setMaxSelectNum(int maxSelectNum) {
+        this.maxSelectNum = maxSelectNum;
+        return this;
+    }
+
+    public int getDrawableTopCompleteDefaultBtnBackground() {
+        return drawableTopCompleteDefaultBtnBackground;
+    }
+
+    public PictureOrVideoSelectorManager setDrawableTopCompleteDefaultBtnBackground(int drawableTopCompleteDefaultBtnBackground) {
+        this.drawableTopCompleteDefaultBtnBackground = drawableTopCompleteDefaultBtnBackground;
+        return this;
+    }
+
+    public int getDrawableTopCompleteNormalBtnBackground() {
+        return drawableTopCompleteNormalBtnBackground;
+    }
+
+    public PictureOrVideoSelectorManager setDrawableTopCompleteNormalBtnBackground(int drawableTopCompleteNormalBtnBackground) {
+        this.drawableTopCompleteNormalBtnBackground = drawableTopCompleteNormalBtnBackground;
+        return this;
+    }
+
+    public boolean isSingleselect() {
+        return isSingleselect;
+    }
+
+    public PictureOrVideoSelectorManager setSingleselect(boolean singleselect) {
+        isSingleselect = singleselect;
+        return this;
+    }
+
+    public boolean isCrop() {
+        return isCrop;
+    }
+
+    public PictureOrVideoSelectorManager setCrop(boolean crop) {
+        isCrop = crop;
+        return this;
+    }
+
+    public int getAspectRatioX() {
+        return aspectRatioX;
+    }
+
+    public PictureOrVideoSelectorManager setAspectRatioX(int aspectRatioX) {
+        this.aspectRatioX = aspectRatioX;
+        return this;
+    }
+
+    public int getAspectatioY() {
+        return aspectatioY;
+    }
+
+    public boolean isGif() {
+        return isGif;
+    }
+
+    public PictureOrVideoSelectorManager setGif(boolean gif) {
+        isGif = gif;
+        return this;
+    }
+
+    public PictureOrVideoSelectorManager setAspectatioY(int aspectatioY) {
+        this.aspectatioY = aspectatioY;
+        return this;
+    }
+
+    public List<LocalMedia> getOldList() {
+        return oldList;
+    }
+
+    public PictureOrVideoSelectorManager setOldList(List<LocalMedia> oldList) {
+        this.oldList = oldList;
+        return this;
+    }
+
+    public int getRequestCode() {
+        return requestCode;
+    }
+
+    public PictureOrVideoSelectorManager setRequestCode(int requestCode) {
+        this.requestCode = requestCode;
+        return this;
     }
 
 }

@@ -35,19 +35,28 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectorDefaultPicture(View view) {
-        PictureOrVideoSelectorManager.pictureSelector(this);
+        new PictureOrVideoSelectorManager(this)
+                .create();
     }
 
     public void selectorSinglePicture(View view) {
-        PictureOrVideoSelectorManager.pictureisSingleSelectSelector(this);
+        new PictureOrVideoSelectorManager(this)
+                .setSingleselect(true)
+                .create();
     }
 
     public void selectorDefaultPictureAndCrop(View view) {
-        PictureOrVideoSelectorManager.pictureIsCropSelector(this,true,1,1);
+        new PictureOrVideoSelectorManager(this)
+                .setCrop(true)
+                .setAspectRatioX(1)
+                .setAspectatioY(1)
+                .create();
     }
 
     public void selectorVideo(View view) {
-        PictureOrVideoSelectorManager.VideoSelectSelector(this);
+        new PictureOrVideoSelectorManager(this)
+                .setType(PictureMimeType.TYPE_VIDEO)
+                .create();
     }
 
 
