@@ -9,8 +9,11 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.language.LanguageConfig;
+import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
+import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
 
 import java.util.ArrayList;

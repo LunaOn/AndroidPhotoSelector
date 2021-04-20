@@ -10,6 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.luck.picture.lib.customused.LocalMedia;
 import com.luck.picture.lib.customused.PictureMimeType;
 import com.luck.picture.lib.customused.PictureOrVideoSelectorManager;
+import com.luck.picture.lib.entity.LocalMediaFolder;
+import com.luck.picture.lib.model.LocalMediaLoader;
+import com.luck.picture.lib.thread.PictureThreadUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,4 +59,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void getPictureList(View view) {
+        PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<LocalMediaFolder>>() {
+            @Override
+            public List<LocalMediaFolder> doInBackground() {
+                return new LocalMediaLoader(MainActivity.this).loadAllMedia();
+            }
+
+            @Override
+            public void onSuccess(List<LocalMediaFolder> folders) {
+                Log.d("获取图片数据列表",folders.get(1).getFirstImagePath());
+            }
+        });
+    }
 }
