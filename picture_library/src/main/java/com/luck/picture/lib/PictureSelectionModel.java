@@ -15,7 +15,6 @@ import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
 import com.luck.picture.lib.listener.OnCustomImagePreviewCallback;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.luck.picture.lib.listener.OnVideoSelectedPlayCallback;
-import com.luck.picture.lib.style.PictureCropParameterStyle;
 import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
@@ -26,8 +25,6 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.annotation.IntRange;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 
@@ -59,7 +56,7 @@ public class PictureSelectionModel {
     /**
      * @param themeStyleId PictureSelector Theme style
      * @return PictureSelectionModel
-     * Use {@link R.style#picture_default_style#picture_Sina_style#picture_white_style#picture_QQ_style#picture_WeChat_style}
+     * Use { R.style#picture_default_style#picture_Sina_style#picture_white_style#picture_QQ_style#picture_WeChat_style}
      */
     public PictureSelectionModel theme(@StyleRes int themeStyleId) {
         selectionConfig.themeStyleId = themeStyleId;
@@ -85,7 +82,7 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param locale Language
+     *  locale Language
      * @return PictureSelectionModel
      */
     public PictureSelectionModel setLanguage(int language) {
@@ -101,7 +98,7 @@ public class PictureSelectionModel {
      * time the activity is visible.
      *
      * @param requestedOrientation An orientation constant as used in
-     *                             {@link ActivityInfo#screenOrientation ActivityInfo.screenOrientation}.
+     *                             { ActivityInfo#screenOrientation ActivityInfo.screenOrientation}.
      */
     public PictureSelectionModel setRequestedOrientation(int requestedOrientation) {
         selectionConfig.requestedOrientation = requestedOrientation;
@@ -130,7 +127,6 @@ public class PictureSelectionModel {
         }
         return this;
     }
-
 
 
     /**
@@ -215,17 +211,7 @@ public class PictureSelectionModel {
 
 
     /**
-     * @param isMultipleSkipCrop Whether multiple images can be skipped when cropping
-     * @return
-     */
-    public PictureSelectionModel isMultipleSkipCrop(boolean isMultipleSkipCrop) {
-        selectionConfig.isMultipleSkipCrop = isMultipleSkipCrop;
-        return this;
-    }
-
-
-    /**
-     * @param enablePreviewAudio {@link use isEnablePreviewAudio}
+     *  enablePreviewAudio { use isEnablePreviewAudio}
      * @return
      */
     @Deprecated
@@ -240,15 +226,6 @@ public class PictureSelectionModel {
      */
     public PictureSelectionModel isEnablePreviewAudio(boolean enablePreviewAudio) {
         selectionConfig.enablePreviewAudio = enablePreviewAudio;
-        return this;
-    }
-
-    /**
-     * @param freeStyleCropEnabled Crop frame is move ?
-     * @return
-     */
-    public PictureSelectionModel freeStyleCropEnabled(boolean freeStyleCropEnabled) {
-        selectionConfig.freeStyleCropEnabled = freeStyleCropEnabled;
         return this;
     }
 
@@ -313,24 +290,6 @@ public class PictureSelectionModel {
      */
     public PictureSelectionModel setCircleStrokeWidth(int circleStrokeWidth) {
         selectionConfig.circleStrokeWidth = circleStrokeWidth;
-        return this;
-    }
-
-    /**
-     * @param showCropFrame Whether to show crop frame
-     * @return
-     */
-    public PictureSelectionModel showCropFrame(boolean showCropFrame) {
-        selectionConfig.showCropFrame = showCropFrame;
-        return this;
-    }
-
-    /**
-     * @param showCropGrid Whether to show CropGrid
-     * @return
-     */
-    public PictureSelectionModel showCropGrid(boolean showCropGrid) {
-        selectionConfig.showCropGrid = showCropGrid;
         return this;
     }
 
@@ -448,7 +407,7 @@ public class PictureSelectionModel {
 
 
     /**
-     * @param Select whether to return directly
+     *  Select whether to return directly
      * @return
      */
     public PictureSelectionModel isSingleDirectReturn(boolean isSingleDirectReturn) {
@@ -462,7 +421,7 @@ public class PictureSelectionModel {
      * Whether to turn on paging mode
      *
      * @param isPageStrategy
-     * @param pageSize       Maximum number of pages {@link PageSize is preferably no less than 20}
+     * @param pageSize       Maximum number of pages { PageSize is preferably no less than 20}
      * @return
      */
     public PictureSelectionModel isPageStrategy(boolean isPageStrategy, int pageSize) {
@@ -475,8 +434,8 @@ public class PictureSelectionModel {
      * Whether to turn on paging mode
      *
      * @param isPageStrategy
-     * @param pageSize            Maximum number of pages {@link  PageSize is preferably no less than 20}
-     * @param isFilterInvalidFile Whether to filter invalid files {@link Some of the query performance is consumed,Especially on the Q version}
+     * @param pageSize            Maximum number of pages {  PageSize is preferably no less than 20}
+     * @param isFilterInvalidFile Whether to filter invalid files { Some of the query performance is consumed,Especially on the Q version}
      * @return
      */
     public PictureSelectionModel isPageStrategy(boolean isPageStrategy, int pageSize, boolean isFilterInvalidFile) {
@@ -501,7 +460,7 @@ public class PictureSelectionModel {
      * Whether to turn on paging mode
      *
      * @param isPageStrategy
-     * @param isFilterInvalidFile Whether to filter invalid files {@link Some of the query performance is consumed,Especially on the Q version}
+     * @param isFilterInvalidFile Whether to filter invalid files { Some of the query performance is consumed,Especially on the Q version}
      * @return
      */
     public PictureSelectionModel isPageStrategy(boolean isPageStrategy, boolean isFilterInvalidFile) {
@@ -544,32 +503,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-
-    /**
-     * @param cropWidth  crop width
-     * @param cropHeight crop height
-     * @return this
-     * @deprecated Crop image output width and height
-     * {@link cropImageWideHigh()}
-     */
-    @Deprecated
-    public PictureSelectionModel cropWH(int cropWidth, int cropHeight) {
-        selectionConfig.cropWidth = cropWidth;
-        selectionConfig.cropHeight = cropHeight;
-        return this;
-    }
-
-    /**
-     * @param cropWidth  crop width
-     * @param cropHeight crop height
-     * @return this
-     */
-    public PictureSelectionModel cropImageWideHigh(int cropWidth, int cropHeight) {
-        selectionConfig.cropWidth = cropWidth;
-        selectionConfig.cropHeight = cropHeight;
-        return this;
-    }
-
     /**
      * @param videoMaxSecond selection video max second
      * @return
@@ -607,30 +540,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param width  glide width
-     * @param height glide height
-     * @return 2.2.9开始 Glide改为外部用户自己定义此方法没有意义了
-     */
-    @Deprecated
-    public PictureSelectionModel glideOverride(@IntRange(from = 100) int width,
-                                               @IntRange(from = 100) int height) {
-        selectionConfig.overrideWidth = width;
-        selectionConfig.overrideHeight = height;
-        return this;
-    }
-
-    /**
-     * @param sizeMultiplier The multiplier to apply to the
-     *                       {@link com.bumptech.glide.request.target.Target}'s dimensions when
-     *                       loading the resource.
-     * @return 2.2.9开始Glide改为外部用户自己定义此方法没有意义了
-     */
-    @Deprecated
-    public PictureSelectionModel sizeMultiplier(@FloatRange(from = 0.1f) float sizeMultiplier) {
-        selectionConfig.sizeMultiplier = sizeMultiplier;
-        return this;
-    }
 
     /**
      * @param imageSpanCount PictureSelector image span count
@@ -641,42 +550,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param Less than how many KB images are not compressed
-     * @return
-     */
-    public PictureSelectionModel minimumCompressSize(int size) {
-        selectionConfig.minimumCompressSize = size;
-        return this;
-    }
-
-    /**
-     * @param compressQuality crop compress quality default 90
-     * @return 请使用 cutOutQuality();方法
-     */
-    @Deprecated
-    public PictureSelectionModel cropCompressQuality(int compressQuality) {
-        selectionConfig.cropCompressQuality = compressQuality;
-        return this;
-    }
-
-    /**
-     * @param cutQuality crop compress quality default 90
-     * @return
-     */
-    public PictureSelectionModel cutOutQuality(int cutQuality) {
-        selectionConfig.cropCompressQuality = cutQuality;
-        return this;
-    }
-
-    /**
-     * @param compressQuality Image compressed output quality
-     * @return
-     */
-    public PictureSelectionModel compressQuality(int compressQuality) {
-        selectionConfig.compressQuality = compressQuality;
-        return this;
-    }
 
     /**
      * @param returnEmpty No data can be returned
@@ -686,7 +559,6 @@ public class PictureSelectionModel {
         selectionConfig.returnEmpty = returnEmpty;
         return this;
     }
-
 
 
     /**
@@ -721,30 +593,6 @@ public class PictureSelectionModel {
      */
     public PictureSelectionModel cameraFileName(String fileName) {
         selectionConfig.cameraFileName = fileName;
-        return this;
-    }
-
-    /**
-     * crop custom local file name
-     * # Such as xxx.png
-     *
-     * @param renameCropFileName
-     * @return
-     */
-    public PictureSelectionModel renameCropFileName(String renameCropFileName) {
-        selectionConfig.renameCropFileName = renameCropFileName;
-        return this;
-    }
-
-    /**
-     * custom compress local file name
-     * # Such as xxx.png
-     *
-     * @param renameFile
-     * @return
-     */
-    public PictureSelectionModel renameCompressFile(String renameFile) {
-        selectionConfig.renameCompressFileName = renameFile;
         return this;
     }
 
@@ -786,7 +634,7 @@ public class PictureSelectionModel {
     }
 
     /**
-     * Extra used with {@link #Environment.getExternalStorageDirectory() +  File.separator + "CustomCamera" + File.separator}  to indicate that
+     * Extra used with { #Environment.getExternalStorageDirectory() +  File.separator + "CustomCamera" + File.separator}  to indicate that
      *
      * @param outPutCameraPath Camera save path 只支持Build.VERSION.SDK_INT < Build.VERSION_CODES.Q
      * @return
@@ -865,7 +713,7 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param Specify get image format
+     *  Specify get image format
      * @return
      */
     public PictureSelectionModel querySpecifiedFormatSuffix(String specifiedFormat) {
@@ -884,7 +732,7 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param isOpenClickSound Whether to open click voice
+     *  isOpenClickSound Whether to open click voice
      * @return
      */
     public PictureSelectionModel isOpenClickSound(boolean openClickSound) {
@@ -961,19 +809,6 @@ public class PictureSelectionModel {
     }
 
     /**
-     * 选择图片样式0/9
-     * #适合所有style使用
-     *
-     * @param isOpenStyleNumComplete
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel isOpenStyleNumComplete(boolean isOpenStyleNumComplete) {
-        selectionConfig.isOpenStyleNumComplete = isOpenStyleNumComplete;
-        return this;
-    }
-
-    /**
      * 是否开启数字选择模式
      * #适合qq style 样式使用
      *
@@ -1013,42 +848,6 @@ public class PictureSelectionModel {
 
 
     /**
-     * 裁剪页面标题背景色
-     *
-     * @param color
-     * @return 使用setPictureCropStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setCropTitleBarBackgroundColor(@ColorInt int color) {
-        selectionConfig.cropTitleBarBackgroundColor = color;
-        return this;
-    }
-
-    /**
-     * 裁剪页面状态栏背景色
-     *
-     * @param color
-     * @return 使用setPictureCropStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setCropStatusBarColorPrimaryDark(@ColorInt int color) {
-        selectionConfig.cropStatusBarColorPrimaryDark = color;
-        return this;
-    }
-
-    /**
-     * 裁剪页面标题文字颜色
-     *
-     * @param color
-     * @return 使用setPictureCropStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setCropTitleColor(@ColorInt int color) {
-        selectionConfig.cropTitleColor = color;
-        return this;
-    }
-
-    /**
      * 设置相册标题右侧向上箭头图标
      *
      * @param resId
@@ -1072,22 +871,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * 动态设置裁剪主题样式
-     *
-     * @param style 裁剪页主题
-     *              <p>{@link PictureSelectorUIStyle}</>
-     * @return
-     */
-    @Deprecated
-    public PictureSelectionModel setPictureCropStyle(PictureCropParameterStyle style) {
-        if (style != null) {
-            PictureSelectionConfig.cropStyle = style;
-        } else {
-            PictureSelectionConfig.cropStyle = PictureCropParameterStyle.ofDefaultCropStyle();
-        }
-        return this;
-    }
 
     /**
      * 动态设置相册主题样式
@@ -1112,7 +895,7 @@ public class PictureSelectionModel {
     /**
      * Dynamically set the album to start and exit the animation
      *
-     * @param style Activity Launch exit animation theme
+     *  style Activity Launch exit animation theme
      * @return
      */
     public PictureSelectionModel setPictureWindowAnimationStyle(PictureWindowAnimationStyle windowAnimationStyle) {
@@ -1196,10 +979,10 @@ public class PictureSelectionModel {
 //            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
 //                intent = new Intent(activity, PictureCustomCameraActivity.class);
 //            } else {
-                intent = new Intent(activity, selectionConfig.camera
-                        ? PictureSelectorCameraEmptyActivity.class :
-                        selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                                : PictureSelectorActivity.class);
+            intent = new Intent(activity, selectionConfig.camera
+                    ? PictureSelectorCameraEmptyActivity.class :
+                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
+                            : PictureSelectorActivity.class);
 //            }
             selectionConfig.isCallbackMode = false;
             Fragment fragment = selector.getFragment();
@@ -1262,10 +1045,10 @@ public class PictureSelectionModel {
 //            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
 //                intent = new Intent(activity, PictureCustomCameraActivity.class);
 //            } else {
-                intent = new Intent(activity, selectionConfig.camera
-                        ? PictureSelectorCameraEmptyActivity.class :
-                        selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                                : PictureSelectorActivity.class);
+            intent = new Intent(activity, selectionConfig.camera
+                    ? PictureSelectorCameraEmptyActivity.class :
+                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
+                            : PictureSelectorActivity.class);
 //            }
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
@@ -1298,10 +1081,10 @@ public class PictureSelectionModel {
 //            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
 //                intent = new Intent(activity, PictureCustomCameraActivity.class);
 //            } else {
-                intent = new Intent(activity, selectionConfig.camera
-                        ? PictureSelectorCameraEmptyActivity.class :
-                        selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                                : PictureSelectorActivity.class);
+            intent = new Intent(activity, selectionConfig.camera
+                    ? PictureSelectorCameraEmptyActivity.class :
+                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
+                            : PictureSelectorActivity.class);
 //            }
             Fragment fragment = selector.getFragment();
             if (fragment != null) {

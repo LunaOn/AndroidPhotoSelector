@@ -254,7 +254,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
                 openWhiteStatusBar = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_statusFontColor);
             }
 
-            numComplete = config.isOpenStyleNumComplete;
+            numComplete = false;
             if (!numComplete) {
                 numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);
             }

@@ -71,7 +71,6 @@ public class PictureOrVideoSelectorManager {
                 .isPreviewImage(true)// 是否可预览图片
                 .isPreviewVideo(true)// 是否可预览视频
                 .isCamera(true)// 是否显示拍照按钮
-                .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
                 .isGif(isGif)
                 .selectionData(getData(oldList))// 是否传入已选图片
                 .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
