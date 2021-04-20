@@ -51,6 +51,7 @@ public class PictureOrVideoSelectorManager {
      * @param isSingleselect 单个图片选择
      * @param isGif 是否支持Gif
      * @param oldList 传入选中的图片
+     * @param requestCode
      */
     public static void pictureSelector(Context context, int type, int maxSelectNum, int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground
             , boolean isSingleselect, boolean isGif, List<LocalMedia> oldList, int requestCode) {
