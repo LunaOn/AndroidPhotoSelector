@@ -7,9 +7,6 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.luck.picture.lib.customused.PictureMimeType;
-import com.luck.picture.lib.customused.PictureOrVideoSelectorManager;
-import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.thread.PictureThreadUtils;
