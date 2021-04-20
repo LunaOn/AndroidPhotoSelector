@@ -213,33 +213,6 @@ public class PictureSelectionModel {
 //        return this;
 //    }
 
-    /**
-     * @param enableCrop Do you want to start cutting ?
-     * @return Use {link .isEnableCrop()}
-     */
-    @Deprecated
-    public PictureSelectionModel enableCrop(boolean enableCrop) {
-        selectionConfig.enableCrop = enableCrop;
-        return this;
-    }
-
-    /**
-     * @param enableCrop Do you want to start cutting ?
-     * @return
-     */
-    public PictureSelectionModel isEnableCrop(boolean enableCrop) {
-        selectionConfig.enableCrop = enableCrop;
-        return this;
-    }
-
-    /**
-     * @param uCropOptions UCrop parameter configuration is provided
-     * @return
-     */
-//    public PictureSelectionModel basicUCropConfig(UCropOptions uCropOptions) {
-//        selectionConfig.uCropOptions = uCropOptions;
-//        return this;
-//    }
 
     /**
      * @param isMultipleSkipCrop Whether multiple images can be skipped when cropping
@@ -697,25 +670,6 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param isCompress Whether to open compress
-     * @return Use {link .isCompress()}
-     */
-    @Deprecated
-    public PictureSelectionModel compress(boolean isCompress) {
-        selectionConfig.isCompress = isCompress;
-        return this;
-    }
-
-    /**
-     * @param isCompress Whether to open compress
-     * @return
-     */
-    public PictureSelectionModel isCompress(boolean isCompress) {
-        selectionConfig.isCompress = isCompress;
-        return this;
-    }
-
-    /**
      * @param compressQuality Image compressed output quality
      * @return
      */
@@ -733,14 +687,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param synOrAsy Synchronous or asynchronous compression
-     * @return
-     */
-    public PictureSelectionModel synOrAsy(boolean synOrAsy) {
-        selectionConfig.synOrAsy = synOrAsy;
-        return this;
-    }
 
     /**
      * @param focusAlpha After compression, the transparent channel is retained

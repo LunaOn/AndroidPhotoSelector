@@ -15,8 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.luck.picture.lib.app.PictureAppMaster;
-import com.luck.picture.lib.compress.Luban;
-import com.luck.picture.lib.compress.OnCompressListener;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
@@ -326,122 +324,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             }
         }
     }
-
-
-    /**
-     * compressImage
-     */
-    protected void compressImage(final List<LocalMedia> result) {
-        showPleaseDialog();
-        compressToLuban(result);
-    }
-
-    /**
-     * compress
-     *
-     * @param result
-     */
-    private void compressToLuban(List<LocalMedia> result) {
-        if (config.synOrAsy) {
-            PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<File>>() {
-
-                @Override
-                public List<File> doInBackground() throws Exception {
-                    return Luban.with(getContext())
-                            .loadMediaData(result)
-                            .isCamera(config.camera)
-                            .setTargetDir(config.compressSavePath)
-                            .setCompressQuality(config.compressQuality)
-                            .setFocusAlpha(config.focusAlpha)
-                            .setNewCompressFileName(config.renameCompressFileName)
-                            .ignoreBy(config.minimumCompressSize).get();
-                }
-
-                @Override
-                public void onSuccess(List<File> files) {
-                    if (files != null && files.size() > 0 && files.size() == result.size()) {
-                        handleCompressCallBack(result, files);
-                    } else {
-                        onResult(result);
-                    }
-                }
-            });
-        } else {
-            Luban.with(this)
-                    .loadMediaData(result)
-                    .ignoreBy(config.minimumCompressSize)
-                    .isCamera(config.camera)
-                    .setCompressQuality(config.compressQuality)
-                    .setTargetDir(config.compressSavePath)
-                    .setFocusAlpha(config.focusAlpha)
-                    .setNewCompressFileName(config.renameCompressFileName)
-                    .setCompressListener(new OnCompressListener() {
-                        @Override
-                        public void onStart() {
-                        }
-
-                        @Override
-                        public void onSuccess(List<LocalMedia> list) {
-                            onResult(list);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            onResult(result);
-                        }
-                    }).launch();
-        }
-    }
-
-    /**
-     * handleCompressCallBack
-     *
-     * @param images
-     * @param files
-     */
-    private void handleCompressCallBack(List<LocalMedia> images, List<File> files) {
-        if (images == null || files == null) {
-            exit();
-            return;
-        }
-        boolean isAndroidQ = SdkVersionUtils.checkedAndroid_Q();
-        int size = images.size();
-        if (files.size() == size) {
-            for (int i = 0, j = size; i < j; i++) {
-                File file = files.get(i);
-                if (file == null) {
-                    continue;
-                }
-                String path = file.getAbsolutePath();
-                LocalMedia image = images.get(i);
-                boolean http = PictureMimeType.isHasHttp(path);
-                boolean flag = !TextUtils.isEmpty(path) && http;
-                boolean isHasVideo = PictureMimeType.isHasVideo(image.getMimeType());
-                image.setCompressed(!isHasVideo && !flag);
-                image.setCompressPath(isHasVideo || flag ? null : path);
-                if (isAndroidQ) {
-                    image.setAndroidQToPath(image.getCompressPath());
-                }
-            }
-        }
-        onResult(images);
-    }
-
-
-    /**
-     * compress or callback
-     *
-     * @param result
-     */
-    protected void handlerResult(List<LocalMedia> result) {
-        if (config.isCompress
-                && !config.isCheckOriginalImage) {
-            compressImage(result);
-        } else {
-            onResult(result);
-        }
-    }
-
 
     /**
      * If you don't have any albums, first create a camera film folder to come out

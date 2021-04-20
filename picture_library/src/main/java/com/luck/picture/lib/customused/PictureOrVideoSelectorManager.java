@@ -10,11 +10,8 @@ import com.luck.picture.lib.R;
 import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.language.LanguageConfig;
-import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
-import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
 
 import java.util.ArrayList;
@@ -42,8 +39,8 @@ public class PictureOrVideoSelectorManager {
     }
 
     public void create() {
-        pictureSelector(context,type,maxSelectNum,drawableTopCompleteDefaultBtnBackground,
-                drawableTopCompleteNormalBtnBackground,isSingleselect,isGif,oldList,requestCode);
+        pictureSelector(context, type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
+                drawableTopCompleteNormalBtnBackground, isSingleselect, isGif, oldList, requestCode);
     }
 
     /**
@@ -59,7 +56,7 @@ public class PictureOrVideoSelectorManager {
         PictureSelector.create((Activity) context)
                 .openGallery(type)
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
-                .setPictureUIStyle(ofNewStyle(drawableTopCompleteDefaultBtnBackground,drawableTopCompleteNormalBtnBackground))
+                .setPictureUIStyle(ofNewStyle(drawableTopCompleteDefaultBtnBackground, drawableTopCompleteNormalBtnBackground))
                 .isWeChatStyle(true)// 是否开启微信图片选择风格
                 .setLanguage(LanguageConfig.ENGLISH)// 设置语言，默认中文
                 .isMaxSelectEnabledMask(true)// 选择数到了最大阀值列表是否启用蒙层效果
@@ -68,14 +65,13 @@ public class PictureOrVideoSelectorManager {
                 .maxVideoSelectNum(1)// 视频最大选择数量
                 .imageSpanCount(4)// 每行显示个数
                 .isReturnEmpty(false)// 未选择数据时点击按钮是否可以返回
-                .selectionMode(isSingleselect?
-                        PictureConfig.SINGLE:PictureConfig.MULTIPLE)
+                .selectionMode(isSingleselect ?
+                        PictureConfig.SINGLE : PictureConfig.MULTIPLE)
                 .isSingleDirectReturn(true)// 单选模式下是否直接返回，PictureConfig.SINGLE模式下有效
                 .isPreviewImage(true)// 是否可预览图片
                 .isPreviewVideo(true)// 是否可预览视频
                 .isCamera(true)// 是否显示拍照按钮
                 .showCropFrame(true)// 是否显示裁剪矩形边框 圆形裁剪时建议设为false
-                .isCompress(false)// 是否压缩
                 .isGif(isGif)
                 .selectionData(getData(oldList))// 是否传入已选图片
                 .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
@@ -87,7 +83,7 @@ public class PictureOrVideoSelectorManager {
      * 微信样式
      * @return
      */
-    public static PictureSelectorUIStyle ofNewStyle(int drawableTopCompleteDefaultBtnBackground,int drawableTopCompleteNormalBtnBackground) {
+    public static PictureSelectorUIStyle ofNewStyle(int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground) {
         PictureSelectorUIStyle uiStyle = new PictureSelectorUIStyle();
         uiStyle.isNewSelectStyle = true;
         uiStyle.picture_statusBarBackgroundColor = Color.parseColor("#393a3e");
@@ -159,11 +155,11 @@ public class PictureOrVideoSelectorManager {
     }
 
     public static List<com.luck.picture.lib.entity.LocalMedia> getData(List<LocalMedia> mylist) {
-        if(mylist == null){
+        if (mylist == null) {
             mylist = new ArrayList<>();
         }
         List<com.luck.picture.lib.entity.LocalMedia> list = new ArrayList<>();
-        for (int i = 0; i < mylist.size();i++){
+        for (int i = 0; i < mylist.size(); i++) {
             com.luck.picture.lib.entity.LocalMedia localMedia = new com.luck.picture.lib.entity.LocalMedia();
             localMedia.setAndroidQToPath(mylist.get(i).getAndroidQToPath());
             localMedia.setBucketId(mylist.get(i).getBucketId());
@@ -202,7 +198,7 @@ public class PictureOrVideoSelectorManager {
         List<LocalMedia> list = new ArrayList<>();
         if (data != null) {
             List<com.luck.picture.lib.entity.LocalMedia> result = data.getParcelableArrayListExtra(PictureConfig.EXTRA_RESULT_SELECTION);
-            for (int i = 0; i < result.size();i++){
+            for (int i = 0; i < result.size(); i++) {
                 LocalMedia localMedia = new LocalMedia();
                 localMedia.setAndroidQToPath(result.get(i).getAndroidQToPath());
                 localMedia.setBucketId(result.get(i).getBucketId());

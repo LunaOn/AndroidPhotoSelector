@@ -906,9 +906,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      * Open Custom Camera
      */
     private void startCustomCamera() {
-            PermissionChecker
-                    .requestPermissions(this,
-                            new String[]{Manifest.permission.RECORD_AUDIO}, PictureConfig.APPLY_RECORD_AUDIO_PERMISSIONS_CODE);
+        PermissionChecker
+                .requestPermissions(this,
+                        new String[]{Manifest.permission.RECORD_AUDIO}, PictureConfig.APPLY_RECORD_AUDIO_PERMISSIONS_CODE);
     }
 
 
@@ -1053,58 +1053,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (image == null) {
             return;
         }
-//        if (config.enableCrop) {
-//            if (config.selectionMode == PictureConfig.SINGLE && isHasImage) {
-//                config.originalPath = image.getPath();
-//                UCropManager.ofCrop(this, config.originalPath, image.getMimeType());
-//            } else {
-//                ArrayList<CutInfo> cuts = new ArrayList<>();
-//                int count = images.size();
-//                int imageNum = 0;
-//                for (int i = 0; i < count; i++) {
-//                    LocalMedia media = images.get(i);
-//                    if (media == null
-//                            || TextUtils.isEmpty(media.getPath())) {
-//                        continue;
-//                    }
-//                    if (PictureMimeType.isHasImage(media.getMimeType())) {
-//                        imageNum++;
-//                    }
-//                    CutInfo cutInfo = new CutInfo();
-//                    cutInfo.setId(media.getId());
-//                    cutInfo.setPath(media.getPath());
-//                    cutInfo.setImageWidth(media.getWidth());
-//                    cutInfo.setImageHeight(media.getHeight());
-//                    cutInfo.setMimeType(media.getMimeType());
-//                    cutInfo.setDuration(media.getDuration());
-//                    cutInfo.setRealPath(media.getRealPath());
-//                    cuts.add(cutInfo);
-//                }
-//                if (imageNum <= 0) {
-//                    onResult(images);
-//                } else {
-//                    UCropManager.ofCrop(this, cuts);
-//                }
-//            }
-//        } else
-            if (config.isCompress) {
-            int size = images.size();
-            int imageNum = 0;
-            for (int i = 0; i < size; i++) {
-                LocalMedia media = images.get(i);
-                if (PictureMimeType.isHasImage(media.getMimeType())) {
-                    imageNum++;
-                    break;
-                }
-            }
-            if (imageNum <= 0) {
-                onResult(images);
-            } else {
-                compressImage(images);
-            }
-        } else {
-            onResult(images);
-        }
+        onResult(images);
     }
 
     /**
@@ -1118,38 +1067,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (image == null) {
             return;
         }
-//        if (config.enableCrop && isHasImage) {
-//            if (config.selectionMode == PictureConfig.SINGLE) {
-//                config.originalPath = image.getPath();
-//                UCropManager.ofCrop(this, config.originalPath, image.getMimeType());
-//            } else {
-//                ArrayList<CutInfo> cuts = new ArrayList<>();
-//                int count = images.size();
-//                for (int i = 0; i < count; i++) {
-//                    LocalMedia media = images.get(i);
-//                    if (media == null
-//                            || TextUtils.isEmpty(media.getPath())) {
-//                        continue;
-//                    }
-//                    CutInfo cutInfo = new CutInfo();
-//                    cutInfo.setId(media.getId());
-//                    cutInfo.setPath(media.getPath());
-//                    cutInfo.setImageWidth(media.getWidth());
-//                    cutInfo.setImageHeight(media.getHeight());
-//                    cutInfo.setMimeType(media.getMimeType());
-//                    cutInfo.setDuration(media.getDuration());
-//                    cutInfo.setRealPath(media.getRealPath());
-//                    cuts.add(cutInfo);
-//                }
-//                UCropManager.ofCrop(this, cuts);
-//            }
-//        } els
-        if (config.isCompress
-                && isHasImage) {
-            compressImage(images);
-        } else {
-            onResult(images);
-        }
+        onResult(images);
     }
 
     /**
@@ -1441,12 +1359,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (config.selectionMode == PictureConfig.SINGLE && config.isSingleDirectReturn) {
             List<LocalMedia> list = new ArrayList<>();
             list.add(media);
-            if (config.enableCrop && PictureMimeType.isHasImage(media.getMimeType()) && !config.isCheckOriginalImage) {
-                mAdapter.bindSelectData(list);
-                UCropManager.ofCrop(this, media.getPath(), media.getMimeType());
-            } else {
-                handlerResult(list);
-            }
+            onResult(list);
         } else {
             List<LocalMedia> data = mAdapter.getData();
             startPreview(data, position);
@@ -1630,28 +1543,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 onChangeData(list);
                 if (config.isWithVideoImage) {
                     int size = list.size();
-                    int imageSize = 0;
-                    for (int i = 0; i < size; i++) {
-                        LocalMedia media = list.get(i);
-                        if (PictureMimeType.isHasImage(media.getMimeType())) {
-                            imageSize++;
-                            break;
-                        }
-                    }
-                    if (imageSize <= 0 || !config.isCompress || config.isCheckOriginalImage) {
-                        onResult(list);
-                    } else {
-                        compressImage(list);
-                    }
+                    onResult(list);
                 } else {
-                    // Determine if the resource is of the same type
-                    String mimeType = list.size() > 0 ? list.get(0).getMimeType() : "";
-                    if (config.isCompress && PictureMimeType.isHasImage(mimeType)
-                            && !config.isCheckOriginalImage) {
-                        compressImage(list);
-                    } else {
-                        onResult(list);
-                    }
+                    onResult(list);
                 }
             } else {
                 // Resources are selected on the preview page
@@ -1677,16 +1571,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      * @param mimeType
      */
     private void singleDirectReturnCameraHandleResult(String mimeType) {
-        boolean isHasImage = PictureMimeType.isHasImage(mimeType);
-        if (config.enableCrop && isHasImage) {
-            config.originalPath = config.cameraPath;
-            UCropManager.ofCrop(this, config.originalPath, mimeType);
-        } else if (config.isCompress && isHasImage) {
-            List<LocalMedia> selectedImages = mAdapter.getSelectedData();
-            compressImage(selectedImages);
-        } else {
-            onResult(mAdapter.getSelectedData());
-        }
+
     }
 
     /**
@@ -1909,7 +1794,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             List<LocalMedia> selectedData = mAdapter.getSelectedData();
             selectedData.add(media);
             mAdapter.bindSelectData(selectedData);
-            singleDirectReturnCameraHandleResult(media.getMimeType());
+            onResult(mAdapter.getSelectedData());
         } else {
             List<LocalMedia> selectedData = mAdapter.getSelectedData();
             String mimeType = selectedData.size() > 0 ? selectedData.get(0).getMimeType() : "";

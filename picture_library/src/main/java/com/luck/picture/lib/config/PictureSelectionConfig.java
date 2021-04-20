@@ -72,7 +72,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean isWeChatStyle;
     public boolean isUseCustomCamera;
     public boolean zoomAnim;
-    public boolean isCompress;
     public boolean isOriginalControl;
     public boolean isCamera = true;
     public boolean isGif;
@@ -83,7 +82,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean enablePreviewAudio;
     public boolean checkNumMode;
     public boolean openClickSound;
-    public boolean enableCrop;
     public boolean freeStyleCropEnabled;
     public boolean circleDimmedLayer;
     @ColorInt
@@ -97,7 +95,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean rotateEnabled;
     public boolean scaleEnabled;
     public boolean previewEggs;
-    public boolean synOrAsy;
     public boolean returnEmpty;
     public boolean isDragFrame;
     public boolean isNotPreviewDownload;
@@ -180,7 +177,6 @@ public final class PictureSelectionConfig implements Parcelable {
         recordVideoMinSecond = 0;
         compressQuality = 80;
         imageSpanCount = PictureConfig.DEFAULT_SPAN_COUNT;
-        isCompress = false;
         isOriginalControl = false;
         aspect_ratio_x = 0;
         aspect_ratio_y = 0;
@@ -205,7 +201,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isFallbackVersion = false;
         isFallbackVersion2 = true;
         isFallbackVersion3 = true;
-        enableCrop = false;
         isWeChatStyle = false;
         isUseCustomCamera = false;
         isMultipleSkipCrop = true;
@@ -219,7 +214,6 @@ public final class PictureSelectionConfig implements Parcelable {
         scaleEnabled = true;
         previewEggs = false;
         returnEmpty = false;
-        synOrAsy = true;
         zoomAnim = true;
         circleDimmedColor = 0;
         circleDimmedBorderColor = 0;
@@ -334,7 +328,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isWeChatStyle ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isUseCustomCamera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.zoomAnim ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isCompress ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isOriginalControl ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCamera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isGif ? (byte) 1 : (byte) 0);
@@ -345,7 +338,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.enablePreviewAudio ? (byte) 1 : (byte) 0);
         dest.writeByte(this.checkNumMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.openClickSound ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.enableCrop ? (byte) 1 : (byte) 0);
         dest.writeByte(this.freeStyleCropEnabled ? (byte) 1 : (byte) 0);
         dest.writeByte(this.circleDimmedLayer ? (byte) 1 : (byte) 0);
         dest.writeInt(this.circleDimmedColor);
@@ -357,7 +349,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.rotateEnabled ? (byte) 1 : (byte) 0);
         dest.writeByte(this.scaleEnabled ? (byte) 1 : (byte) 0);
         dest.writeByte(this.previewEggs ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.synOrAsy ? (byte) 1 : (byte) 0);
         dest.writeByte(this.returnEmpty ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isDragFrame ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isNotPreviewDownload ? (byte) 1 : (byte) 0);
@@ -437,7 +428,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isWeChatStyle = in.readByte() != 0;
         this.isUseCustomCamera = in.readByte() != 0;
         this.zoomAnim = in.readByte() != 0;
-        this.isCompress = in.readByte() != 0;
         this.isOriginalControl = in.readByte() != 0;
         this.isCamera = in.readByte() != 0;
         this.isGif = in.readByte() != 0;
@@ -448,7 +438,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.enablePreviewAudio = in.readByte() != 0;
         this.checkNumMode = in.readByte() != 0;
         this.openClickSound = in.readByte() != 0;
-        this.enableCrop = in.readByte() != 0;
         this.freeStyleCropEnabled = in.readByte() != 0;
         this.circleDimmedLayer = in.readByte() != 0;
         this.circleDimmedColor = in.readInt();
@@ -460,7 +449,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.rotateEnabled = in.readByte() != 0;
         this.scaleEnabled = in.readByte() != 0;
         this.previewEggs = in.readByte() != 0;
-        this.synOrAsy = in.readByte() != 0;
         this.returnEmpty = in.readByte() != 0;
         this.isDragFrame = in.readByte() != 0;
         this.isNotPreviewDownload = in.readByte() != 0;
