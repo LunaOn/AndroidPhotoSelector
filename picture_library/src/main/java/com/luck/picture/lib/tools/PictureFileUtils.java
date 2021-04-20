@@ -14,11 +14,6 @@ import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.FileProvider;
-import androidx.exifinterface.media.ExifInterface;
-
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 
@@ -28,14 +23,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.nio.channels.FileChannel;
 import java.util.Locale;
 import java.util.Objects;
 
-import okio.BufferedSink;
-import okio.BufferedSource;
-import okio.Okio;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
+import androidx.exifinterface.media.ExifInterface;
+
 
 /**
  * @author：luck
@@ -233,7 +229,7 @@ public class PictureFileUtils {
      * Callers should check whether the path is local before assuming it
      * represents a local file.
      *
-     * @param context The context.
+     * @param ctx The context.
      * @param uri     The Uri to query.
      * @author paulburke
      */
@@ -337,76 +333,6 @@ public class PictureFileUtils {
         }
     }
 
-    /**
-     * 拷贝文件
-     *
-     * @param outFile
-     * @return
-     */
-    public static boolean bufferCopy(BufferedSource inBuffer, File outFile) {
-        BufferedSink outBuffer = null;
-        try {
-            outBuffer = Okio.buffer(Okio.sink(outFile));
-            outBuffer.writeAll(inBuffer);
-            outBuffer.flush();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(inBuffer);
-            close(outBuffer);
-        }
-        return false;
-    }
-
-    /**
-     * 拷贝文件
-     *
-     * @param outputStream
-     * @return
-     */
-    public static boolean bufferCopy(BufferedSource inBuffer, OutputStream outputStream) {
-        BufferedSink outBuffer = null;
-        try {
-            outBuffer = Okio.buffer(Okio.sink(outputStream));
-            outBuffer.writeAll(inBuffer);
-            outBuffer.flush();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(inBuffer);
-            close(outBuffer);
-        }
-        return false;
-    }
-
-
-    /**
-     * 拷贝文件
-     *
-     * @param inFile
-     * @param outPutStream
-     * @return
-     */
-    public static boolean bufferCopy(File inFile, OutputStream outPutStream) {
-        BufferedSource inBuffer = null;
-        BufferedSink outBuffer = null;
-        try {
-            inBuffer = Okio.buffer(Okio.source(inFile));
-            outBuffer = Okio.buffer(Okio.sink(outPutStream));
-            outBuffer.writeAll(inBuffer);
-            outBuffer.flush();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            close(inBuffer);
-            close(outPutStream);
-            close(outBuffer);
-        }
-        return false;
-    }
 
     /**
      * 读取图片属性：旋转的角度
@@ -486,7 +412,7 @@ public class PictureFileUtils {
      * set empty PictureSelector Cache
      *
      * @param context
-     * @param type    image、video、audio ...
+     *  type    image、video、audio ...
      */
     public static void deleteAllCacheDirFile(Context context) {
 

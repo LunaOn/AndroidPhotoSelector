@@ -30,6 +30,7 @@ import com.luck.picture.lib.photoview.PhotoView;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.AttrsUtils;
 import com.luck.picture.lib.tools.DateUtils;
+import com.luck.picture.lib.tools.IOUtils;
 import com.luck.picture.lib.tools.JumpUtils;
 import com.luck.picture.lib.tools.MediaUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
@@ -52,8 +53,6 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
-import okio.BufferedSource;
-import okio.Okio;
 
 /**
  * @author：luck
@@ -495,20 +494,20 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
 
             @Override
             public String doInBackground() {
-                BufferedSource buffer = null;
+                InputStream inputStream = null;
+                OutputStream outputStream = null;
                 try {
-                    buffer = Okio.buffer(Okio.source(Objects.requireNonNull(getContentResolver().openInputStream(inputUri))));
-                    OutputStream outputStream = getContentResolver().openOutputStream(uri);
-                    boolean bufferCopy = PictureFileUtils.bufferCopy(buffer, outputStream);
-                    if (bufferCopy) {
+                    inputStream = getContentResolver().openInputStream(inputUri);
+                    outputStream = getContentResolver().openOutputStream(uri);
+                    boolean transfer = IOUtils.transfer(inputStream, outputStream);
+                    if (transfer) {
                         return PictureFileUtils.getPath(getContext(), uri);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-                    if (buffer != null && buffer.isOpen()) {
-                        PictureFileUtils.close(buffer);
-                    }
+                    IOUtils.close(inputStream);
+                    IOUtils.close(outputStream);
                 }
                 return "";
             }
@@ -542,7 +541,6 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         Uri outImageUri = null;
         OutputStream outputStream = null;
         InputStream inputStream = null;
-        BufferedSource inBuffer = null;
         try {
             if (SdkVersionUtils.checkedAndroid_Q()) {
                 outImageUri = createOutImageUri();
@@ -570,9 +568,8 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
                 outputStream = Objects.requireNonNull(getContentResolver().openOutputStream(outImageUri));
                 URL u = new URL(urlPath);
                 inputStream = u.openStream();
-                inBuffer = Okio.buffer(Okio.source(inputStream));
-                boolean bufferCopy = PictureFileUtils.bufferCopy(inBuffer, outputStream);
-                if (bufferCopy) {
+                boolean transfer = IOUtils.transfer(inputStream, outputStream);
+                if (transfer) {
                     return PictureFileUtils.getPath(this, outImageUri);
                 }
             }
@@ -583,7 +580,6 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
         } finally {
             PictureFileUtils.close(inputStream);
             PictureFileUtils.close(outputStream);
-            PictureFileUtils.close(inBuffer);
         }
         return null;
     }

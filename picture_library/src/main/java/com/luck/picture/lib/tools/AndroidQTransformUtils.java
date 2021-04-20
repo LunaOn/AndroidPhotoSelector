@@ -2,12 +2,12 @@ package com.luck.picture.lib.tools;
 
 import android.content.Context;
 import android.net.Uri;
-import java.io.File;
-import java.io.OutputStream;
-import java.util.Objects;
 
-import okio.BufferedSource;
-import okio.Okio;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 /**
  * @author：luck
@@ -17,19 +17,22 @@ import okio.Okio;
 public class AndroidQTransformUtils {
 
 
+    private OutputStream fileOutputStream;
+
     /**
      * 解析Android Q版本下图片
      * #耗时操作需要放在子线程中操作
      *
      * @param ctx
-     * @param uri
+     * @param url
      * @param mineType
      * @param customFileName
      * @return
      */
     public static String copyPathToAndroidQ(Context ctx, String url, int width, int height, String mineType, String customFileName) {
         // 走普通的文件复制流程，拷贝至应用沙盒内来
-        BufferedSource inBuffer = null;
+        InputStream inputStream = null;
+        OutputStream outputStream = null;
         try {
             Uri uri = Uri.parse(url);
             String encryptionValue = StringUtils.getEncryptionValue(url, width, height);
@@ -38,17 +41,18 @@ public class AndroidQTransformUtils {
             if (outFile.exists()) {
                 return newPath;
             }
-            inBuffer = Okio.buffer(Okio.source(Objects.requireNonNull(ctx.getContentResolver().openInputStream(uri))));
-            boolean copyFileSuccess = PictureFileUtils.bufferCopy(inBuffer, outFile);
-            if (copyFileSuccess) {
+            inputStream = ctx.getContentResolver().openInputStream(uri);
+            outputStream = new FileOutputStream(outFile);
+            boolean transfer = IOUtils.transfer(inputStream, outputStream);
+
+            if (transfer) {
                 return newPath;
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (inBuffer != null && inBuffer.isOpen()) {
-                PictureFileUtils.close(inBuffer);
-            }
+            IOUtils.close(inputStream);
+            IOUtils.close(outputStream);
         }
         return "";
     }
@@ -61,11 +65,17 @@ public class AndroidQTransformUtils {
      * @param outUri
      */
     public static boolean copyPathToDCIM(Context context, File inFile, Uri outUri) {
+        InputStream inputStream = null;
+        OutputStream fileOutputStream = null;
         try {
-            OutputStream fileOutputStream = context.getContentResolver().openOutputStream(outUri);
-            return PictureFileUtils.bufferCopy(inFile, fileOutputStream);
+            inputStream = new FileInputStream(inFile);
+            fileOutputStream = context.getContentResolver().openOutputStream(outUri);
+            return IOUtils.transfer(inputStream, fileOutputStream);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            IOUtils.close(inputStream);
+            IOUtils.close(fileOutputStream);
         }
         return false;
     }
