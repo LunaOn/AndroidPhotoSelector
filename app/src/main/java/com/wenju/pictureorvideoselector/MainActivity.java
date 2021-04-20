@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getPictureList(View view) {
-        UsedPictureThreadUtils.executeByIo(new UsedPictureThreadUtils.SimpleTask<List<LocalMediaFolder>>() {
+      PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<LocalMediaFolder>>() {
             @Override
             public List<LocalMediaFolder> doInBackground() {
                 return new LocalMediaLoader(MainActivity.this).loadAllMedia();
