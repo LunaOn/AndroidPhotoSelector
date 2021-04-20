@@ -61,9 +61,6 @@
         <activity
             android:name=".PicturePlayAudioActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name="com.yalantis.ucrop.PictureMultiCuttingActivity"
-            android:theme="@style/Base.Theme.NoActionBar" />
 
     </application>
 
