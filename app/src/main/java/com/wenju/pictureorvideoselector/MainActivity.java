@@ -7,6 +7,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.luck.picture.lib.customused.LocalMedia;
+import com.luck.picture.lib.customused.PictureMimeType;
+import com.luck.picture.lib.customused.PictureOrVideoSelectorManager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,14 +46,6 @@ public class MainActivity extends AppCompatActivity {
     public void selectorSinglePicture(View view) {
         new PictureOrVideoSelectorManager(this)
                 .setSingleselect(true)
-                .create();
-    }
-
-    public void selectorDefaultPictureAndCrop(View view) {
-        new PictureOrVideoSelectorManager(this)
-                .setCrop(true)
-                .setAspectRatioX(1)
-                .setAspectatioY(1)
                 .create();
     }
 
