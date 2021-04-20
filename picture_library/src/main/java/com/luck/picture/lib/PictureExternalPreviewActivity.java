@@ -19,12 +19,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-
-import com.luck.picture.lib.broadcast.BroadcastAction;
-import com.luck.picture.lib.broadcast.BroadcastManager;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
@@ -55,6 +49,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import androidx.annotation.NonNull;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import okio.BufferedSource;
 import okio.Okio;
 
@@ -168,12 +165,7 @@ public class PictureExternalPreviewActivity extends PictureBaseActivity implemen
                 int currentItem = viewPager.getCurrentItem();
                 images.remove(currentItem);
                 adapter.removeCacheView(currentItem);
-                // 删除通知用户更新
-                Bundle bundle = new Bundle();
-                bundle.putInt(PictureConfig.EXTRA_PREVIEW_DELETE_POSITION, currentItem);
-                BroadcastManager.getInstance(getContext())
-                        .action(BroadcastAction.ACTION_DELETE_PREVIEW_POSITION)
-                        .extras(bundle).broadcast();
+                // TODO 删除通知用户更新
                 if (images.size() == 0) {
                     onBackPressed();
                     return;
