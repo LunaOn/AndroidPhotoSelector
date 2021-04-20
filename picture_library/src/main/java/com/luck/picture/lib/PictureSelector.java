@@ -144,51 +144,6 @@ public final class PictureSelector {
     }
 
     /**
-     * set preview image
-     *
-     * @param position
-     * @param medias
-     */
-    public void externalPicturePreview(int position, List<LocalMedia> medias, int enterAnimation) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), PictureExternalPreviewActivity.class);
-                intent.putParcelableArrayListExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST,
-                        (ArrayList<? extends Parcelable>) medias);
-                intent.putExtra(PictureConfig.EXTRA_POSITION, position);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(enterAnimation != 0
-                        ? enterAnimation : R.anim.picture_anim_enter, R.anim.picture_anim_fade_in);
-            } else {
-                throw new NullPointerException("Starting the PictureSelector Activity cannot be empty ");
-            }
-        }
-    }
-
-    /**
-     * set preview image
-     *
-     * @param position
-     * @param medias
-     * @param directory_path
-     */
-    public void externalPicturePreview(int position, String directory_path, List<LocalMedia> medias, int enterAnimation) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            if (getActivity() != null) {
-                Intent intent = new Intent(getActivity(), PictureExternalPreviewActivity.class);
-                intent.putParcelableArrayListExtra(PictureConfig.EXTRA_PREVIEW_SELECT_LIST, (ArrayList<? extends Parcelable>) medias);
-                intent.putExtra(PictureConfig.EXTRA_POSITION, position);
-                intent.putExtra(PictureConfig.EXTRA_DIRECTORY_PATH, directory_path);
-                getActivity().startActivity(intent);
-                getActivity().overridePendingTransition(enterAnimation != 0
-                        ? enterAnimation : R.anim.picture_anim_enter, R.anim.picture_anim_fade_in);
-            } else {
-                throw new NullPointerException("Starting the PictureSelector Activity cannot be empty ");
-            }
-        }
-    }
-
-    /**
      * set preview video
      *
      * @param path
