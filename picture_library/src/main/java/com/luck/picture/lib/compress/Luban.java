@@ -17,9 +17,6 @@ import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.luck.picture.lib.tools.StringUtils;
 
-
-import org.jetbrains.annotations.NotNull;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -27,6 +24,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import androidx.annotation.NonNull;
 
 @SuppressWarnings("unused")
 public class Luban implements Handler.Callback {
@@ -356,7 +355,7 @@ public class Luban implements Handler.Callback {
     }
 
     @Override
-    public boolean handleMessage(@NotNull Message msg) {
+    public boolean handleMessage(@NonNull Message msg) {
         if (mCompressListener == null) return false;
 
         switch (msg.what) {
@@ -426,7 +425,6 @@ public class Luban implements Handler.Callback {
          * 扩展符合PictureSelector的压缩策略
          *
          * @param media LocalMedia对象
-         * @param <T>
          * @return
          */
         private Builder load(final LocalMedia media) {

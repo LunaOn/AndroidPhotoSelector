@@ -69,7 +69,6 @@ import com.luck.picture.lib.tools.ValueOf;
 import com.luck.picture.lib.widget.FolderPopWindow;
 import com.luck.picture.lib.widget.RecyclerPreloadView;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -541,7 +540,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     }
 
     @Override
-    protected void onSaveInstanceState(@NotNull Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (mAdapter != null) {
             // Save the number of pictures or videos in the current list
