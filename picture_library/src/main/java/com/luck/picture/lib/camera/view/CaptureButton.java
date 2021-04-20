@@ -12,7 +12,6 @@ import android.os.CountDownTimer;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.luck.picture.lib.camera.CustomCameraView;
 import com.luck.picture.lib.camera.CheckPermission;
 import com.luck.picture.lib.camera.listener.CaptureListener;
 import com.luck.picture.lib.tools.DoubleUtils;
@@ -94,7 +93,6 @@ public class CaptureButton extends View {
         longPressRunnable = new LongPressRunnable();
 
         state = STATE_IDLE;                //初始化为空闲状态
-        button_state = CustomCameraView.BUTTON_STATE_BOTH;  //初始化按钮为可录制可拍照
         duration = 10 * 1000;              //默认最长录制时间为10s
         min_duration = 1500;              //默认最短录制时间为1.5s
 
@@ -146,17 +144,8 @@ public class CaptureButton extends View {
                 event_Y = event.getY();     //记录Y值
                 state = STATE_PRESS;        //修改当前状态为点击按下
 
-                //判断按钮状态是否为可录制状态
-                if ((button_state == CustomCameraView.BUTTON_STATE_ONLY_RECORDER || button_state == CustomCameraView.BUTTON_STATE_BOTH))
-                    postDelayed(longPressRunnable, 500);    //同时延长500启动长按后处理的逻辑Runnable
-                break;
             case MotionEvent.ACTION_MOVE:
-                if (captureLisenter != null
-                        && state == STATE_RECORDERING
-                        && (button_state == CustomCameraView.BUTTON_STATE_ONLY_RECORDER || button_state == CustomCameraView.BUTTON_STATE_BOTH)) {
-                    //记录当前Y值与按下时候Y值的差值，调用缩放回调接口
-                    captureLisenter.recordZoom(event_Y - event.getY());
-                }
+
                 break;
             case MotionEvent.ACTION_UP:
                 //根据当前按钮的状态进行相应的处理  ----CodeReview---抬起瞬间应该重置状态 当前状态可能为按下和正在录制
@@ -174,12 +163,7 @@ public class CaptureButton extends View {
         switch (state) {
             //当前是点击按下
             case STATE_PRESS:
-                if (captureLisenter != null && (button_state == CustomCameraView.BUTTON_STATE_ONLY_CAPTURE || button_state ==
-                        CustomCameraView.BUTTON_STATE_BOTH)) {
-                    startCaptureAnimation(button_inside_radius);
-                } else {
-                    state = STATE_IDLE;
-                }
+                state = STATE_IDLE;
                 break;
             // ---CodeReview---当内外圆动画未结束时已经是长按状态 但还没有置为STATE_RECORDERING时 应该也要结束录制  此处是一个bug
             case STATE_LONG_PRESS:

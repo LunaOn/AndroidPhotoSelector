@@ -226,10 +226,10 @@ public class PictureSelectionModel {
      *                       # 具体参考 CustomCameraView.BUTTON_STATE_BOTH、BUTTON_STATE_ONLY_CAPTURE、BUTTON_STATE_ONLY_RECORDER
      * @return
      */
-    public PictureSelectionModel setButtonFeatures(int buttonFeatures) {
-        selectionConfig.buttonFeatures = buttonFeatures;
-        return this;
-    }
+//    public PictureSelectionModel setButtonFeatures(int buttonFeatures) {
+//        selectionConfig.buttonFeatures = buttonFeatures;
+//        return this;
+//    }
 
     /**
      * @param enableCrop Do you want to start cutting ?
@@ -1299,14 +1299,14 @@ public class PictureSelectionModel {
                 return;
             }
             Intent intent;
-            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-                intent = new Intent(activity, PictureCustomCameraActivity.class);
-            } else {
+//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
+//                intent = new Intent(activity, PictureCustomCameraActivity.class);
+//            } else {
                 intent = new Intent(activity, selectionConfig.camera
                         ? PictureSelectorCameraEmptyActivity.class :
                         selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
                                 : PictureSelectorActivity.class);
-            }
+//            }
             selectionConfig.isCallbackMode = false;
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
@@ -1365,14 +1365,14 @@ public class PictureSelectionModel {
             PictureSelectionConfig.listener = new WeakReference<>(listener).get();
             selectionConfig.isCallbackMode = true;
             Intent intent;
-            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-                intent = new Intent(activity, PictureCustomCameraActivity.class);
-            } else {
+//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
+//                intent = new Intent(activity, PictureCustomCameraActivity.class);
+//            } else {
                 intent = new Intent(activity, selectionConfig.camera
                         ? PictureSelectorCameraEmptyActivity.class :
                         selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
                                 : PictureSelectorActivity.class);
-            }
+//            }
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
                 fragment.startActivity(intent);
@@ -1401,14 +1401,14 @@ public class PictureSelectionModel {
             PictureSelectionConfig.listener = new WeakReference<>(listener).get();
             selectionConfig.isCallbackMode = true;
             Intent intent;
-            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-                intent = new Intent(activity, PictureCustomCameraActivity.class);
-            } else {
+//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
+//                intent = new Intent(activity, PictureCustomCameraActivity.class);
+//            } else {
                 intent = new Intent(activity, selectionConfig.camera
                         ? PictureSelectorCameraEmptyActivity.class :
                         selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
                                 : PictureSelectorActivity.class);
-            }
+//            }
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
                 fragment.startActivityForResult(intent, requestCode);

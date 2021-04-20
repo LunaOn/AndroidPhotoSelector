@@ -934,16 +934,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      * Open Custom Camera
      */
     private void startCustomCamera() {
-        if (PermissionChecker.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)) {
-            Intent intent = new Intent(this, PictureCustomCameraActivity.class);
-            startActivityForResult(intent, PictureConfig.REQUEST_CAMERA);
-            PictureWindowAnimationStyle windowAnimationStyle = PictureSelectionConfig.windowAnimationStyle;
-            overridePendingTransition(windowAnimationStyle.activityEnterAnimation, R.anim.picture_anim_fade_in);
-        } else {
             PermissionChecker
                     .requestPermissions(this,
                             new String[]{Manifest.permission.RECORD_AUDIO}, PictureConfig.APPLY_RECORD_AUDIO_PERMISSIONS_CODE);
-        }
     }
 
 
@@ -1021,8 +1014,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         bundle.putBoolean(PictureConfig.EXTRA_CHANGE_ORIGINAL, config.isCheckOriginalImage);
         bundle.putBoolean(PictureConfig.EXTRA_SHOW_CAMERA, mAdapter.isShowCamera());
         bundle.putString(PictureConfig.EXTRA_IS_CURRENT_DIRECTORY, mTvPictureTitle.getText().toString());
-//        JumpUtils.startPicturePreviewActivity(getContext(), config.isWeChatStyle, bundle,
-//                config.selectionMode == PictureConfig.SINGLE ? UCrop.REQUEST_CROP : UCrop.REQUEST_MULTI_CROP);
+        JumpUtils.startPicturePreviewActivity(getContext(), config.isWeChatStyle, bundle,
+                config.selectionMode);
 
         overridePendingTransition(PictureSelectionConfig.windowAnimationStyle.activityPreviewEnterAnimation,
                 R.anim.picture_anim_fade_in);

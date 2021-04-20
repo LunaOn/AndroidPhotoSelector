@@ -8,7 +8,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.StyleRes;
 
 import com.luck.picture.lib.R;
-import com.luck.picture.lib.camera.CustomCameraView;
 import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -45,7 +44,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public String renameCropFileName;
     public String specifiedFormat;
     public int requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
-    public int buttonFeatures = CustomCameraView.BUTTON_STATE_BOTH;
     public boolean isCameraAroundState;
     public boolean isAndroidQTransform;
     @StyleRes
@@ -311,7 +309,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeString(this.renameCropFileName);
         dest.writeString(this.specifiedFormat);
         dest.writeInt(this.requestedOrientation);
-        dest.writeInt(this.buttonFeatures);
         dest.writeByte(this.isCameraAroundState ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQTransform ? (byte) 1 : (byte) 0);
         dest.writeInt(this.themeStyleId);
@@ -414,7 +411,7 @@ public final class PictureSelectionConfig implements Parcelable {
         this.renameCropFileName = in.readString();
         this.specifiedFormat = in.readString();
         this.requestedOrientation = in.readInt();
-        this.buttonFeatures = in.readInt();
+//        this.buttonFeatures = in.readInt();
         this.isCameraAroundState = in.readByte() != 0;
         this.isAndroidQTransform = in.readByte() != 0;
         this.themeStyleId = in.readInt();
