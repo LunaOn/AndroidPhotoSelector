@@ -11,16 +11,12 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.manager.UCropManager;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.immersive.ImmersiveManage;
+import com.luck.picture.lib.manager.UCropManager;
 import com.luck.picture.lib.permissions.PermissionChecker;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.BitmapUtils;
@@ -33,6 +29,10 @@ import com.luck.picture.lib.tools.ValueOf;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 /**
  * @author：luck
@@ -151,9 +151,6 @@ public class PictureSelectorCameraEmptyActivity extends PictureBaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-//                case UCrop.REQUEST_CROP:
-//                    singleCropHandleResult(data);
-//                    break;
                 case PictureConfig.REQUEST_CAMERA:
                     dispatchHandleCamera(data);
                     break;
@@ -166,84 +163,6 @@ public class PictureSelectorCameraEmptyActivity extends PictureBaseActivity {
             }
             exit();
         }
-//        else if (resultCode == UCrop.RESULT_ERROR) {
-//            if (data == null) {
-//                return;
-//            }
-//            Throwable throwable = (Throwable) data.getSerializableExtra(UCrop.EXTRA_ERROR);
-//            if (throwable != null) {
-//                ToastUtils.s(getContext(), throwable.getMessage());
-//            }
-//        }
-    }
-
-    /**
-     * Single picture clipping callback
-     *
-     * @param data
-     */
-    protected void singleCropHandleResult(Intent data) {
-//        if (data == null) {
-//            return;
-//        }
-//        List<LocalMedia> medias = new ArrayList<>();
-//        Uri resultUri = UCrop.getOutput(data);
-//        if (resultUri == null) {
-//            return;
-//        }
-//        String cutPath = resultUri.getPath();
-//        boolean isCutEmpty = TextUtils.isEmpty(cutPath);
-//        LocalMedia media = new LocalMedia(config.cameraPath, 0, false,
-//                config.isCamera ? 1 : 0, 0, config.chooseMode);
-//        if (SdkVersionUtils.checkedAndroid_Q()) {
-//            int lastIndexOf = config.cameraPath.lastIndexOf("/") + 1;
-//            media.setId(lastIndexOf > 0 ? ValueOf.toLong(config.cameraPath.substring(lastIndexOf)) : -1);
-//            media.setAndroidQToPath(cutPath);
-//            if (isCutEmpty) {
-//                if (PictureMimeType.isContent(config.cameraPath)) {
-//                    String path = PictureFileUtils.getPath(this, Uri.parse(config.cameraPath));
-//                    media.setSize(!TextUtils.isEmpty(path) ? new File(path).length() : 0);
-//                } else {
-//                    media.setSize(new File(config.cameraPath).length());
-//                }
-//            } else {
-//                media.setSize(new File(cutPath).length());
-//            }
-//        } else {
-//            // Taking a photo generates a temporary id
-//            media.setId(System.currentTimeMillis());
-//            media.setSize(new File(isCutEmpty ? media.getPath() : cutPath).length());
-//        }
-//        media.setCut(!isCutEmpty);
-//        media.setCutPath(cutPath);
-//        String mimeType = PictureMimeType.getImageMimeType(cutPath);
-//        media.setMimeType(mimeType);
-//        media.setOrientation(-1);
-//        if (PictureMimeType.isContent(media.getPath())) {
-//            if (PictureMimeType.isHasVideo(media.getMimeType())) {
-//                MediaUtils.getVideoSizeForUri(getContext(), Uri.parse(media.getPath()), media);
-//            } else if (PictureMimeType.isHasImage(media.getMimeType())) {
-//                int[] size = MediaUtils.getImageSizeForUri(getContext(), Uri.parse(media.getPath()));
-//                media.setWidth(size[0]);
-//                media.setHeight(size[1]);
-//            }
-//        } else {
-//            if (PictureMimeType.isHasVideo(media.getMimeType())) {
-//                int[] size = MediaUtils.getVideoSizeForUrl(media.getPath());
-//                media.setWidth(size[0]);
-//                media.setHeight(size[1]);
-//            } else if (PictureMimeType.isHasImage(media.getMimeType())) {
-//                int[] size = MediaUtils.getImageSizeForUrl(media.getPath());
-//                media.setWidth(size[0]);
-//                media.setHeight(size[1]);
-//            }
-//        }
-//        // The width and height of the image are reversed if there is rotation information
-//        MediaUtils.setOrientationAsynchronous(getContext(), media, config.isAndroidQChangeWH, config.isAndroidQChangeVideoWH,
-//                item -> {
-//                    medias.add(item);
-//                    handlerResult(medias);
-//                });
     }
 
     /**

@@ -4,11 +4,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.StyleRes;
-
 import com.luck.picture.lib.R;
-import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
@@ -22,6 +18,9 @@ import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.StyleRes;
 
 /**
  * @author：luck
@@ -104,7 +103,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean isNotPreviewDownload;
     public boolean isWithVideoImage;
     public static ImageEngine imageEngine;
-    public static CacheResourcesEngine cacheResourcesEngine;
     public static OnResultCallbackListener<LocalMedia> listener;
     public static OnVideoSelectedPlayCallback<LocalMedia> customVideoPlayCallback;
     public static OnCustomImagePreviewCallback<LocalMedia> onCustomImagePreviewCallback;
@@ -288,7 +286,6 @@ public final class PictureSelectionConfig implements Parcelable {
         PictureSelectionConfig.customVideoPlayCallback = null;
         PictureSelectionConfig.onCustomImagePreviewCallback = null;
         PictureSelectionConfig.onCustomCameraInterfaceListener = null;
-        PictureSelectionConfig.cacheResourcesEngine = null;
     }
 
 

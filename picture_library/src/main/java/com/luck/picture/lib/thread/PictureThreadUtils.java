@@ -4,10 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import androidx.annotation.CallSuper;
-import androidx.annotation.IntRange;
-import androidx.annotation.NonNull;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +19,10 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+
+import androidx.annotation.CallSuper;
+import androidx.annotation.IntRange;
+import androidx.annotation.NonNull;
 
 /**
  * @author：luck

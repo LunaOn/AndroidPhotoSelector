@@ -5,17 +5,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
 
-import androidx.annotation.ColorInt;
-import androidx.annotation.FloatRange;
-import androidx.annotation.IntRange;
-import androidx.annotation.StyleRes;
-import androidx.fragment.app.Fragment;
-
 import com.luck.picture.lib.animators.AnimationType;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.engine.CacheResourcesEngine;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
@@ -31,6 +24,12 @@ import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.FloatRange;
+import androidx.annotation.IntRange;
+import androidx.annotation.StyleRes;
+import androidx.fragment.app.Fragment;
 
 import static android.os.Build.VERSION_CODES.KITKAT;
 
@@ -132,24 +131,7 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * Only for Android version Q
-     * <p>
-     * 已废弃，没有存在的意义了，之前主要是为了解决在华为10系统上一直loading问题
-     * </p>
-     *
-     * @param cacheResourcesEngine Image Cache
-     * @return
-     */
-    @Deprecated
-    public PictureSelectionModel loadCacheResourcesCallback(CacheResourcesEngine cacheResourcesEngine) {
-        if (SdkVersionUtils.checkedAndroid_Q()) {
-            if (PictureSelectionConfig.cacheResourcesEngine != cacheResourcesEngine) {
-                PictureSelectionConfig.cacheResourcesEngine = new WeakReference<>(cacheResourcesEngine).get();
-            }
-        }
-        return this;
-    }
+
 
     /**
      * @param selectionMode PictureSelector Selection model and PictureConfig.MULTIPLE or PictureConfig.SINGLE
