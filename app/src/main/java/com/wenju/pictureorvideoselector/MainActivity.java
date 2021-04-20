@@ -7,6 +7,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.luck.picture.lib.customused.PictureMimeType;
+import com.luck.picture.lib.customused.PictureOrVideoSelectorManager;
+import com.luck.picture.lib.customused.UsedPictureThreadUtils;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.thread.PictureThreadUtils;
@@ -57,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void getPictureList(View view) {
-        PictureThreadUtils.executeByIo(new PictureThreadUtils.SimpleTask<List<LocalMediaFolder>>() {
+        UsedPictureThreadUtils.executeByIo(new UsedPictureThreadUtils.SimpleTask<List<LocalMediaFolder>>() {
             @Override
             public List<LocalMediaFolder> doInBackground() {
                 return new LocalMediaLoader(MainActivity.this).loadAllMedia();
