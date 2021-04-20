@@ -6,19 +6,6 @@
     android:layout_alignParentBottom="true"
     android:background="@color/picture_color_grey">
 
-    <TextView
-        android:id="@+id/picture_id_preview"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_centerVertical="true"
-        android:enabled="false"
-        android:gravity="center"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:text="@string/picture_preview"
-        android:textColor="@color/picture_list_text_color"
-        android:textSize="14sp" />
-
     <CheckBox
         android:id="@+id/cb_original"
         android:layout_width="wrap_content"

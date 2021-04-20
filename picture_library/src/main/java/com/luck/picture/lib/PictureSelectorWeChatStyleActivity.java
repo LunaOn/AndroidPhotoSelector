@@ -36,7 +36,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
         rlAlbum = findViewById(R.id.rlAlbum);
         mTvPictureRight.setOnClickListener(this);
         mTvPictureRight.setText(getString(R.string.picture_send));
-        mTvPicturePreview.setTextSize(16);
         mCbOriginal.setTextSize(16);
         boolean isChooseMode = config.selectionMode ==
                 PictureConfig.SINGLE && config.isSingleDirectReturn;
@@ -183,31 +182,12 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
         if (enable) {
             mTvPictureRight.setEnabled(true);
             mTvPictureRight.setSelected(true);
-            mTvPicturePreview.setEnabled(true);
-            mTvPicturePreview.setSelected(true);
             initCompleteText(selectData);
             if (PictureSelectionConfig.uiStyle != null) {
                 if (PictureSelectionConfig.uiStyle.picture_top_titleRightTextNormalBackground != 0) {
                     mTvPictureRight.setBackgroundResource(PictureSelectionConfig.uiStyle.picture_top_titleRightTextNormalBackground);
                 } else {
                     mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_bg);
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_previewTextColor.length > 0) {
-                    ColorStateList colorStateList = AttrsUtils.getColorStateList(PictureSelectionConfig.uiStyle.picture_bottom_previewTextColor);
-                    if (colorStateList != null) {
-                        mTvPicturePreview.setTextColor(colorStateList);
-                    }
-                } else {
-                    mTvPicturePreview.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_white));
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_previewNormalText !=0) {
-                    if (PictureSelectionConfig.uiStyle.isCompleteReplaceNum) {
-                        mTvPicturePreview.setText(String.format(getString(PictureSelectionConfig.uiStyle.picture_bottom_previewNormalText), size));
-                    } else {
-                        mTvPicturePreview.setText(PictureSelectionConfig.uiStyle.picture_bottom_previewNormalText);
-                    }
-                } else {
-                    mTvPicturePreview.setText(getString(R.string.picture_preview_num, size));
                 }
             } else if (PictureSelectionConfig.style != null) {
                 if (PictureSelectionConfig.style.pictureCompleteBackgroundStyle != 0) {
@@ -220,27 +200,13 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                 } else {
                     mTvPictureRight.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_white));
                 }
-                if (PictureSelectionConfig.style.picturePreviewTextColor != 0) {
-                    mTvPicturePreview.setTextColor(PictureSelectionConfig.style.picturePreviewTextColor);
-                } else {
-                    mTvPicturePreview.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_white));
-                }
-                if (!TextUtils.isEmpty(PictureSelectionConfig.style.picturePreviewText)) {
-                    mTvPicturePreview.setText(PictureSelectionConfig.style.picturePreviewText);
-                } else {
-                    mTvPicturePreview.setText(getString(R.string.picture_preview_num, size));
-                }
             } else {
                 mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_bg);
                 mTvPictureRight.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_white));
-                mTvPicturePreview.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_white));
-                mTvPicturePreview.setText(getString(R.string.picture_preview_num, size));
             }
         } else {
             mTvPictureRight.setEnabled(false);
             mTvPictureRight.setSelected(false);
-            mTvPicturePreview.setEnabled(false);
-            mTvPicturePreview.setSelected(false);
             if (PictureSelectionConfig.uiStyle != null) {
                 if (PictureSelectionConfig.uiStyle.picture_top_titleRightTextDefaultBackground != 0) {
                     mTvPictureRight.setBackgroundResource(PictureSelectionConfig.uiStyle.picture_top_titleRightTextDefaultBackground);
@@ -251,11 +217,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                     mTvPictureRight.setText(getString(PictureSelectionConfig.uiStyle.picture_top_titleRightDefaultText));
                 } else {
                     mTvPictureRight.setText(getString(R.string.picture_send));
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_previewDefaultText !=0) {
-                    mTvPicturePreview.setText(getString(PictureSelectionConfig.uiStyle.picture_bottom_previewDefaultText));
-                } else {
-                    mTvPicturePreview.setText(getString(R.string.picture_preview));
                 }
             } else if (PictureSelectionConfig.style != null) {
                 if (PictureSelectionConfig.style.pictureUnCompleteBackgroundStyle != 0) {
@@ -268,26 +229,14 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                 } else {
                     mTvPictureRight.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_53575e));
                 }
-                if (PictureSelectionConfig.style.pictureUnPreviewTextColor != 0) {
-                    mTvPicturePreview.setTextColor(PictureSelectionConfig.style.pictureUnPreviewTextColor);
-                } else {
-                    mTvPicturePreview.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_9b));
-                }
                 if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)) {
                     mTvPictureRight.setText(PictureSelectionConfig.style.pictureUnCompleteText);
                 } else {
                     mTvPictureRight.setText(getString(R.string.picture_send));
                 }
-                if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnPreviewText)) {
-                    mTvPicturePreview.setText(PictureSelectionConfig.style.pictureUnPreviewText);
-                } else {
-                    mTvPicturePreview.setText(getString(R.string.picture_preview));
-                }
             } else {
                 mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_default_bg);
                 mTvPictureRight.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_53575e));
-                mTvPicturePreview.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_9b));
-                mTvPicturePreview.setText(getString(R.string.picture_preview));
                 mTvPictureRight.setText(getString(R.string.picture_send));
             }
         }

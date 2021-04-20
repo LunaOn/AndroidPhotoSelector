@@ -1421,38 +1421,6 @@ public class PictureSelectionModel {
     }
 
     /**
-     * 提供外部预览图片方法
-     *
-     * @param position
-     * @param medias
-     */
-    public void openExternalPreview(int position, List<LocalMedia> medias) {
-        if (selector != null) {
-            selector.externalPicturePreview(position, medias, PictureSelectionConfig.windowAnimationStyle.activityPreviewEnterAnimation);
-        } else {
-            throw new NullPointerException("This PictureSelector is Null");
-        }
-    }
-
-
-    /**
-     * 提供外部预览图片方法-带自定义下载保存路径
-     * # 废弃 由于Android Q沙盒机制 此方法不在需要了
-     *
-     * @param position
-     * @param medias
-     */
-    @Deprecated
-    public void openExternalPreview(int position, String directory_path, List<LocalMedia> medias) {
-        if (selector != null) {
-            selector.externalPicturePreview(position, directory_path, medias,
-                    PictureSelectionConfig.windowAnimationStyle.activityPreviewEnterAnimation);
-        } else {
-            throw new NullPointerException("This PictureSelector is Null");
-        }
-    }
-
-    /**
      * set preview video
      *
      * @param path

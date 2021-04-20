@@ -42,18 +42,9 @@
             android:theme="@style/Picture.Theme.Translucent" />
 
         <activity
-            android:name=".PicturePreviewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
-            android:name=".PictureSelectorPreviewWeChatStyleActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
-        <activity
             android:name=".PictureVideoPlayActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensor" />
-        <activity
-            android:name=".PictureExternalPreviewActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
             android:name=".PicturePlayAudioActivity"

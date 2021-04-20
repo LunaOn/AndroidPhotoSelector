@@ -17,7 +17,6 @@ import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.luck.picture.lib.tools.StringUtils;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
