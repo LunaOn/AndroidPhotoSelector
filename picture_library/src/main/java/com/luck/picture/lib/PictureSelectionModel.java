@@ -688,14 +688,6 @@ public class PictureSelectionModel {
     }
 
 
-    /**
-     * @param focusAlpha After compression, the transparent channel is retained
-     * @return
-     */
-    public PictureSelectionModel compressFocusAlpha(boolean focusAlpha) {
-        selectionConfig.focusAlpha = focusAlpha;
-        return this;
-    }
 
     /**
      * After recording with the system camera, does it support playing the video immediately using the system player
@@ -719,14 +711,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param path save path
-     * @return
-     */
-    public PictureSelectionModel compressSavePath(String path) {
-        selectionConfig.compressSavePath = path;
-        return this;
-    }
 
     /**
      * Camera custom local file name
@@ -851,15 +835,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param enablePreview Do you want to preview the picture?
-     * @return Use {link .isPreviewImage()}
-     */
-    @Deprecated
-    public PictureSelectionModel previewImage(boolean enablePreview) {
-        selectionConfig.enablePreview = enablePreview;
-        return this;
-    }
 
     /**
      * @param enablePreview Do you want to preview the picture?
@@ -870,15 +845,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param enPreviewVideo Do you want to preview the video?
-     * @return Use {link .isPreviewVideo()}
-     */
-    @Deprecated
-    public PictureSelectionModel previewVideo(boolean enPreviewVideo) {
-        selectionConfig.enPreviewVideo = enPreviewVideo;
-        return this;
-    }
 
     /**
      * @param enPreviewVideo Do you want to preview the video?

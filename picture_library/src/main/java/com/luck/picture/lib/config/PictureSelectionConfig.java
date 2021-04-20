@@ -36,9 +36,7 @@ public final class PictureSelectionConfig implements Parcelable {
     public static PictureParameterStyle style;
     public static PictureCropParameterStyle cropStyle;
     public static PictureWindowAnimationStyle windowAnimationStyle = PictureWindowAnimationStyle.ofDefaultWindowAnimationStyle();
-    public String compressSavePath;
     public String suffixType;
-    public boolean focusAlpha;
     public String renameCompressFileName;
     public String renameCropFileName;
     public String specifiedFormat;
@@ -108,27 +106,13 @@ public final class PictureSelectionConfig implements Parcelable {
     public String cameraFileName;
     public boolean isCheckOriginalImage;
     @Deprecated
-    public int overrideWidth;
-    @Deprecated
-    public int overrideHeight;
-    @Deprecated
-    public float sizeMultiplier;
-    @Deprecated
     public boolean isChangeStatusBarFontColor;
-    @Deprecated
-    public boolean isOpenStyleNumComplete;
     @Deprecated
     public boolean isOpenStyleCheckNumMode;
     @Deprecated
     public int titleBarBackgroundColor;
     @Deprecated
     public int pictureStatusBarColor;
-    @Deprecated
-    public int cropTitleBarBackgroundColor;
-    @Deprecated
-    public int cropStatusBarColorPrimaryDark;
-    @Deprecated
-    public int cropTitleColor;
     @Deprecated
     public int upResId;
     @Deprecated
@@ -189,7 +173,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isGif = false;
         isWebp = true;
         isBmp = true;
-        focusAlpha = false;
         isCheckOriginalImage = false;
         isSingleDirectReturn = false;
         enablePreview = true;
@@ -219,7 +202,6 @@ public final class PictureSelectionConfig implements Parcelable {
         circleDimmedBorderColor = 0;
         circleStrokeWidth = 1;
         isDragFrame = true;
-        compressSavePath = "";
         suffixType = "";
         cameraFileName = "";
         specifiedFormat = "";
@@ -228,18 +210,11 @@ public final class PictureSelectionConfig implements Parcelable {
         selectionMedias = new ArrayList<>();
         titleBarBackgroundColor = 0;
         pictureStatusBarColor = 0;
-        cropTitleBarBackgroundColor = 0;
-        cropStatusBarColorPrimaryDark = 0;
-        cropTitleColor = 0;
         upResId = 0;
         downResId = 0;
         isChangeStatusBarFontColor = false;
-        isOpenStyleNumComplete = false;
         isOpenStyleCheckNumMode = false;
         outPutCameraPath = "";
-        sizeMultiplier = 0.5f;
-        overrideWidth = 0;
-        overrideHeight = 0;
         originalPath = "";
         cameraPath = "";
         cameraMimeType = -1;
@@ -293,9 +268,7 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeInt(this.chooseMode);
         dest.writeByte(this.camera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isSingleDirectReturn ? (byte) 1 : (byte) 0);
-        dest.writeString(this.compressSavePath);
         dest.writeString(this.suffixType);
-        dest.writeByte(this.focusAlpha ? (byte) 1 : (byte) 0);
         dest.writeString(this.renameCompressFileName);
         dest.writeString(this.renameCropFileName);
         dest.writeString(this.specifiedFormat);
@@ -356,17 +329,10 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeTypedList(this.selectionMedias);
         dest.writeString(this.cameraFileName);
         dest.writeByte(this.isCheckOriginalImage ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.overrideWidth);
-        dest.writeInt(this.overrideHeight);
-        dest.writeFloat(this.sizeMultiplier);
         dest.writeByte(this.isChangeStatusBarFontColor ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isOpenStyleNumComplete ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isOpenStyleCheckNumMode ? (byte) 1 : (byte) 0);
         dest.writeInt(this.titleBarBackgroundColor);
         dest.writeInt(this.pictureStatusBarColor);
-        dest.writeInt(this.cropTitleBarBackgroundColor);
-        dest.writeInt(this.cropStatusBarColorPrimaryDark);
-        dest.writeInt(this.cropTitleColor);
         dest.writeInt(this.upResId);
         dest.writeInt(this.downResId);
         dest.writeString(this.outPutCameraPath);
@@ -392,9 +358,7 @@ public final class PictureSelectionConfig implements Parcelable {
         this.chooseMode = in.readInt();
         this.camera = in.readByte() != 0;
         this.isSingleDirectReturn = in.readByte() != 0;
-        this.compressSavePath = in.readString();
         this.suffixType = in.readString();
-        this.focusAlpha = in.readByte() != 0;
         this.renameCompressFileName = in.readString();
         this.renameCropFileName = in.readString();
         this.specifiedFormat = in.readString();
@@ -456,17 +420,10 @@ public final class PictureSelectionConfig implements Parcelable {
         this.selectionMedias = in.createTypedArrayList(LocalMedia.CREATOR);
         this.cameraFileName = in.readString();
         this.isCheckOriginalImage = in.readByte() != 0;
-        this.overrideWidth = in.readInt();
-        this.overrideHeight = in.readInt();
-        this.sizeMultiplier = in.readFloat();
         this.isChangeStatusBarFontColor = in.readByte() != 0;
-        this.isOpenStyleNumComplete = in.readByte() != 0;
         this.isOpenStyleCheckNumMode = in.readByte() != 0;
         this.titleBarBackgroundColor = in.readInt();
         this.pictureStatusBarColor = in.readInt();
-        this.cropTitleBarBackgroundColor = in.readInt();
-        this.cropStatusBarColorPrimaryDark = in.readInt();
-        this.cropTitleColor = in.readInt();
         this.upResId = in.readInt();
         this.downResId = in.readInt();
         this.outPutCameraPath = in.readString();
