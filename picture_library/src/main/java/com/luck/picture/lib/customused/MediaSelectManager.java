@@ -76,7 +76,6 @@ public class MediaSelectManager {
                 .isCamera(true)// 是否显示拍照按钮
                 .isGif(isGif)
                 .selectionData(oldList)// 是否传入已选图片
-                .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
                 .forResult(requestCode);
     }
 

@@ -122,16 +122,6 @@ public class PictureSelectorUIStyle {
     public int picture_top_titleRightTextNormalBackground;
 
     /**
-     * 是否显示预览页删除按钮
-     */
-    public boolean picture_top_showHideDeleteButton;
-
-    /**
-     * 预览页删除按钮图标
-     */
-    public int picture_top_deleteButtonStyle;
-
-    /**
      * 选中文字大小
      */
     public int picture_check_textSize;

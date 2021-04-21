@@ -1,4 +1,4 @@
-package com.luck.picture.lib.decoration;
+package com.luck.picture.lib.widget;
 
 import android.graphics.Rect;
 import android.view.View;

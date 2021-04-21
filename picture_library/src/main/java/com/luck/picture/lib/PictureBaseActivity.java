@@ -54,7 +54,7 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public abstract class PictureBaseActivity extends AppCompatActivity {
     protected PictureSelectionConfig config;
-    protected boolean openWhiteStatusBar, numComplete;
+    protected boolean  numComplete;
     protected int colorPrimary, colorPrimaryDark;
     protected PictureLoadingDialog mLoadingDialog;
     protected List<LocalMedia> selectionMedias;
@@ -83,21 +83,12 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * Whether to change the screen direction
-     *
-     * @return
-     */
-    public boolean isRequestedOrientation() {
-        return true;
-    }
-
 
     public void immersive() {
         ImmersiveManage.immersiveAboveAPI23(this
                 , colorPrimaryDark
                 , colorPrimary
-                , openWhiteStatusBar);
+                , false);
     }
 
 
@@ -144,9 +135,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         newCreateEngine();
         newCreateResultCallbackListener();
-        if (isRequestedOrientation()) {
-            setNewRequestedOrientation();
-        }
         initConfig();
         if (isImmersive()) {
             immersive();
@@ -202,16 +190,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         }
     }
 
-
-    /**
-     * setNewRequestedOrientation
-     */
-    protected void setNewRequestedOrientation() {
-        if (config != null) {
-            setRequestedOrientation(config.requestedOrientation);
-        }
-    }
-
     /**
      * get Context
      *
@@ -227,7 +205,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
     private void initConfig() {
         selectionMedias = config.selectionMedias == null ? new ArrayList<>() : config.selectionMedias;
         if (PictureSelectionConfig.uiStyle != null) {
-            openWhiteStatusBar = PictureSelectionConfig.uiStyle.picture_statusBarChangeTextColor;
             if (PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor != 0) {
                 colorPrimary = PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor;
             }
@@ -239,7 +216,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             config.checkNumMode = PictureSelectionConfig.uiStyle.picture_switchSelectNumberStyle;
 
         } else if (PictureSelectionConfig.style != null) {
-            openWhiteStatusBar = PictureSelectionConfig.style.isChangeStatusBarFontColor;
             if (PictureSelectionConfig.style.pictureTitleBarBackgroundColor != 0) {
                 colorPrimary = PictureSelectionConfig.style.pictureTitleBarBackgroundColor;
             }
@@ -249,11 +225,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             numComplete = PictureSelectionConfig.style.isOpenCompletedNumStyle;
             config.checkNumMode = PictureSelectionConfig.style.isOpenCheckNumStyle;
         } else {
-            openWhiteStatusBar = config.isChangeStatusBarFontColor;
-            if (!openWhiteStatusBar) {
-                openWhiteStatusBar = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_statusFontColor);
-            }
-
             numComplete = false;
             if (!numComplete) {
                 numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);

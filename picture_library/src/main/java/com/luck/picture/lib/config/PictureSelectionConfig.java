@@ -1,16 +1,12 @@
 package com.luck.picture.lib.config;
 
-import android.content.pm.ActivityInfo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
-import com.luck.picture.lib.listener.OnCustomImagePreviewCallback;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
-import com.luck.picture.lib.listener.OnVideoSelectedPlayCallback;
 import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
@@ -18,7 +14,6 @@ import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 import java.util.ArrayList;
 import java.util.List;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.StyleRes;
 
 /**
@@ -35,7 +30,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public static PictureWindowAnimationStyle windowAnimationStyle = PictureWindowAnimationStyle.ofDefaultWindowAnimationStyle();
     public String suffixType;
     public String specifiedFormat;
-    public int requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED;
     public boolean isCameraAroundState;
     public boolean isAndroidQTransform;
     @StyleRes
@@ -49,13 +43,9 @@ public final class PictureSelectionConfig implements Parcelable {
     public int videoMaxSecond;
     public int videoMinSecond;
     public int recordVideoSecond = 60;
-    public int recordVideoMinSecond;
     public int imageSpanCount = PictureConfig.DEFAULT_SPAN_COUNT;
-    public int aspect_ratio_x;
-    public int aspect_ratio_y;
     public float filterFileSize;
     public int language;
-    public boolean isMultipleRecyclerAnimation;
     public boolean isWeChatStyle;
     public boolean zoomAnim;
     public boolean isCamera = true;
@@ -67,29 +57,12 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean enablePreviewAudio;
     public boolean checkNumMode;
     public boolean openClickSound;
-    public boolean circleDimmedLayer;
-    @ColorInt
-    public int circleDimmedColor;
-    @ColorInt
-    public int circleDimmedBorderColor;
-    public int circleStrokeWidth;
-    public boolean hideBottomControls;
-    public boolean rotateEnabled;
-    public boolean scaleEnabled;
-    public boolean previewEggs;
     public boolean returnEmpty;
-    public boolean isDragFrame;
-    public boolean isNotPreviewDownload;
     public boolean isWithVideoImage;
     public static ImageEngine imageEngine;
     public static OnResultCallbackListener<LocalMedia> listener;
-    public static OnVideoSelectedPlayCallback<LocalMedia> customVideoPlayCallback;
-    public static OnCustomImagePreviewCallback<LocalMedia> onCustomImagePreviewCallback;
-    public static OnCustomCameraInterfaceListener onCustomCameraInterfaceListener;
     public List<LocalMedia> selectionMedias;
     public String cameraFileName;
-    @Deprecated
-    public boolean isChangeStatusBarFontColor;
     @Deprecated
     public boolean isOpenStyleCheckNumMode;
     @Deprecated
@@ -102,7 +75,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public int downResId;
     public String outPutCameraPath;
 
-    public String originalPath;
     public String cameraPath;
     public int cameraMimeType = -1;
     public int pageSize = PictureConfig.MAX_PAGE_SIZE;
@@ -138,10 +110,7 @@ public final class PictureSelectionConfig implements Parcelable {
         videoMinSecond = 0;
         filterFileSize = -1;
         recordVideoSecond = 60;
-        recordVideoMinSecond = 0;
         imageSpanCount = PictureConfig.DEFAULT_SPAN_COUNT;
-        aspect_ratio_x = 0;
-        aspect_ratio_y = 0;
         isCameraAroundState = false;
         isWithVideoImage = false;
         isAndroidQTransform = false;
@@ -154,24 +123,13 @@ public final class PictureSelectionConfig implements Parcelable {
         enPreviewVideo = true;
         enablePreviewAudio = true;
         checkNumMode = false;
-        isNotPreviewDownload = false;
         openClickSound = false;
         isFallbackVersion = false;
         isFallbackVersion2 = true;
         isFallbackVersion3 = true;
         isWeChatStyle = false;
-        isMultipleRecyclerAnimation = true;
-        circleDimmedLayer = false;
-        hideBottomControls = true;
-        rotateEnabled = true;
-        scaleEnabled = true;
-        previewEggs = false;
         returnEmpty = false;
         zoomAnim = true;
-        circleDimmedColor = 0;
-        circleDimmedBorderColor = 0;
-        circleStrokeWidth = 1;
-        isDragFrame = true;
         suffixType = "";
         cameraFileName = "";
         specifiedFormat = "";
@@ -180,10 +138,8 @@ public final class PictureSelectionConfig implements Parcelable {
         pictureStatusBarColor = 0;
         upResId = 0;
         downResId = 0;
-        isChangeStatusBarFontColor = false;
         isOpenStyleCheckNumMode = false;
         outPutCameraPath = "";
-        originalPath = "";
         cameraPath = "";
         cameraMimeType = -1;
         pageSize = PictureConfig.MAX_PAGE_SIZE;
@@ -220,9 +176,6 @@ public final class PictureSelectionConfig implements Parcelable {
      */
     public static void destroy() {
         PictureSelectionConfig.listener = null;
-        PictureSelectionConfig.customVideoPlayCallback = null;
-        PictureSelectionConfig.onCustomImagePreviewCallback = null;
-        PictureSelectionConfig.onCustomCameraInterfaceListener = null;
     }
 
 
@@ -237,7 +190,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isSingleDirectReturn ? (byte) 1 : (byte) 0);
         dest.writeString(this.suffixType);
         dest.writeString(this.specifiedFormat);
-        dest.writeInt(this.requestedOrientation);
         dest.writeByte(this.isCameraAroundState ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQTransform ? (byte) 1 : (byte) 0);
         dest.writeInt(this.themeStyleId);
@@ -250,13 +202,9 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeInt(this.videoMaxSecond);
         dest.writeInt(this.videoMinSecond);
         dest.writeInt(this.recordVideoSecond);
-        dest.writeInt(this.recordVideoMinSecond);
         dest.writeInt(this.imageSpanCount);
-        dest.writeInt(this.aspect_ratio_x);
-        dest.writeInt(this.aspect_ratio_y);
         dest.writeFloat(this.filterFileSize);
         dest.writeInt(this.language);
-        dest.writeByte(this.isMultipleRecyclerAnimation ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWeChatStyle ? (byte) 1 : (byte) 0);
         dest.writeByte(this.zoomAnim ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCamera ? (byte) 1 : (byte) 0);
@@ -268,28 +216,16 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.enablePreviewAudio ? (byte) 1 : (byte) 0);
         dest.writeByte(this.checkNumMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.openClickSound ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.circleDimmedLayer ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.circleDimmedColor);
-        dest.writeInt(this.circleDimmedBorderColor);
-        dest.writeInt(this.circleStrokeWidth);
-        dest.writeByte(this.hideBottomControls ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.rotateEnabled ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.scaleEnabled ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.previewEggs ? (byte) 1 : (byte) 0);
         dest.writeByte(this.returnEmpty ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isDragFrame ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isNotPreviewDownload ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWithVideoImage ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.selectionMedias);
         dest.writeString(this.cameraFileName);
-        dest.writeByte(this.isChangeStatusBarFontColor ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isOpenStyleCheckNumMode ? (byte) 1 : (byte) 0);
         dest.writeInt(this.titleBarBackgroundColor);
         dest.writeInt(this.pictureStatusBarColor);
         dest.writeInt(this.upResId);
         dest.writeInt(this.downResId);
         dest.writeString(this.outPutCameraPath);
-        dest.writeString(this.originalPath);
         dest.writeString(this.cameraPath);
         dest.writeInt(this.cameraMimeType);
         dest.writeInt(this.pageSize);
@@ -312,7 +248,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isSingleDirectReturn = in.readByte() != 0;
         this.suffixType = in.readString();
         this.specifiedFormat = in.readString();
-        this.requestedOrientation = in.readInt();
 //        this.buttonFeatures = in.readInt();
         this.isCameraAroundState = in.readByte() != 0;
         this.isAndroidQTransform = in.readByte() != 0;
@@ -326,13 +261,9 @@ public final class PictureSelectionConfig implements Parcelable {
         this.videoMaxSecond = in.readInt();
         this.videoMinSecond = in.readInt();
         this.recordVideoSecond = in.readInt();
-        this.recordVideoMinSecond = in.readInt();
         this.imageSpanCount = in.readInt();
-        this.aspect_ratio_x = in.readInt();
-        this.aspect_ratio_y = in.readInt();
         this.filterFileSize = in.readFloat();
         this.language = in.readInt();
-        this.isMultipleRecyclerAnimation = in.readByte() != 0;
         this.isWeChatStyle = in.readByte() != 0;
         this.zoomAnim = in.readByte() != 0;
         this.isCamera = in.readByte() != 0;
@@ -344,28 +275,16 @@ public final class PictureSelectionConfig implements Parcelable {
         this.enablePreviewAudio = in.readByte() != 0;
         this.checkNumMode = in.readByte() != 0;
         this.openClickSound = in.readByte() != 0;
-        this.circleDimmedLayer = in.readByte() != 0;
-        this.circleDimmedColor = in.readInt();
-        this.circleDimmedBorderColor = in.readInt();
-        this.circleStrokeWidth = in.readInt();
-        this.hideBottomControls = in.readByte() != 0;
-        this.rotateEnabled = in.readByte() != 0;
-        this.scaleEnabled = in.readByte() != 0;
-        this.previewEggs = in.readByte() != 0;
         this.returnEmpty = in.readByte() != 0;
-        this.isDragFrame = in.readByte() != 0;
-        this.isNotPreviewDownload = in.readByte() != 0;
         this.isWithVideoImage = in.readByte() != 0;
         this.selectionMedias = in.createTypedArrayList(LocalMedia.CREATOR);
         this.cameraFileName = in.readString();
-        this.isChangeStatusBarFontColor = in.readByte() != 0;
         this.isOpenStyleCheckNumMode = in.readByte() != 0;
         this.titleBarBackgroundColor = in.readInt();
         this.pictureStatusBarColor = in.readInt();
         this.upResId = in.readInt();
         this.downResId = in.readInt();
         this.outPutCameraPath = in.readString();
-        this.originalPath = in.readString();
         this.cameraPath = in.readString();
         this.cameraMimeType = in.readInt();
         this.pageSize = in.readInt();

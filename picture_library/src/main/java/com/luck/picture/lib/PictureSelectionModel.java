@@ -10,16 +10,12 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
-import com.luck.picture.lib.listener.OnCustomImagePreviewCallback;
-import com.luck.picture.lib.listener.OnVideoSelectedPlayCallback;
 import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 import com.luck.picture.lib.tools.DoubleUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 
-import java.lang.ref.WeakReference;
 import java.util.List;
 
 import androidx.annotation.ColorInt;
@@ -80,33 +76,6 @@ public class PictureSelectionModel {
     }
 
     /**
-     * Change the desired orientation of this activity.  If the activity
-     * is currently in the foreground or otherwise impacting the screen
-     * orientation, the screen will immediately be changed (possibly causing
-     * the activity to be restarted). Otherwise, this will be used the next
-     * time the activity is visible.
-     *
-     * @param requestedOrientation An orientation constant as used in
-     *                             { ActivityInfo#screenOrientation ActivityInfo.screenOrientation}.
-     */
-    public PictureSelectionModel setRequestedOrientation(int requestedOrientation) {
-        selectionConfig.requestedOrientation = requestedOrientation;
-        return this;
-    }
-
-    /**
-     * @param engine Image Load the engine
-     * @return Use {@link .imageEngine()}.
-     */
-    @Deprecated
-    public PictureSelectionModel loadImageEngine(ImageEngine engine) {
-        if (PictureSelectionConfig.imageEngine != engine) {
-            PictureSelectionConfig.imageEngine = engine;
-        }
-        return this;
-    }
-
-    /**
      * @param engine Image Load the engine
      * @return
      */
@@ -133,50 +102,6 @@ public class PictureSelectionModel {
      */
     public PictureSelectionModel isWeChatStyle(boolean isWeChatStyle) {
         selectionConfig.isWeChatStyle = isWeChatStyle;
-        return this;
-    }
-
-
-    /**
-     * @param callback Provide video playback control，Users are free to customize the video display interface
-     * @return
-     */
-    public PictureSelectionModel bindCustomPlayVideoCallback(OnVideoSelectedPlayCallback callback) {
-        PictureSelectionConfig.customVideoPlayCallback = new WeakReference<>(callback).get();
-        return this;
-    }
-
-    /**
-     * @param callback Custom preview callback function
-     * @return
-     */
-    public PictureSelectionModel bindCustomPreviewCallback(OnCustomImagePreviewCallback callback) {
-        PictureSelectionConfig.onCustomImagePreviewCallback = new WeakReference<>(callback).get();
-        return this;
-    }
-
-    /**
-     * # The developer provides an additional callback interface to the user where the user can perform some custom actions
-     * {link 如果是自定义相机则必须使用.startActivityForResult(this,PictureConfig.REQUEST_CAMERA);方式启动否则PictureSelector处理不了相机后的回调}
-     *
-     * @param listener
-     * @return Use ${bindCustomCameraInterfaceListener}
-     */
-    @Deprecated
-    public PictureSelectionModel bindPictureSelectorInterfaceListener(OnCustomCameraInterfaceListener listener) {
-        PictureSelectionConfig.onCustomCameraInterfaceListener = new WeakReference<>(listener).get();
-        return this;
-    }
-
-    /**
-     * # The developer provides an additional callback interface to the user where the user can perform some custom actions
-     * {link 如果是自定义相机则必须使用.startActivityForResult(this,PictureConfig.REQUEST_CAMERA);方式启动否则PictureSelector处理不了相机后的回调}
-     *
-     * @param listener
-     * @return
-     */
-    public PictureSelectionModel bindCustomCameraInterfaceListener(OnCustomCameraInterfaceListener listener) {
-        PictureSelectionConfig.onCustomCameraInterfaceListener = new WeakReference<>(listener).get();
         return this;
     }
 
@@ -210,90 +135,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param scaleEnabled Crop frame is zoom ?
-     * @return
-     */
-    public PictureSelectionModel scaleEnabled(boolean scaleEnabled) {
-        selectionConfig.scaleEnabled = scaleEnabled;
-        return this;
-    }
-
-    /**
-     * @param rotateEnabled Crop frame is rotate ?
-     * @return
-     */
-    public PictureSelectionModel rotateEnabled(boolean rotateEnabled) {
-        selectionConfig.rotateEnabled = rotateEnabled;
-        return this;
-    }
-
-    /**
-     * @param circleDimmedLayer Circular head cutting
-     * @return
-     */
-    public PictureSelectionModel circleDimmedLayer(boolean circleDimmedLayer) {
-        selectionConfig.circleDimmedLayer = circleDimmedLayer;
-        return this;
-    }
-
-    /**
-     * @param circleDimmedColor setCircleDimmedColor
-     * @return
-     */
-    @Deprecated
-    public PictureSelectionModel setCircleDimmedColor(int circleDimmedColor) {
-        selectionConfig.circleDimmedColor = circleDimmedColor;
-        return this;
-    }
-
-    /**
-     * @param dimmedColor
-     * @return
-     */
-    public PictureSelectionModel setCropDimmedColor(int dimmedColor) {
-        selectionConfig.circleDimmedColor = dimmedColor;
-        return this;
-    }
-
-    /**
-     * @param circleDimmedBorderColor setCircleDimmedBorderColor
-     * @return
-     */
-    public PictureSelectionModel setCircleDimmedBorderColor(int circleDimmedBorderColor) {
-        selectionConfig.circleDimmedBorderColor = circleDimmedBorderColor;
-        return this;
-    }
-
-    /**
-     * @param circleStrokeWidth setCircleStrokeWidth
-     * @return
-     */
-    public PictureSelectionModel setCircleStrokeWidth(int circleStrokeWidth) {
-        selectionConfig.circleStrokeWidth = circleStrokeWidth;
-        return this;
-    }
-
-    /**
-     * @param hideBottomControls Whether is Clipping function bar
-     *                           单选有效
-     * @return
-     */
-    public PictureSelectionModel hideBottomControls(boolean hideBottomControls) {
-        selectionConfig.hideBottomControls = hideBottomControls;
-        return this;
-    }
-
-    /**
-     * @param aspect_ratio_x Crop Proportion x
-     * @param aspect_ratio_y Crop Proportion y
-     * @return
-     */
-    public PictureSelectionModel withAspectRatio(int aspect_ratio_x, int aspect_ratio_y) {
-        selectionConfig.aspect_ratio_x = aspect_ratio_x;
-        selectionConfig.aspect_ratio_y = aspect_ratio_y;
-        return this;
-    }
 
     /**
      * @param isWithVideoImage Whether the pictures and videos can be selected together
@@ -511,14 +352,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param recordVideoMinSecond video record second
-     * @return
-     */
-    public PictureSelectionModel recordVideoMinSecond(int recordVideoMinSecond) {
-        selectionConfig.recordVideoMinSecond = recordVideoMinSecond;
-        return this;
-    }
 
 
     /**
@@ -574,24 +407,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param previewEggs preview eggs  It doesn't make much sense
-     * @return Use {link .isPreviewEggs()}
-     */
-    @Deprecated
-    public PictureSelectionModel previewEggs(boolean previewEggs) {
-        selectionConfig.previewEggs = previewEggs;
-        return this;
-    }
-
-    /**
-     * @param previewEggs preview eggs  It doesn't make much sense
-     * @return
-     */
-    public PictureSelectionModel isPreviewEggs(boolean previewEggs) {
-        selectionConfig.previewEggs = previewEggs;
-        return this;
-    }
 
     /**
      * @param isCamera Whether to open camera button
@@ -673,15 +488,6 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param isNotPreviewDownload Previews do not show downloads
-     * @return
-     */
-    public PictureSelectionModel isNotPreviewDownload(boolean isNotPreviewDownload) {
-        selectionConfig.isNotPreviewDownload = isNotPreviewDownload;
-        return this;
-    }
-
-    /**
      *  Specify get image format
      * @return
      */
@@ -698,26 +504,6 @@ public class PictureSelectionModel {
         selectionConfig.openClickSound = openClickSound;
         return this;
     }
-
-    /**
-     * 是否可拖动裁剪框(setFreeStyleCropEnabled 为true 有效)
-     */
-    public PictureSelectionModel isDragFrame(boolean isDragFrame) {
-        selectionConfig.isDragFrame = isDragFrame;
-        return this;
-    }
-
-    /**
-     * Whether the multi-graph clipping list is animated or not
-     *
-     * @param isAnimation
-     * @return
-     */
-    public PictureSelectionModel isMultipleRecyclerAnimation(boolean isAnimation) {
-        selectionConfig.isMultipleRecyclerAnimation = isAnimation;
-        return this;
-    }
-
 
     /**
      * 设置摄像头方向(前后 默认后置)
@@ -754,18 +540,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * 是否改变状态栏字段颜色(黑白字体转换)
-     * #适合所有style使用
-     *
-     * @param isChangeStatusBarFontColor
-     * @return
-     */
-    @Deprecated
-    public PictureSelectionModel isChangeStatusBarFontColor(boolean isChangeStatusBarFontColor) {
-        selectionConfig.isChangeStatusBarFontColor = isChangeStatusBarFontColor;
-        return this;
-    }
 
     /**
      * 是否开启数字选择模式

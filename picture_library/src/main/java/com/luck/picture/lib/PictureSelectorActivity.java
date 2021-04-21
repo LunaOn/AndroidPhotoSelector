@@ -18,17 +18,10 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.luck.picture.lib.adapter.PictureImageGridAdapter;
 import com.luck.picture.lib.animators.AlphaInAnimationAdapter;
@@ -37,7 +30,6 @@ import com.luck.picture.lib.animators.SlideInBottomAnimationAdapter;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.decoration.GridSpacingItemDecoration;
 import com.luck.picture.lib.dialog.PhotoItemSelectedDialog;
 import com.luck.picture.lib.dialog.PictureCustomDialog;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -51,7 +43,6 @@ import com.luck.picture.lib.model.LocalMediaLoader;
 import com.luck.picture.lib.model.LocalMediaPageLoader;
 import com.luck.picture.lib.observable.ImagesObservable;
 import com.luck.picture.lib.permissions.PermissionChecker;
-import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.AttrsUtils;
 import com.luck.picture.lib.tools.BitmapUtils;
@@ -63,15 +54,21 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.ScreenUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.luck.picture.lib.tools.StringUtils;
-import com.luck.picture.lib.tools.ToastUtils;
 import com.luck.picture.lib.tools.ValueOf;
 import com.luck.picture.lib.widget.FolderPopWindow;
+import com.luck.picture.lib.widget.GridSpacingItemDecoration;
 import com.luck.picture.lib.widget.RecyclerPreloadView;
-
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 /**
  * @author：luck
@@ -642,17 +639,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      */
     public void startCamera() {
         if (!DoubleUtils.isFastDoubleClick()) {
-            if (PictureSelectionConfig.onCustomCameraInterfaceListener != null) {
-                if (config.chooseMode == PictureConfig.TYPE_ALL) {
-                    PhotoItemSelectedDialog selectedDialog = PhotoItemSelectedDialog.newInstance();
-                    selectedDialog.setOnItemClickListener(this);
-                    selectedDialog.show(getSupportFragmentManager(), "PhotoItemSelectedDialog");
-                } else {
-                    PictureSelectionConfig.onCustomCameraInterfaceListener.onCameraClick(getContext(), config, config.chooseMode);
-                    config.cameraMimeType = config.chooseMode;
-                }
-                return;
-            }
             switch (config.chooseMode) {
                 case PictureConfig.TYPE_ALL:
                     PhotoItemSelectedDialog selectedDialog = PhotoItemSelectedDialog.newInstance();
@@ -1137,12 +1123,8 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 result.add(media);
                 onResult(result);
             } else {
-                if (PictureSelectionConfig.customVideoPlayCallback != null) {
-                    PictureSelectionConfig.customVideoPlayCallback.startPlayVideo(media);
-                } else {
-                    bundle.putParcelable(PictureConfig.EXTRA_MEDIA_KEY, media);
-                    JumpUtils.startPictureVideoPlayActivity(getContext(), bundle, PictureConfig.PREVIEW_VIDEO_CODE);
-                }
+                bundle.putParcelable(PictureConfig.EXTRA_MEDIA_KEY, media);
+                JumpUtils.startPictureVideoPlayActivity(getContext(), bundle, PictureConfig.PREVIEW_VIDEO_CODE);
             }
         } else if (PictureMimeType.isHasAudio(mimeType)) {
             // audio
@@ -1154,10 +1136,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             }
         } else {
             // image
-            if (PictureSelectionConfig.onCustomImagePreviewCallback != null) {
-                PictureSelectionConfig.onCustomImagePreviewCallback.onCustomPreviewCallback(getContext(), previewData, position);
-                return;
-            }
             List<LocalMedia> selectedData = mAdapter.getSelectedData();
             ImagesObservable.getInstance().savePreviewMediaData(new ArrayList<>(previewData));
             bundle.putParcelableArrayList(PictureConfig.EXTRA_SELECT_LIST, (ArrayList<? extends Parcelable>) selectedData);
@@ -1878,20 +1856,10 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     public void onItemClick(View view, int position) {
         switch (position) {
             case PhotoItemSelectedDialog.IMAGE_CAMERA:
-                if (PictureSelectionConfig.onCustomCameraInterfaceListener != null) {
-                    PictureSelectionConfig.onCustomCameraInterfaceListener.onCameraClick(getContext(), config, PictureConfig.TYPE_IMAGE);
-                    config.cameraMimeType = PictureMimeType.ofImage();
-                } else {
-                    startOpenCamera();
-                }
+                startOpenCamera();
                 break;
             case PhotoItemSelectedDialog.VIDEO_CAMERA:
-                if (PictureSelectionConfig.onCustomCameraInterfaceListener != null) {
-                    PictureSelectionConfig.onCustomCameraInterfaceListener.onCameraClick(getContext(), config, PictureConfig.TYPE_IMAGE);
-                    config.cameraMimeType = PictureMimeType.ofVideo();
-                } else {
-                    startOpenCameraVideo();
-                }
+                startOpenCameraVideo();
                 break;
             default:
                 break;

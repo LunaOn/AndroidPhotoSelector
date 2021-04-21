@@ -107,10 +107,6 @@ public class PictureParameterStyle {
     @ColorInt
     public int pictureUnCompleteTextColor;
 
-    /**
-     * 相册列表完成按钮字体大小
-     */
-    public int pictureCompleteTextSize;
 
     /**
      * 相册列表不可预览文字颜色
@@ -118,10 +114,6 @@ public class PictureParameterStyle {
     @ColorInt
     public int pictureUnPreviewTextColor;
 
-    /**
-     * 相册列表预览文字大小
-     */
-    public int picturePreviewTextSize;
 
     /**
      * 相册列表未完成按钮文本
@@ -138,16 +130,6 @@ public class PictureParameterStyle {
      */
     @ColorInt
     public int picturePreviewTextColor;
-
-    /**
-     * 相册列表不可预览文字
-     */
-    public String pictureUnPreviewText;
-
-    /**
-     * 相册列表预览文字
-     */
-    public String picturePreviewText;
 
     /**
      * 相册列表预览界面底部背景色
@@ -232,15 +214,6 @@ public class PictureParameterStyle {
     @DrawableRes
     public int pictureWeChatTitleBackgroundStyle;
 
-    /**
-     * WeChatStyle 自定义预览页右下角选择文字大小
-     */
-    public int pictureWeChatPreviewSelectedTextSize;
-
-    /**
-     * WeChatStyle 自定义预览页右下角选择文字文案
-     */
-    public String pictureWeChatPreviewSelectedText;
 
     /**
      * 图片已选数量圆点背景色
