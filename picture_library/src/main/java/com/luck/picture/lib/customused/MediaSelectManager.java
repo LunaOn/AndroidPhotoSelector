@@ -17,14 +17,15 @@ import com.luck.picture.lib.tools.ScreenUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.fragment.app.Fragment;
+
 /**
  * Author: chuanmo
  * Date: 4/16/21 1:22 PM
  * Description: 图片视频选择器
  */
-public class PictureOrVideoSelectorManager {
+public class MediaSelectManager {
     public final static int CHOOSE_REQUEST = 188;
-    private Context context;
     private int type = PictureMimeType.TYPE_IMAGE;
     private int maxSelectNum = 8;
     private int drawableTopCompleteDefaultBtnBackground = R.drawable.picture_send_button_default_bg;
@@ -34,12 +35,14 @@ public class PictureOrVideoSelectorManager {
     private List<LocalMedia> oldList = new ArrayList<>();
     private int requestCode = CHOOSE_REQUEST;
 
-    public PictureOrVideoSelectorManager(Context context) {
-        this.context = context;
+
+    public void create(Fragment fragment) {
+        pictureSelector(PictureSelector.create(fragment), type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
+                drawableTopCompleteNormalBtnBackground, isSingleselect, isGif, oldList, requestCode);
     }
 
-    public void create() {
-        pictureSelector(context, type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
+    public void create(Activity activity) {
+        pictureSelector(PictureSelector.create(activity), type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
                 drawableTopCompleteNormalBtnBackground, isSingleselect, isGif, oldList, requestCode);
     }
 
@@ -51,9 +54,9 @@ public class PictureOrVideoSelectorManager {
      * @param oldList 传入选中的图片
      * @param requestCode
      */
-    public static void pictureSelector(Context context, int type, int maxSelectNum, int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground
+    public static void pictureSelector(PictureSelector pictureSelector, int type, int maxSelectNum, int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground
             , boolean isSingleselect, boolean isGif, List<LocalMedia> oldList, int requestCode) {
-        PictureSelector.create((Activity) context)
+        pictureSelector
                 .openGallery(type)
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
                 .setPictureUIStyle(ofNewStyle(drawableTopCompleteDefaultBtnBackground, drawableTopCompleteNormalBtnBackground))
@@ -235,7 +238,7 @@ public class PictureOrVideoSelectorManager {
         return type;
     }
 
-    public PictureOrVideoSelectorManager setType(int type) {
+    public MediaSelectManager setType(int type) {
         this.type = type;
         return this;
     }
@@ -244,7 +247,7 @@ public class PictureOrVideoSelectorManager {
         return maxSelectNum;
     }
 
-    public PictureOrVideoSelectorManager setMaxSelectNum(int maxSelectNum) {
+    public MediaSelectManager setMaxSelectNum(int maxSelectNum) {
         this.maxSelectNum = maxSelectNum;
         return this;
     }
@@ -253,7 +256,7 @@ public class PictureOrVideoSelectorManager {
         return drawableTopCompleteDefaultBtnBackground;
     }
 
-    public PictureOrVideoSelectorManager setDrawableTopCompleteDefaultBtnBackground(int drawableTopCompleteDefaultBtnBackground) {
+    public MediaSelectManager setDrawableTopCompleteDefaultBtnBackground(int drawableTopCompleteDefaultBtnBackground) {
         this.drawableTopCompleteDefaultBtnBackground = drawableTopCompleteDefaultBtnBackground;
         return this;
     }
@@ -262,7 +265,7 @@ public class PictureOrVideoSelectorManager {
         return drawableTopCompleteNormalBtnBackground;
     }
 
-    public PictureOrVideoSelectorManager setDrawableTopCompleteNormalBtnBackground(int drawableTopCompleteNormalBtnBackground) {
+    public MediaSelectManager setDrawableTopCompleteNormalBtnBackground(int drawableTopCompleteNormalBtnBackground) {
         this.drawableTopCompleteNormalBtnBackground = drawableTopCompleteNormalBtnBackground;
         return this;
     }
@@ -271,7 +274,7 @@ public class PictureOrVideoSelectorManager {
         return isSingleselect;
     }
 
-    public PictureOrVideoSelectorManager setSingleselect(boolean singleselect) {
+    public MediaSelectManager setSingleselect(boolean singleselect) {
         isSingleselect = singleselect;
         return this;
     }
@@ -281,7 +284,7 @@ public class PictureOrVideoSelectorManager {
         return isGif;
     }
 
-    public PictureOrVideoSelectorManager setGif(boolean gif) {
+    public MediaSelectManager setGif(boolean gif) {
         isGif = gif;
         return this;
     }
@@ -290,7 +293,7 @@ public class PictureOrVideoSelectorManager {
         return oldList;
     }
 
-    public PictureOrVideoSelectorManager setOldList(List<LocalMedia> oldList) {
+    public MediaSelectManager setOldList(List<LocalMedia> oldList) {
         this.oldList = oldList;
         return this;
     }
@@ -299,7 +302,7 @@ public class PictureOrVideoSelectorManager {
         return requestCode;
     }
 
-    public PictureOrVideoSelectorManager setRequestCode(int requestCode) {
+    public MediaSelectManager setRequestCode(int requestCode) {
         this.requestCode = requestCode;
         return this;
     }

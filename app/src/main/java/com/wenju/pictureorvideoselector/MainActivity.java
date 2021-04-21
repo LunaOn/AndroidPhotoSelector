@@ -5,10 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.luck.picture.lib.customused.MediaSelectManager;
 import com.luck.picture.lib.customused.PictureMimeType;
-import com.luck.picture.lib.customused.PictureOrVideoSelectorManager;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.model.LocalMediaLoader;
@@ -16,6 +14,8 @@ import com.luck.picture.lib.thread.PictureThreadUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,9 +30,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == RESULT_OK) {
             switch (requestCode) {
-                case PictureOrVideoSelectorManager.CHOOSE_REQUEST:
+                case MediaSelectManager.CHOOSE_REQUEST:
                     // 结果回调
-                    List<LocalMedia> selectList = new ArrayList<>(PictureOrVideoSelectorManager.obtainMultipleResult(data));
+                    List<LocalMedia> selectList = new ArrayList<>(MediaSelectManager.obtainMultipleResult(data));
                     Log.d("获取选择图片数据成功----》",selectList.get(0).getRealPath());
                     break;
                 default:
@@ -42,18 +42,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void selectorDefaultPicture(View view) {
-        new PictureOrVideoSelectorManager(this)
+        new MediaSelectManager(this)
                 .create();
     }
 
     public void selectorSinglePicture(View view) {
-        new PictureOrVideoSelectorManager(this)
+        new MediaSelectManager(this)
                 .setSingleselect(true)
                 .create();
     }
 
     public void selectorVideo(View view) {
-        new PictureOrVideoSelectorManager(this)
+        new MediaSelectManager(this)
                 .setType(PictureMimeType.TYPE_VIDEO)
                 .create();
     }

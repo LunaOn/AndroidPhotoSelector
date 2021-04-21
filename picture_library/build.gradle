@@ -7,9 +7,9 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 31
-        versionName "1.1.1"
-        archivesBaseName = "AndroidPhotoSelector-$versionName"
+        versionCode 34
+        versionName "1.1.4"
+        archivesBaseName = "photoselector-$versionName"
     }
 
     compileOptions {
