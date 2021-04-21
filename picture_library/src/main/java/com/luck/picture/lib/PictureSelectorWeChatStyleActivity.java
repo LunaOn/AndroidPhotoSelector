@@ -58,11 +58,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
             } else {
                 mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_default_bg);
             }
-            if (PictureSelectionConfig.uiStyle.picture_bottom_barBackgroundColor != 0) {
-                mBottomLayout.setBackgroundColor(PictureSelectionConfig.uiStyle.picture_bottom_barBackgroundColor);
-            } else {
-                mBottomLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.picture_color_grey));
-            }
             if (PictureSelectionConfig.uiStyle.picture_top_titleRightTextColor.length > 0) {
                 ColorStateList colorStateList = AttrsUtils.getColorStateList(PictureSelectionConfig.uiStyle.picture_top_titleRightTextColor);
                 if (colorStateList != null) {
@@ -92,11 +87,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                 mTvPictureRight.setBackgroundResource(PictureSelectionConfig.style.pictureUnCompleteBackgroundStyle);
             } else {
                 mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_default_bg);
-            }
-            if (PictureSelectionConfig.style.pictureBottomBgColor != 0) {
-                mBottomLayout.setBackgroundColor(PictureSelectionConfig.style.pictureBottomBgColor);
-            } else {
-                mBottomLayout.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.picture_color_grey));
             }
             if (PictureSelectionConfig.style.pictureUnCompleteTextColor != 0) {
                 mTvPictureRight.setTextColor(PictureSelectionConfig.style.pictureUnCompleteTextColor);
@@ -128,24 +118,13 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
             mTvPictureRight.setBackgroundResource(R.drawable.picture_send_button_default_bg);
             rlAlbum.setBackgroundResource(R.drawable.picture_album_bg);
             mTvPictureRight.setTextColor(ContextCompat.getColor(getContext(), R.color.picture_color_53575e));
-            int pictureBottomBgColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_bottom_bg);
-            mBottomLayout.setBackgroundColor(pictureBottomBgColor != 0
-                    ? pictureBottomBgColor : ContextCompat.getColor(getContext(), R.color.picture_color_grey));
 
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.picture_icon_wechat_down);
             mIvArrow.setImageDrawable(drawable);
         }
         super.initPictureSelectorStyle();
-        goneParentView();
     }
 
-    /**
-     * Hide views that are not needed by the parent container
-     */
-    private void goneParentView() {
-        mTvPictureImgNum.setVisibility(View.GONE);
-        mTvPictureOk.setVisibility(View.GONE);
-    }
 
     @Override
     protected void changeImageNumber(List<LocalMedia> selectData) {
@@ -222,7 +201,7 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                     && folderWindow.isShowing()) {
                 folderWindow.dismiss();
             } else {
-                mTvPictureOk.performClick();
+                onComplete();
             }
         } else {
             super.onClick(v);

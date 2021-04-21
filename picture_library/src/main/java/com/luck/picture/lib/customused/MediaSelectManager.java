@@ -108,12 +108,6 @@ public class MediaSelectManager {
         uiStyle.picture_album_textColor = Color.parseColor("#4d4d4d");
         uiStyle.picture_album_checkDotStyle = R.drawable.picture_orange_oval;
 
-        uiStyle.picture_bottom_previewTextSize = 16;
-        uiStyle.picture_bottom_previewTextColor = new int[]{Color.parseColor("#9b9b9b"), Color.parseColor("#FFFFFF")};
-
-        uiStyle.picture_bottom_completeTextColor = new int[]{Color.parseColor("#9b9b9b"), Color.parseColor("#FA632D")};
-        uiStyle.picture_bottom_barBackgroundColor = Color.parseColor("#393a3e");
-
         uiStyle.picture_adapter_item_camera_backgroundColor = Color.parseColor("#999999");
         uiStyle.picture_adapter_item_camera_textColor = Color.parseColor("#FFFFFF");
         uiStyle.picture_adapter_item_camera_textSize = 14;
@@ -131,11 +125,6 @@ public class MediaSelectManager {
             uiStyle.picture_top_titleBarHeight = ScreenUtils.dip2px(appContext, 48);
             uiStyle.picture_top_titleRightDefaultText = R.string.picture_send;
             uiStyle.picture_top_titleRightNormalText = R.string.picture_cancel;
-            uiStyle.picture_bottom_barHeight = ScreenUtils.dip2px(appContext, 45);
-            uiStyle.picture_bottom_previewDefaultText = R.string.picture_preview;
-            uiStyle.picture_bottom_previewNormalText = R.string.picture_preview_num;
-            uiStyle.picture_bottom_completeDefaultText = R.string.picture_please_select;
-            uiStyle.picture_bottom_completeNormalText = R.string.picture_completed;
             uiStyle.picture_adapter_item_camera_text = R.string.picture_take_picture;
             uiStyle.picture_bottom_selectedText = R.string.picture_select;
             uiStyle.picture_bottom_selectedCheckStyle = R.drawable.picture_wechat_select_cb;

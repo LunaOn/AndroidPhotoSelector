@@ -94,11 +94,6 @@ public class PictureParameterStyle {
     @ColorInt
     public int pictureRightSelectedTextColor;
 
-    /**
-     * 相册列表底部背景色
-     */
-    @ColorInt
-    public int pictureBottomBgColor;
 
     /**
      * 相册列表已完成按钮色值
@@ -329,8 +324,6 @@ public class PictureParameterStyle {
         uiStyle.pictureAlbumStyle = R.drawable.picture_item_select_bg;
         // 相册列表勾选图片样式
         uiStyle.pictureCheckedStyle = R.drawable.picture_checkbox_selector;
-        // 相册列表底部背景色
-        uiStyle.pictureBottomBgColor = Color.parseColor("#393a3e");
         // 已选数量圆点背景样式
         uiStyle.pictureCheckNumBgStyle = R.drawable.picture_num_oval;
         // 相册列表底下预览文字色值(预览按钮可点击时的色值)
@@ -385,8 +378,6 @@ public class PictureParameterStyle {
         uiStyle.pictureAlbumStyle = R.drawable.picture_item_select_bg;
         // 相册列表勾选图片样式
         uiStyle.pictureCheckedStyle = R.drawable.picture_checkbox_selector;
-        // 相册列表底部背景色
-        uiStyle.pictureBottomBgColor = Color.parseColor("#FAFAFA");
         // 已选数量圆点背景样式
         uiStyle.pictureCheckNumBgStyle = R.drawable.picture_num_oval;
         // 相册列表底下预览文字色值(预览按钮可点击时的色值)
@@ -439,8 +430,6 @@ public class PictureParameterStyle {
         uiStyle.pictureAlbumStyle = R.drawable.picture_item_select_bg;
         // 相册列表勾选图片样式
         uiStyle.pictureCheckedStyle = R.drawable.picture_checkbox_num_selector;
-        // 相册列表底部背景色
-        uiStyle.pictureBottomBgColor = Color.parseColor("#FAFAFA");
         // 已选数量圆点背景样式
         uiStyle.pictureCheckNumBgStyle = R.drawable.picture_num_oval_blue;
         // 相册列表底下预览文字色值(预览按钮可点击时的色值)
@@ -511,8 +500,6 @@ public class PictureParameterStyle {
         uiStyle.pictureWeChatChooseStyle = R.drawable.picture_wechat_select_cb;
         // 相册返回箭头 ,只针对isWeChatStyle 为true时有效果
         uiStyle.pictureWeChatLeftBackStyle = R.drawable.picture_icon_back;
-        // 相册列表底部背景色
-        uiStyle.pictureBottomBgColor = Color.parseColor("#393a3e");
         // 已选数量圆点背景样式
         uiStyle.pictureCheckNumBgStyle = R.drawable.picture_num_oval;
         // 相册列表底下预览文字色值(预览按钮可点击时的色值)

@@ -86,11 +86,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     protected ImageView mIvArrow;
     protected View mTitleBar;
     protected View viewClickMask;
-    protected TextView mTvPictureTitle, mTvPictureRight, mTvPictureOk, mTvEmpty,
-            mTvPictureImgNum, mTvPlayPause, mTvStop, mTvQuit,
+    protected TextView mTvPictureTitle, mTvPictureRight, mTvEmpty, mTvPlayPause, mTvStop, mTvQuit,
             mTvMusicStatus, mTvMusicTotal, mTvMusicTime;
     protected RecyclerPreloadView mRecyclerView;
-    protected RelativeLayout mBottomLayout;
     protected PictureImageGridAdapter mAdapter;
     protected FolderPopWindow folderWindow;
     protected Animation animation = null;
@@ -152,12 +150,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         mIvPictureLeftBack = findViewById(R.id.pictureLeftBack);
         mTvPictureTitle = findViewById(R.id.picture_title);
         mTvPictureRight = findViewById(R.id.picture_right);
-        mTvPictureOk = findViewById(R.id.picture_tv_ok);
         mIvArrow = findViewById(R.id.ivArrow);
         viewClickMask = findViewById(R.id.viewClickMask);
-        mTvPictureImgNum = findViewById(R.id.tv_media_num);
         mRecyclerView = findViewById(R.id.picture_recycler);
-        mBottomLayout = findViewById(R.id.select_bar_layout);
         mTvEmpty = findViewById(R.id.tv_empty);
         isNumComplete(numComplete);
         if (!numComplete) {
@@ -166,13 +161,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (config.isAutomaticTitleRecyclerTop) {
             mTitleBar.setOnClickListener(this);
         }
-//        mBottomLayout.setVisibility(config.selectionMode == PictureConfig.SINGLE
-//                && config.isSingleDirectReturn ? View.GONE : View.VISIBLE);
         mIvPictureLeftBack.setOnClickListener(this);
         mTvPictureRight.setOnClickListener(this);
-        mTvPictureOk.setOnClickListener(this);
         viewClickMask.setOnClickListener(this);
-        mTvPictureImgNum.setOnClickListener(this);
         mTvPictureTitle.setOnClickListener(this);
         mIvArrow.setOnClickListener(this);
         String title = config.chooseMode == PictureMimeType.ofAudio() ?
@@ -320,39 +311,11 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (PictureSelectionConfig.uiStyle.picture_top_leftBack != 0) {
                 mIvPictureLeftBack.setImageResource(PictureSelectionConfig.uiStyle.picture_top_leftBack);
             }
-
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotBackground != 0) {
-                mTvPictureImgNum.setBackgroundResource(PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotBackground);
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotTextSize != 0) {
-                mTvPictureImgNum.setTextSize(PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotTextSize);
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotTextColor != 0) {
-                mTvPictureImgNum.setTextColor(PictureSelectionConfig.uiStyle.picture_bottom_completeRedDotTextColor);
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeTextColor.length > 0) {
-                ColorStateList colorStateList = AttrsUtils.getColorStateList(PictureSelectionConfig.uiStyle.picture_bottom_completeTextColor);
-                if (colorStateList != null) {
-                    mTvPictureOk.setTextColor(colorStateList);
-                }
-            }
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeTextSize != 0) {
-                mTvPictureOk.setTextSize(PictureSelectionConfig.uiStyle.picture_bottom_completeTextSize);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_bottom_barBackgroundColor != 0) {
-                mBottomLayout.setBackgroundColor(PictureSelectionConfig.uiStyle.picture_bottom_barBackgroundColor);
-            }
             if (PictureSelectionConfig.uiStyle.picture_container_backgroundColor != 0) {
                 container.setBackgroundColor(PictureSelectionConfig.uiStyle.picture_container_backgroundColor);
             }
             if (PictureSelectionConfig.uiStyle.picture_top_titleRightDefaultText != 0) {
                 mTvPictureRight.setText(PictureSelectionConfig.uiStyle.picture_top_titleRightDefaultText);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0) {
-                mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText);
             }
 
             if (PictureSelectionConfig.uiStyle.picture_top_titleArrowLeftPadding != 0) {
@@ -363,11 +326,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (PictureSelectionConfig.uiStyle.picture_top_titleBarHeight > 0) {
                 ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
                 params.height = PictureSelectionConfig.uiStyle.picture_top_titleBarHeight;
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_bottom_barHeight > 0) {
-                ViewGroup.LayoutParams params = mBottomLayout.getLayoutParams();
-                params.height = PictureSelectionConfig.uiStyle.picture_bottom_barHeight;
             }
 
         } else if (PictureSelectionConfig.style != null) {
@@ -396,26 +354,11 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (PictureSelectionConfig.style.pictureLeftBackIcon != 0) {
                 mIvPictureLeftBack.setImageResource(PictureSelectionConfig.style.pictureLeftBackIcon);
             }
-            if (PictureSelectionConfig.style.pictureCheckNumBgStyle != 0) {
-                mTvPictureImgNum.setBackgroundResource(PictureSelectionConfig.style.pictureCheckNumBgStyle);
-            }
-            if (PictureSelectionConfig.style.pictureUnCompleteTextColor != 0) {
-                mTvPictureOk.setTextColor(PictureSelectionConfig.style.pictureUnCompleteTextColor);
-            }
-            if (PictureSelectionConfig.style.pictureCompleteTextSize != 0) {
-                mTvPictureOk.setTextSize(PictureSelectionConfig.style.pictureCompleteTextSize);
-            }
-            if (PictureSelectionConfig.style.pictureBottomBgColor != 0) {
-                mBottomLayout.setBackgroundColor(PictureSelectionConfig.style.pictureBottomBgColor);
-            }
             if (PictureSelectionConfig.style.pictureContainerBackgroundColor != 0) {
                 container.setBackgroundColor(PictureSelectionConfig.style.pictureContainerBackgroundColor);
             }
             if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureRightDefaultText)) {
                 mTvPictureRight.setText(PictureSelectionConfig.style.pictureRightDefaultText);
-            }
-            if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)) {
-                mTvPictureOk.setText(PictureSelectionConfig.style.pictureUnCompleteText);
             }
 
             if (PictureSelectionConfig.style.pictureTitleRightArrowLeftPadding != 0) {
@@ -450,22 +393,11 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 Drawable downDrawable = AttrsUtils.getTypeValueDrawable(getContext(), R.attr.picture_arrow_down_icon, R.drawable.picture_icon_arrow_down);
                 mIvArrow.setImageDrawable(downDrawable);
             }
-            int pictureBottomBgColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_bottom_bg);
-            if (pictureBottomBgColor != 0) {
-                mBottomLayout.setBackgroundColor(pictureBottomBgColor);
-            }
-            ColorStateList completeColorStateList = AttrsUtils.getTypeValueColorStateList(getContext(), R.attr.picture_complete_textColor);
-            if (completeColorStateList != null) {
-                mTvPictureOk.setTextColor(completeColorStateList);
-            }
-            ColorStateList previewColorStateList = AttrsUtils.getTypeValueColorStateList(getContext(), R.attr.picture_preview_textColor);
             int pictureTitleRightArrowLeftPadding = AttrsUtils.getTypeValueSizeForInt(getContext(), R.attr.picture_titleRightArrow_LeftPadding);
             if (pictureTitleRightArrowLeftPadding != 0) {
                 RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIvArrow.getLayoutParams();
                 params.leftMargin = pictureTitleRightArrowLeftPadding;
             }
-            Drawable ovalBgDrawable = AttrsUtils.getTypeValueDrawable(getContext(), R.attr.picture_num_style, R.drawable.picture_num_oval);
-            mTvPictureImgNum.setBackground(ovalBgDrawable);
 
             int titleBarHeight = AttrsUtils.getTypeValueSizeForInt(getContext(), R.attr.picture_titleBar_height);
             if (titleBarHeight > 0) {
@@ -509,100 +441,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      */
     @Override
     protected void initCompleteText(int startCount) {
-        if (config.selectionMode == PictureConfig.SINGLE) {
-            if (startCount <= 0) {
-                if (PictureSelectionConfig.uiStyle != null) {
-                    if (PictureSelectionConfig.uiStyle.isCompleteReplaceNum) {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0
-                                ? String.format(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText), startCount, 1) : getString(R.string.picture_please_select));
-                    } else {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0
-                                ? getString(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText) : getString(R.string.picture_please_select));
-                    }
-                } else if (PictureSelectionConfig.style != null) {
-                    if (PictureSelectionConfig.style.isCompleteReplaceNum && !TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)) {
-                        mTvPictureOk.setText(String.format(PictureSelectionConfig.style.pictureUnCompleteText, startCount, 1));
-                    } else {
-                        mTvPictureOk.setText(!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)
-                                ? PictureSelectionConfig.style.pictureUnCompleteText : getString(R.string.picture_done));
-                    }
-                }
-            } else {
-                if (PictureSelectionConfig.uiStyle != null) {
-                    if (PictureSelectionConfig.uiStyle.isCompleteReplaceNum) {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText != 0
-                                ? String.format(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText), startCount, 1) : getString(R.string.picture_done));
-                    } else {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText != 0
-                                ? getString(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText) : getString(R.string.picture_done));
-                    }
-                } else if (PictureSelectionConfig.style != null) {
-                    if (PictureSelectionConfig.style.isCompleteReplaceNum && !TextUtils.isEmpty(PictureSelectionConfig.style.pictureCompleteText)) {
-                        mTvPictureOk.setText(String.format(PictureSelectionConfig.style.pictureCompleteText, startCount, 1));
-                    } else {
-                        mTvPictureOk.setText(!TextUtils.isEmpty(PictureSelectionConfig.style.pictureCompleteText)
-                                ? PictureSelectionConfig.style.pictureCompleteText : getString(R.string.picture_done));
-                    }
-                }
-            }
-
-        } else {
-            if (startCount <= 0) {
-                if (PictureSelectionConfig.uiStyle != null) {
-                    if (PictureSelectionConfig.uiStyle.isCompleteReplaceNum) {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0
-                                ? String.format(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText), startCount, config.maxSelectNum) :
-                                getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                    } else {
-                        mTvPictureOk.setText(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0
-                                ? getString(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText) :
-                                getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                    }
-                } else if (PictureSelectionConfig.style != null) {
-                    if (PictureSelectionConfig.style.isCompleteReplaceNum) {
-                        mTvPictureOk.setText(!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)
-                                ? String.format(PictureSelectionConfig.style.pictureUnCompleteText, startCount, config.maxSelectNum) :
-                                getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                    } else {
-                        mTvPictureOk.setText(!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)
-                                ? PictureSelectionConfig.style.pictureUnCompleteText :
-                                getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                    }
-                }
-            } else {
-                if (PictureSelectionConfig.uiStyle != null) {
-
-                    if (PictureSelectionConfig.uiStyle.isCompleteReplaceNum) {
-                        if (PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText != 0) {
-                            mTvPictureOk.setText(String.format(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText), startCount, config.maxSelectNum));
-                        } else {
-                            mTvPictureOk.setText(getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                        }
-                    } else {
-                        if (PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText != 0) {
-                            mTvPictureOk.setText(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText));
-                        } else {
-                            mTvPictureOk.setText(getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                        }
-                    }
-
-                } else if (PictureSelectionConfig.style != null) {
-                    if (PictureSelectionConfig.style.isCompleteReplaceNum) {
-                        if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureCompleteText)) {
-                            mTvPictureOk.setText(String.format(PictureSelectionConfig.style.pictureCompleteText, startCount, config.maxSelectNum));
-                        } else {
-                            mTvPictureOk.setText(getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                        }
-                    } else {
-                        if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureCompleteText)) {
-                            mTvPictureOk.setText(PictureSelectionConfig.style.pictureCompleteText);
-                        } else {
-                            mTvPictureOk.setText(getString(R.string.picture_done_front_num, startCount, config.maxSelectNum));
-                        }
-                    }
-                }
-            }
-        }
     }
 
 
@@ -865,11 +703,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             return;
         }
 
-        if (id == R.id.picture_tv_ok || id == R.id.tv_media_num) {
-            onComplete();
-            return;
-        }
-
         if (id == R.id.titleBar) {
             if (config.isAutomaticTitleRecyclerTop) {
                 int intervalTime = 500;
@@ -887,7 +720,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     /**
      * Complete
      */
-    private void onComplete() {
+    protected void onComplete() {
         List<LocalMedia> result = mAdapter.getSelectedData();
         int size = result.size();
         LocalMedia image = result.size() > 0 ? result.get(0) : null;
@@ -1350,52 +1183,15 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     protected void changeImageNumber(List<LocalMedia> selectData) {
         boolean enable = selectData.size() != 0;
         if (enable) {
-            mTvPictureOk.setEnabled(true);
-            mTvPictureOk.setSelected(true);
             if (numComplete) {
                 initCompleteText(selectData.size());
             } else {
-                if (!isStartAnimation) {
-                    mTvPictureImgNum.startAnimation(animation);
-                }
-                mTvPictureImgNum.setVisibility(View.VISIBLE);
-                mTvPictureImgNum.setText(String.valueOf(selectData.size()));
-                if (PictureSelectionConfig.uiStyle != null) {
-                    if (PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText != 0) {
-                        mTvPictureOk.setText(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeNormalText));
-                    }
-                } else if (PictureSelectionConfig.style != null) {
-                    if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureCompleteText)) {
-                        mTvPictureOk.setText(PictureSelectionConfig.style.pictureCompleteText);
-                    }
-                } else {
-                    mTvPictureOk.setText(getString(R.string.picture_completed));
-                }
                 isStartAnimation = false;
             }
         } else {
-            mTvPictureOk.setEnabled(config.returnEmpty);
-            mTvPictureOk.setSelected(false);
-            if (PictureSelectionConfig.style != null) {
-                if (PictureSelectionConfig.style.pictureUnCompleteTextColor != 0) {
-                    mTvPictureOk.setTextColor(PictureSelectionConfig.style.pictureUnCompleteTextColor);
-                }
-            }
             if (numComplete) {
                 initCompleteText(selectData.size());
             } else {
-                mTvPictureImgNum.setVisibility(View.INVISIBLE);
-                if (PictureSelectionConfig.uiStyle != null) {
-                    if (PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText != 0) {
-                        mTvPictureOk.setText(getString(PictureSelectionConfig.uiStyle.picture_bottom_completeDefaultText));
-                    }
-                } else if (PictureSelectionConfig.style != null) {
-                    if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureUnCompleteText)) {
-                        mTvPictureOk.setText(PictureSelectionConfig.style.pictureUnCompleteText);
-                    }
-                } else {
-                    mTvPictureOk.setText(getString(R.string.picture_please_select));
-                }
             }
         }
     }
