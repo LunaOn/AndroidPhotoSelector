@@ -29,7 +29,6 @@ import androidx.annotation.StyleRes;
 
 public final class PictureSelectionConfig implements Parcelable {
     public int chooseMode = PictureMimeType.ofImage();
-    public boolean camera = false;
     public boolean isSingleDirectReturn;
     public static PictureSelectorUIStyle uiStyle;
     public static PictureParameterStyle style;
@@ -58,7 +57,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public int language;
     public boolean isMultipleRecyclerAnimation;
     public boolean isWeChatStyle;
-    public boolean isUseCustomCamera;
     public boolean zoomAnim;
     public boolean isOriginalControl;
     public boolean isCamera = true;
@@ -128,7 +126,6 @@ public final class PictureSelectionConfig implements Parcelable {
 
     protected void initDefaultValue() {
         chooseMode = PictureMimeType.ofImage();
-        camera = false;
         themeStyleId = R.style.picture_default_style;
         selectionMode = PictureConfig.MULTIPLE;
         uiStyle = null;
@@ -167,7 +164,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isFallbackVersion2 = true;
         isFallbackVersion3 = true;
         isWeChatStyle = false;
-        isUseCustomCamera = false;
         isMultipleRecyclerAnimation = true;
         circleDimmedLayer = false;
         hideBottomControls = true;
@@ -242,7 +238,6 @@ public final class PictureSelectionConfig implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.chooseMode);
-        dest.writeByte(this.camera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isSingleDirectReturn ? (byte) 1 : (byte) 0);
         dest.writeString(this.suffixType);
         dest.writeString(this.specifiedFormat);
@@ -267,7 +262,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeInt(this.language);
         dest.writeByte(this.isMultipleRecyclerAnimation ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWeChatStyle ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isUseCustomCamera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.zoomAnim ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isOriginalControl ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCamera ? (byte) 1 : (byte) 0);
@@ -321,7 +315,6 @@ public final class PictureSelectionConfig implements Parcelable {
 
     protected PictureSelectionConfig(Parcel in) {
         this.chooseMode = in.readInt();
-        this.camera = in.readByte() != 0;
         this.isSingleDirectReturn = in.readByte() != 0;
         this.suffixType = in.readString();
         this.specifiedFormat = in.readString();
@@ -347,7 +340,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.language = in.readInt();
         this.isMultipleRecyclerAnimation = in.readByte() != 0;
         this.isWeChatStyle = in.readByte() != 0;
-        this.isUseCustomCamera = in.readByte() != 0;
         this.zoomAnim = in.readByte() != 0;
         this.isOriginalControl = in.readByte() != 0;
         this.isCamera = in.readByte() != 0;

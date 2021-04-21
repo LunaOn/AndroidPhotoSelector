@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -17,6 +14,9 @@ import com.luck.picture.lib.tools.DoubleUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 
 /**
  * @author：luck
@@ -65,19 +65,10 @@ public final class PictureSelector {
     /**
      * @param chooseMode Select the type of picture you want，all or Picture or Video .
      * @return LocalMedia PictureSelectionModel
-     * Use {@link PictureMimeType.ofAll(),ofImage(),ofVideo(),ofAudio()}.
+     * Use { PictureMimeType.ofAll(),ofImage(),ofVideo(),ofAudio()}.
      */
     public PictureSelectionModel openGallery(int chooseMode) {
         return new PictureSelectionModel(this, chooseMode);
-    }
-
-    /**
-     * @param chooseMode Select the type of picture you want，Picture or Video.
-     * @return LocalMedia PictureSelectionModel
-     * Use {@link PictureMimeType.ofImage(),ofVideo()}.
-     */
-    public PictureSelectionModel openCamera(int chooseMode) {
-        return new PictureSelectionModel(this, chooseMode, true);
     }
 
     /**

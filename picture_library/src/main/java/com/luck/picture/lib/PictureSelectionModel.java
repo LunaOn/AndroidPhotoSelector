@@ -2,7 +2,6 @@ package com.luck.picture.lib;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.text.TextUtils;
 
 import com.luck.picture.lib.animators.AnimationType;
@@ -13,7 +12,6 @@ import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnCustomCameraInterfaceListener;
 import com.luck.picture.lib.listener.OnCustomImagePreviewCallback;
-import com.luck.picture.lib.listener.OnResultCallbackListener;
 import com.luck.picture.lib.listener.OnVideoSelectedPlayCallback;
 import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.style.PictureSelectorUIStyle;
@@ -28,8 +26,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 
-import static android.os.Build.VERSION_CODES.KITKAT;
-
 /**
  * @author：luck
  * @date：2017-5-24 21:30
@@ -43,13 +39,6 @@ public class PictureSelectionModel {
     public PictureSelectionModel(PictureSelector selector, int chooseMode) {
         this.selector = selector;
         selectionConfig = PictureSelectionConfig.getCleanInstance();
-        selectionConfig.chooseMode = chooseMode;
-    }
-
-    public PictureSelectionModel(PictureSelector selector, int chooseMode, boolean camera) {
-        this.selector = selector;
-        selectionConfig = PictureSelectionConfig.getCleanInstance();
-        selectionConfig.camera = camera;
         selectionConfig.chooseMode = chooseMode;
     }
 
@@ -147,14 +136,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     * @param isUseCustomCamera Whether to use a custom camera
-     * @return
-     */
-    public PictureSelectionModel isUseCustomCamera(boolean isUseCustomCamera) {
-        selectionConfig.isUseCustomCamera = Build.VERSION.SDK_INT > KITKAT && isUseCustomCamera;
-        return this;
-    }
 
     /**
      * @param callback Provide video playback control，Users are free to customize the video display interface
@@ -577,8 +558,7 @@ public class PictureSelectionModel {
      * @return
      */
     public PictureSelectionModel isOriginalImageControl(boolean isOriginalControl) {
-        selectionConfig.isOriginalControl = !selectionConfig.camera
-                && selectionConfig.chooseMode != PictureMimeType.ofVideo()
+        selectionConfig.isOriginalControl =  selectionConfig.chooseMode != PictureMimeType.ofVideo()
                 && selectionConfig.chooseMode != PictureMimeType.ofAudio() && isOriginalControl;
         return this;
     }
@@ -722,21 +702,11 @@ public class PictureSelectionModel {
     }
 
     /**
-     * @param openClickSound Whether to open click voice
-     * @return Use {link .isOpenClickSound()}
-     */
-    @Deprecated
-    public PictureSelectionModel openClickSound(boolean openClickSound) {
-        selectionConfig.openClickSound = !selectionConfig.camera && openClickSound;
-        return this;
-    }
-
-    /**
      *  isOpenClickSound Whether to open click voice
      * @return
      */
     public PictureSelectionModel isOpenClickSound(boolean openClickSound) {
-        selectionConfig.openClickSound = !selectionConfig.camera && openClickSound;
+        selectionConfig.openClickSound = openClickSound;
         return this;
     }
 
@@ -975,117 +945,9 @@ public class PictureSelectionModel {
             if (activity == null || selectionConfig == null) {
                 return;
             }
-            Intent intent;
-//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-//                intent = new Intent(activity, PictureCustomCameraActivity.class);
-//            } else {
-            intent = new Intent(activity, selectionConfig.camera
-                    ? PictureSelectorCameraEmptyActivity.class :
-                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                            : PictureSelectorActivity.class);
-//            }
+            Intent intent = new Intent(activity, selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
+                    : PictureSelectorActivity.class);
             selectionConfig.isCallbackMode = false;
-            Fragment fragment = selector.getFragment();
-            if (fragment != null) {
-                fragment.startActivityForResult(intent, requestCode);
-            } else {
-                activity.startActivityForResult(intent, requestCode);
-            }
-            PictureWindowAnimationStyle windowAnimationStyle = PictureSelectionConfig.windowAnimationStyle;
-            activity.overridePendingTransition(windowAnimationStyle.activityEnterAnimation, R.anim.picture_anim_fade_in);
-        }
-    }
-
-    /**
-     * # replace for setPictureWindowAnimationStyle();
-     * Start to select media and wait for result.
-     * <p>
-     * # Use PictureWindowAnimationStyle to achieve animation effects
-     *
-     * @param requestCode Identity of the request Activity or Fragment.
-     */
-    @Deprecated
-    public void forResult(int requestCode, int enterAnim, int exitAnim) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Activity activity = selector.getActivity();
-            if (activity == null) {
-                return;
-            }
-            Intent intent = new Intent(activity, selectionConfig != null && selectionConfig.camera
-                    ? PictureSelectorCameraEmptyActivity.class :
-                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class :
-                            PictureSelectorActivity.class);
-            selectionConfig.isCallbackMode = false;
-            Fragment fragment = selector.getFragment();
-            if (fragment != null) {
-                fragment.startActivityForResult(intent, requestCode);
-            } else {
-                activity.startActivityForResult(intent, requestCode);
-            }
-            activity.overridePendingTransition(enterAnim, exitAnim);
-        }
-    }
-
-
-    /**
-     * Start to select media and wait for result.
-     *
-     * @param listener The resulting callback listens
-     */
-    public void forResult(OnResultCallbackListener listener) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Activity activity = selector.getActivity();
-            if (activity == null || selectionConfig == null) {
-                return;
-            }
-            // 绑定回调监听
-            PictureSelectionConfig.listener = new WeakReference<>(listener).get();
-            selectionConfig.isCallbackMode = true;
-            Intent intent;
-//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-//                intent = new Intent(activity, PictureCustomCameraActivity.class);
-//            } else {
-            intent = new Intent(activity, selectionConfig.camera
-                    ? PictureSelectorCameraEmptyActivity.class :
-                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                            : PictureSelectorActivity.class);
-//            }
-            Fragment fragment = selector.getFragment();
-            if (fragment != null) {
-                fragment.startActivity(intent);
-            } else {
-                activity.startActivity(intent);
-            }
-            PictureWindowAnimationStyle windowAnimationStyle = PictureSelectionConfig.windowAnimationStyle;
-            activity.overridePendingTransition(
-                    windowAnimationStyle.activityEnterAnimation, R.anim.picture_anim_fade_in);
-        }
-    }
-
-    /**
-     * Start to select media and wait for result.
-     *
-     * @param requestCode Identity of the request Activity or Fragment.
-     * @param listener    The resulting callback listens
-     */
-    public void forResult(int requestCode, OnResultCallbackListener listener) {
-        if (!DoubleUtils.isFastDoubleClick()) {
-            Activity activity = selector.getActivity();
-            if (activity == null || selectionConfig == null) {
-                return;
-            }
-            // 绑定回调监听
-            PictureSelectionConfig.listener = new WeakReference<>(listener).get();
-            selectionConfig.isCallbackMode = true;
-            Intent intent;
-//            if (selectionConfig.camera && selectionConfig.isUseCustomCamera) {
-//                intent = new Intent(activity, PictureCustomCameraActivity.class);
-//            } else {
-            intent = new Intent(activity, selectionConfig.camera
-                    ? PictureSelectorCameraEmptyActivity.class :
-                    selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
-                            : PictureSelectorActivity.class);
-//            }
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
                 fragment.startActivityForResult(intent, requestCode);

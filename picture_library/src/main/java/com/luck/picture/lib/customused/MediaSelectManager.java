@@ -75,7 +75,7 @@ public class MediaSelectManager {
                 .isPreviewVideo(true)// 是否可预览视频
                 .isCamera(true)// 是否显示拍照按钮
                 .isGif(isGif)
-                .selectionData(getData(oldList))// 是否传入已选图片
+                .selectionData(oldList)// 是否传入已选图片
                 .isPreviewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中)
                 .forResult(requestCode);
     }
@@ -156,81 +156,13 @@ public class MediaSelectManager {
         return uiStyle;
     }
 
-    public static List<com.luck.picture.lib.entity.LocalMedia> getData(List<LocalMedia> mylist) {
-        if (mylist == null) {
-            mylist = new ArrayList<>();
-        }
-        List<com.luck.picture.lib.entity.LocalMedia> list = new ArrayList<>();
-        for (int i = 0; i < mylist.size(); i++) {
-            com.luck.picture.lib.entity.LocalMedia localMedia = new com.luck.picture.lib.entity.LocalMedia();
-            localMedia.setAndroidQToPath(mylist.get(i).getAndroidQToPath());
-            localMedia.setBucketId(mylist.get(i).getBucketId());
-            localMedia.setChecked(mylist.get(i).isChecked());
-            localMedia.setChooseModel(mylist.get(i).getChooseModel());
-            localMedia.setCompressed(mylist.get(i).isCompressed());
-            localMedia.setCompressPath(mylist.get(i).getCompressPath());
-            localMedia.setCut(mylist.get(i).isCut());
-            localMedia.setCutPath(mylist.get(i).getCutPath());
-            localMedia.setDuration(mylist.get(i).getDuration());
-            localMedia.setFileName(mylist.get(i).getFileName());
-            localMedia.setWidth(mylist.get(i).getWidth());
-            localMedia.setHeight(mylist.get(i).getHeight());
-            localMedia.setId(mylist.get(i).getId());
-            localMedia.setMaxSelectEnabledMask(mylist.get(i).isMaxSelectEnabledMask());
-            localMedia.setMimeType(mylist.get(i).getMimeType());
-            localMedia.setNum(mylist.get(i).getNum());
-            localMedia.setOrientation(mylist.get(i).getOrientation());
-            localMedia.setOriginal(mylist.get(i).isOriginal());
-            localMedia.setOriginalPath(mylist.get(i).getOriginalPath());
-            localMedia.setRealPath(mylist.get(i).getRealPath());
-            localMedia.setPosition(mylist.get(i).getPosition());
-            localMedia.setSize(mylist.get(i).getSize());
-            localMedia.setParentFolderName(mylist.get(i).getParentFolderName());
-            localMedia.setPath(mylist.get(i).getPath());
-            list.add(localMedia);
-        }
-        return list;
-    }
-
     /**
      * @param data
      * @return Selector Multiple LocalMedia
      */
     public static List<LocalMedia> obtainMultipleResult(Intent data) {
-        List<LocalMedia> list = new ArrayList<>();
-        if (data != null) {
-            List<com.luck.picture.lib.entity.LocalMedia> result = data.getParcelableArrayListExtra(PictureConfig.EXTRA_RESULT_SELECTION);
-            for (int i = 0; i < result.size(); i++) {
-                LocalMedia localMedia = new LocalMedia();
-                localMedia.setAndroidQToPath(result.get(i).getAndroidQToPath());
-                localMedia.setBucketId(result.get(i).getBucketId());
-                localMedia.setChecked(result.get(i).isChecked());
-                localMedia.setChooseModel(result.get(i).getChooseModel());
-                localMedia.setCompressed(result.get(i).isCompressed());
-                localMedia.setCompressPath(result.get(i).getCompressPath());
-                localMedia.setCut(result.get(i).isCut());
-                localMedia.setCutPath(result.get(i).getCutPath());
-                localMedia.setDuration(result.get(i).getDuration());
-                localMedia.setFileName(result.get(i).getFileName());
-                localMedia.setWidth(result.get(i).getWidth());
-                localMedia.setHeight(result.get(i).getHeight());
-                localMedia.setId(result.get(i).getId());
-                localMedia.setMaxSelectEnabledMask(result.get(i).isMaxSelectEnabledMask());
-                localMedia.setMimeType(result.get(i).getMimeType());
-                localMedia.setNum(result.get(i).getNum());
-                localMedia.setOrientation(result.get(i).getOrientation());
-                localMedia.setOriginal(result.get(i).isOriginal());
-                localMedia.setOriginalPath(result.get(i).getOriginalPath());
-                localMedia.setRealPath(result.get(i).getRealPath());
-                localMedia.setPosition(result.get(i).getPosition());
-                localMedia.setSize(result.get(i).getSize());
-                localMedia.setParentFolderName(result.get(i).getParentFolderName());
-                localMedia.setPath(result.get(i).getPath());
-                list.add(localMedia);
-            }
-
-        }
-        return list;
+        ArrayList<LocalMedia> result = data.getParcelableArrayListExtra(PictureConfig.EXTRA_RESULT_SELECTION);
+        return result == null ? new ArrayList<>() : result;
     }
 
 

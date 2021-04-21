@@ -57,7 +57,6 @@ public final class PictureConfig {
     @Deprecated
     public final static int TYPE_AUDIO = 3;
 
-    public final static int MAX_COMPRESS_SIZE = 100;
 
     public final static int DEFAULT_SPAN_COUNT = 4;
 

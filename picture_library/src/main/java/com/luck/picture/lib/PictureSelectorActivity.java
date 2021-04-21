@@ -876,10 +876,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 }
                 return;
             }
-            if (config.isUseCustomCamera) {
-                startCustomCamera();
-                return;
-            }
             switch (config.chooseMode) {
                 case PictureConfig.TYPE_ALL:
                     PhotoItemSelectedDialog selectedDialog = PhotoItemSelectedDialog.newInstance();
@@ -899,15 +895,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     break;
             }
         }
-    }
-
-    /**
-     * Open Custom Camera
-     */
-    private void startCustomCamera() {
-        PermissionChecker
-                .requestPermissions(this,
-                        new String[]{Manifest.permission.RECORD_AUDIO}, PictureConfig.APPLY_RECORD_AUDIO_PERMISSIONS_CODE);
     }
 
 
@@ -2212,14 +2199,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                     startCamera();
                 } else {
                     showPermissionsDialog(false, getString(R.string.picture_jurisdiction));
-                }
-                break;
-            case PictureConfig.APPLY_RECORD_AUDIO_PERMISSIONS_CODE:
-                // Recording Permissions
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    startCustomCamera();
-                } else {
-                    showPermissionsDialog(false, getString(R.string.picture_audio));
                 }
                 break;
         }

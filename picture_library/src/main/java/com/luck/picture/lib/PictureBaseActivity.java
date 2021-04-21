@@ -207,7 +207,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      * setNewRequestedOrientation
      */
     protected void setNewRequestedOrientation() {
-        if (config != null && !config.camera) {
+        if (config != null) {
             setRequestedOrientation(config.requestedOrientation);
         }
     }
@@ -379,11 +379,11 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             onResultToAndroidAsy(images);
         } else {
             dismissDialog();
-            if (config.camera
-                    && config.selectionMode == PictureConfig.MULTIPLE
-                    && selectionMedias != null) {
-                images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
-            }
+//            if (config.camera
+//                    && config.selectionMode == PictureConfig.MULTIPLE
+//                    && selectionMedias != null) {
+//                images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
+//            }
             if (config.isCheckOriginalImage) {
                 int size = images.size();
                 for (int i = 0; i < size; i++) {
@@ -441,11 +441,11 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             public void onSuccess(List<LocalMedia> images) {
                 dismissDialog();
                 if (images != null) {
-                    if (config.camera
-                            && config.selectionMode == PictureConfig.MULTIPLE
-                            && selectionMedias != null) {
-                        images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
-                    }
+//                    if (config.camera
+//                            && config.selectionMode == PictureConfig.MULTIPLE
+//                            && selectionMedias != null) {
+//                        images.addAll(images.size() > 0 ? images.size() - 1 : 0, selectionMedias);
+//                    }
                     if (PictureSelectionConfig.listener != null) {
                         PictureSelectionConfig.listener.onResult(images);
                     } else {
@@ -463,19 +463,12 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      */
     protected void exit() {
         finish();
-        if (config.camera) {
-            overridePendingTransition(0, R.anim.picture_anim_fade_out);
-            if (getContext() instanceof PictureSelectorCameraEmptyActivity) {
-                releaseResultListener();
-            }
-        } else {
-            overridePendingTransition(0,
-                    PictureSelectionConfig.windowAnimationStyle.activityExitAnimation);
-            if (getContext() instanceof PictureSelectorActivity) {
-                releaseResultListener();
-                if (config.openClickSound) {
-                    VoiceUtils.getInstance().releaseSoundPool();
-                }
+        overridePendingTransition(0,
+                PictureSelectionConfig.windowAnimationStyle.activityExitAnimation);
+        if (getContext() instanceof PictureSelectorActivity) {
+            releaseResultListener();
+            if (config.openClickSound) {
+                VoiceUtils.getInstance().releaseSoundPool();
             }
         }
     }
@@ -522,7 +515,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(config.cameraFileName)) {
                 boolean isSuffixOfImage = PictureMimeType.isSuffixOfImage(config.cameraFileName);
                 config.cameraFileName = !isSuffixOfImage ? StringUtils.renameSuffix(config.cameraFileName, PictureMimeType.JPEG) : config.cameraFileName;
-                cameraFileName = config.camera ? config.cameraFileName : StringUtils.rename(config.cameraFileName);
+                cameraFileName =  StringUtils.rename(config.cameraFileName);
             }
             if (SdkVersionUtils.checkedAndroid_Q()) {
                 if (TextUtils.isEmpty(config.outPutCameraPath)) {
@@ -543,9 +536,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             }
             if (imageUri == null) {
                 ToastUtils.s(getContext(), "open is camera error，the uri is empty ");
-                if (config.camera) {
-                    exit();
-                }
                 return;
             }
             config.cameraMimeType = PictureMimeType.ofImage();
@@ -570,7 +560,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(config.cameraFileName)) {
                 boolean isSuffixOfImage = PictureMimeType.isSuffixOfImage(config.cameraFileName);
                 config.cameraFileName = isSuffixOfImage ? StringUtils.renameSuffix(config.cameraFileName, PictureMimeType.MP4) : config.cameraFileName;
-                cameraFileName = config.camera ? config.cameraFileName : StringUtils.rename(config.cameraFileName);
+                cameraFileName = StringUtils.rename(config.cameraFileName);
             }
             if (SdkVersionUtils.checkedAndroid_Q()) {
                 if (TextUtils.isEmpty(config.outPutCameraPath)) {
@@ -590,9 +580,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             }
             if (videoUri == null) {
                 ToastUtils.s(getContext(), "open is camera error，the uri is empty ");
-                if (config.camera) {
-                    exit();
-                }
                 return;
             }
             config.cameraMimeType = PictureMimeType.ofVideo();
