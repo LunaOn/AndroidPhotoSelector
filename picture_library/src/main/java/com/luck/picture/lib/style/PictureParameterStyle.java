@@ -2,10 +2,10 @@ package com.luck.picture.lib.style;
 
 import android.graphics.Color;
 
+import com.luck.picture.lib.R;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.DrawableRes;
-
-import com.luck.picture.lib.R;
 
 /**
  * @author：luck
@@ -65,7 +65,7 @@ public class PictureParameterStyle {
     /**
      * 相册取消按钮色值
      * <p>
-     * {@link pictureRightDefaultTextColor or pictureRightDefaultTextColor}
+     * { pictureRightDefaultTextColor or pictureRightDefaultTextColor}
      * </p>
      */
     @ColorInt
@@ -167,16 +167,7 @@ public class PictureParameterStyle {
     @ColorInt
     public int pictureNavBarColor;
 
-    /**
-     * 原图字体颜色
-     */
-    @ColorInt
-    public int pictureOriginalFontColor;
 
-    /**
-     * 原图字体大小
-     */
-    public int pictureOriginalTextSize;
 
     /**
      * 相册右侧按钮不可点击背景样式
@@ -274,11 +265,6 @@ public class PictureParameterStyle {
     @DrawableRes
     public int pictureExternalPreviewDeleteStyle;
 
-    /**
-     * 原图勾选样式
-     */
-    @DrawableRes
-    public int pictureOriginalControlStyle;
 
 
     /**
@@ -359,10 +345,6 @@ public class PictureParameterStyle {
         uiStyle.picturePreviewBottomBgColor = Color.parseColor("#393a3e");
         // 外部预览界面删除按钮样式
         uiStyle.pictureExternalPreviewDeleteStyle = R.drawable.picture_icon_delete;
-        // 原图按钮勾选样式  需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalControlStyle = R.drawable.picture_original_wechat_checkbox;
-        // 原图文字颜色 需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalFontColor = Color.parseColor("#FFFFFF");
         // 外部预览界面是否显示删除按钮
         uiStyle.pictureExternalPreviewGonePreviewDelete = true;
         // 设置NavBar Color SDK Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP有效
@@ -417,10 +399,6 @@ public class PictureParameterStyle {
         uiStyle.pictureUnCompleteTextColor = Color.parseColor("#9b9b9b");
         // 预览界面底部背景色
         uiStyle.picturePreviewBottomBgColor = Color.parseColor("#FAFAFA");
-        // 原图按钮勾选样式  需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalControlStyle = R.drawable.picture_original_checkbox;
-        // 原图文字颜色 需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalFontColor = Color.parseColor("#53575e");
         // 外部预览界面删除按钮样式
         uiStyle.pictureExternalPreviewDeleteStyle = R.drawable.picture_icon_black_delete;
         // 外部预览界面是否显示删除按钮
@@ -475,10 +453,6 @@ public class PictureParameterStyle {
         uiStyle.pictureUnCompleteTextColor = Color.parseColor("#7D7DFF");
         // 预览界面底部背景色
         uiStyle.picturePreviewBottomBgColor = Color.parseColor("#FAFAFA");
-        // 原图按钮勾选样式  需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalControlStyle = R.drawable.picture_original_blue_checkbox;
-        // 原图文字颜色 需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalFontColor = Color.parseColor("#7D7DFF");
         // 外部预览界面删除按钮样式
         uiStyle.pictureExternalPreviewDeleteStyle = R.drawable.picture_icon_delete;
         // 外部预览界面是否显示删除按钮
@@ -553,10 +527,6 @@ public class PictureParameterStyle {
         uiStyle.picturePreviewBottomBgColor = Color.parseColor("#a0393a3e");
         // 外部预览界面删除按钮样式
         uiStyle.pictureExternalPreviewDeleteStyle = R.drawable.picture_icon_delete;
-        // 原图按钮勾选样式  需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalControlStyle = R.drawable.picture_original_wechat_checkbox;
-        // 原图文字颜色 需设置.isOriginalImageControl(true); 才有效
-        uiStyle.pictureOriginalFontColor = Color.parseColor("#FFFFFF");
         // 外部预览界面是否显示删除按钮
         uiStyle.pictureExternalPreviewGonePreviewDelete = true;
         // 设置NavBar Color SDK Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP有效

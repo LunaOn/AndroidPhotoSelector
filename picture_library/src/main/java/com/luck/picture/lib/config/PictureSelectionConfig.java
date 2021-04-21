@@ -58,7 +58,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean isMultipleRecyclerAnimation;
     public boolean isWeChatStyle;
     public boolean zoomAnim;
-    public boolean isOriginalControl;
     public boolean isCamera = true;
     public boolean isGif;
     public boolean isWebp;
@@ -89,7 +88,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public static OnCustomCameraInterfaceListener onCustomCameraInterfaceListener;
     public List<LocalMedia> selectionMedias;
     public String cameraFileName;
-    public boolean isCheckOriginalImage;
     @Deprecated
     public boolean isChangeStatusBarFontColor;
     @Deprecated
@@ -142,7 +140,6 @@ public final class PictureSelectionConfig implements Parcelable {
         recordVideoSecond = 60;
         recordVideoMinSecond = 0;
         imageSpanCount = PictureConfig.DEFAULT_SPAN_COUNT;
-        isOriginalControl = false;
         aspect_ratio_x = 0;
         aspect_ratio_y = 0;
         isCameraAroundState = false;
@@ -152,7 +149,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isGif = false;
         isWebp = true;
         isBmp = true;
-        isCheckOriginalImage = false;
         isSingleDirectReturn = false;
         enablePreview = true;
         enPreviewVideo = true;
@@ -263,7 +259,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isMultipleRecyclerAnimation ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWeChatStyle ? (byte) 1 : (byte) 0);
         dest.writeByte(this.zoomAnim ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isOriginalControl ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCamera ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isGif ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWebp ? (byte) 1 : (byte) 0);
@@ -287,7 +282,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isWithVideoImage ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.selectionMedias);
         dest.writeString(this.cameraFileName);
-        dest.writeByte(this.isCheckOriginalImage ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isChangeStatusBarFontColor ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isOpenStyleCheckNumMode ? (byte) 1 : (byte) 0);
         dest.writeInt(this.titleBarBackgroundColor);
@@ -341,7 +335,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isMultipleRecyclerAnimation = in.readByte() != 0;
         this.isWeChatStyle = in.readByte() != 0;
         this.zoomAnim = in.readByte() != 0;
-        this.isOriginalControl = in.readByte() != 0;
         this.isCamera = in.readByte() != 0;
         this.isGif = in.readByte() != 0;
         this.isWebp = in.readByte() != 0;
@@ -365,7 +358,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isWithVideoImage = in.readByte() != 0;
         this.selectionMedias = in.createTypedArrayList(LocalMedia.CREATOR);
         this.cameraFileName = in.readString();
-        this.isCheckOriginalImage = in.readByte() != 0;
         this.isChangeStatusBarFontColor = in.readByte() != 0;
         this.isOpenStyleCheckNumMode = in.readByte() != 0;
         this.titleBarBackgroundColor = in.readInt();

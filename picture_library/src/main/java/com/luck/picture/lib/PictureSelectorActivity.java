@@ -99,7 +99,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     protected SeekBar musicSeekBar;
     protected boolean isPlayAudio = false;
     protected PictureCustomDialog audioDialog;
-    protected CheckBox mCbOriginal;
     protected int oldCurrentListSize;
     protected boolean isEnterSetting;
     private long intervalClickTime = 0;
@@ -138,11 +137,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             isEnterSetting = false;
         }
 
-        if (config.isOriginalControl) {
-            if (mCbOriginal != null) {
-                mCbOriginal.setChecked(config.isCheckOriginalImage);
-            }
-        }
     }
 
     @Override
@@ -159,7 +153,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         mTvPictureTitle = findViewById(R.id.picture_title);
         mTvPictureRight = findViewById(R.id.picture_right);
         mTvPictureOk = findViewById(R.id.picture_tv_ok);
-        mCbOriginal = findViewById(R.id.cb_original);
         mIvArrow = findViewById(R.id.ivArrow);
         viewClickMask = findViewById(R.id.viewClickMask);
         mTvPictureImgNum = findViewById(R.id.tv_media_num);
@@ -223,13 +216,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             default:
                 mRecyclerView.setAdapter(mAdapter);
                 break;
-        }
-        if (config.isOriginalControl) {
-            mCbOriginal.setVisibility(View.VISIBLE);
-            mCbOriginal.setChecked(config.isCheckOriginalImage);
-            mCbOriginal.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                config.isCheckOriginalImage = isChecked;
-            });
         }
     }
 
@@ -384,27 +370,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 params.height = PictureSelectionConfig.uiStyle.picture_bottom_barHeight;
             }
 
-            if (config.isOriginalControl) {
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureCheckStyle != 0) {
-                    mCbOriginal.setButtonDrawable(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureCheckStyle);
-                } else {
-                    mCbOriginal.setButtonDrawable(ContextCompat.getDrawable(this, R.drawable.picture_original_checkbox));
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextColor != 0) {
-                    mCbOriginal.setTextColor(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextColor);
-                } else {
-                    mCbOriginal.setTextColor(ContextCompat.getColor(this, R.color.picture_color_white));
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextSize != 0) {
-                    mCbOriginal.setTextSize(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextSize);
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureText != 0) {
-                    mCbOriginal.setText(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureText);
-                }
-            } else {
-                mCbOriginal.setButtonDrawable(ContextCompat.getDrawable(this, R.drawable.picture_original_checkbox));
-                mCbOriginal.setTextColor(ContextCompat.getColor(this, R.color.picture_color_white));
-            }
         } else if (PictureSelectionConfig.style != null) {
             if (PictureSelectionConfig.style.pictureTitleDownResId != 0) {
                 Drawable drawable = ContextCompat.getDrawable(this, PictureSelectionConfig.style.pictureTitleDownResId);
@@ -462,24 +427,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                 ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
                 params.height = PictureSelectionConfig.style.pictureTitleBarHeight;
             }
-            if (config.isOriginalControl) {
-                if (PictureSelectionConfig.style.pictureOriginalControlStyle != 0) {
-                    mCbOriginal.setButtonDrawable(PictureSelectionConfig.style.pictureOriginalControlStyle);
-                } else {
-                    mCbOriginal.setButtonDrawable(ContextCompat.getDrawable(this, R.drawable.picture_original_checkbox));
-                }
-                if (PictureSelectionConfig.style.pictureOriginalFontColor != 0) {
-                    mCbOriginal.setTextColor(PictureSelectionConfig.style.pictureOriginalFontColor);
-                } else {
-                    mCbOriginal.setTextColor(ContextCompat.getColor(this, R.color.picture_color_white));
-                }
-                if (PictureSelectionConfig.style.pictureOriginalTextSize != 0) {
-                    mCbOriginal.setTextSize(PictureSelectionConfig.style.pictureOriginalTextSize);
-                }
-            } else {
-                mCbOriginal.setButtonDrawable(ContextCompat.getDrawable(this, R.drawable.picture_original_checkbox));
-                mCbOriginal.setTextColor(ContextCompat.getColor(this, R.color.picture_color_white));
-            }
         } else {
             int titleColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_title_textColor);
             if (titleColor != 0) {
@@ -524,14 +471,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             if (titleBarHeight > 0) {
                 ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
                 params.height = titleBarHeight;
-            }
-            if (config.isOriginalControl) {
-                Drawable originalDrawable = AttrsUtils.getTypeValueDrawable(getContext(), R.attr.picture_original_check_style, R.drawable.picture_original_wechat_checkbox);
-                mCbOriginal.setButtonDrawable(originalDrawable);
-                int originalTextColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_original_text_color);
-                if (originalTextColor != 0) {
-                    mCbOriginal.setTextColor(originalTextColor);
-                }
             }
         }
         mTitleBar.setBackgroundColor(colorPrimary);
@@ -1016,10 +955,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             exit();
             return;
         }
-        if (config.isCheckOriginalImage) {
-            onResult(result);
-            return;
-        }
         if (config.chooseMode == PictureMimeType.ofAll() && config.isWithVideoImage) {
             bothMimeTypeWith(isHasImage, result);
         } else {
@@ -1394,7 +1329,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             ImagesObservable.getInstance().savePreviewMediaData(new ArrayList<>(previewData));
             bundle.putParcelableArrayList(PictureConfig.EXTRA_SELECT_LIST, (ArrayList<? extends Parcelable>) selectedData);
             bundle.putInt(PictureConfig.EXTRA_POSITION, position);
-            bundle.putBoolean(PictureConfig.EXTRA_CHANGE_ORIGINAL, config.isCheckOriginalImage);
             bundle.putBoolean(PictureConfig.EXTRA_SHOW_CAMERA, mAdapter.isShowCamera());
             bundle.putLong(PictureConfig.EXTRA_BUCKET_ID, ValueOf.toLong(mTvPictureTitle.getTag(R.id.view_tag)));
             bundle.putInt(PictureConfig.EXTRA_PAGE, mPage);
@@ -1517,10 +1451,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
     private void previewCallback(Intent data) {
         if (data == null) {
             return;
-        }
-        if (config.isOriginalControl) {
-            config.isCheckOriginalImage = data.getBooleanExtra(PictureConfig.EXTRA_CHANGE_ORIGINAL, config.isCheckOriginalImage);
-            mCbOriginal.setChecked(config.isCheckOriginalImage);
         }
         List<LocalMedia> list = data.getParcelableArrayListExtra(PictureConfig.EXTRA_SELECT_LIST);
         if (mAdapter != null && list != null) {

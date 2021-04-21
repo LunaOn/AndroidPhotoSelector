@@ -24,7 +24,6 @@ public final class PictureConfig {
     public final static String EXTRA_SELECT_LIST = "selectList";
     public final static String EXTRA_COMPLETE_SELECTED = "isCompleteOrSelected";
     public final static String EXTRA_CHANGE_SELECTED_DATA = "isChangeSelectedData";
-    public final static String EXTRA_CHANGE_ORIGINAL = "isOriginal";
     public final static String EXTRA_POSITION = "position";
     public final static String EXTRA_OLD_CURRENT_LIST_SIZE = "oldCurrentListSize";
     public final static String EXTRA_DIRECTORY_PATH = "directory_path";

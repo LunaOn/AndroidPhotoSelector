@@ -394,7 +394,6 @@ public class PictureSelectionModel {
     public PictureSelectionModel isSingleDirectReturn(boolean isSingleDirectReturn) {
         selectionConfig.isSingleDirectReturn = selectionConfig.selectionMode
                 == PictureConfig.SINGLE && isSingleDirectReturn;
-        selectionConfig.isOriginalControl = (selectionConfig.selectionMode != PictureConfig.SINGLE || !isSingleDirectReturn) && selectionConfig.isOriginalControl;
         return this;
     }
 
@@ -550,16 +549,6 @@ public class PictureSelectionModel {
      */
     public PictureSelectionModel isQuickCapture(boolean isQuickCapture) {
         selectionConfig.isQuickCapture = isQuickCapture;
-        return this;
-    }
-
-    /**
-     * @param isOriginalControl Whether the original image is displayed
-     * @return
-     */
-    public PictureSelectionModel isOriginalImageControl(boolean isOriginalControl) {
-        selectionConfig.isOriginalControl =  selectionConfig.chooseMode != PictureMimeType.ofVideo()
-                && selectionConfig.chooseMode != PictureMimeType.ofAudio() && isOriginalControl;
         return this;
     }
 

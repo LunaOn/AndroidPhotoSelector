@@ -7,8 +7,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 
-import androidx.core.content.ContextCompat;
-
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
@@ -16,6 +14,8 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.AttrsUtils;
 
 import java.util.List;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * @author：luck
@@ -36,7 +36,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
         rlAlbum = findViewById(R.id.rlAlbum);
         mTvPictureRight.setOnClickListener(this);
         mTvPictureRight.setText(getString(R.string.picture_send));
-        mCbOriginal.setTextSize(16);
         boolean isChooseMode = config.selectionMode ==
                 PictureConfig.SINGLE && config.isSingleDirectReturn;
         mTvPictureRight.setVisibility(isChooseMode ? View.GONE : View.VISIBLE);
@@ -76,17 +75,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
                 mTvPictureRight.setTextSize(PictureSelectionConfig.uiStyle.picture_top_titleRightTextSize);
             }
 
-            if (config.isOriginalControl) {
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureCheckStyle != 0) {
-                    mCbOriginal.setButtonDrawable(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureCheckStyle);
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextColor != 0) {
-                    mCbOriginal.setTextColor(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextColor);
-                }
-                if (PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextSize != 0) {
-                    mCbOriginal.setTextSize(PictureSelectionConfig.uiStyle.picture_bottom_originalPictureTextSize);
-                }
-            }
             if (PictureSelectionConfig.uiStyle.picture_container_backgroundColor != 0) {
                 container.setBackgroundColor(PictureSelectionConfig.uiStyle.picture_container_backgroundColor);
             }
@@ -122,16 +110,6 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
             if (PictureSelectionConfig.style.pictureRightTextSize != 0) {
                 mTvPictureRight.setTextSize(PictureSelectionConfig.style.pictureRightTextSize);
             }
-            if (PictureSelectionConfig.style.pictureOriginalFontColor == 0) {
-                mCbOriginal.setTextColor(ContextCompat
-                        .getColor(this, R.color.picture_color_white));
-            }
-            if (config.isOriginalControl) {
-                if (PictureSelectionConfig.style.pictureOriginalControlStyle == 0) {
-                    mCbOriginal.setButtonDrawable(ContextCompat
-                            .getDrawable(this, R.drawable.picture_original_wechat_checkbox));
-                }
-            }
             if (PictureSelectionConfig.style.pictureContainerBackgroundColor != 0) {
                 container.setBackgroundColor(PictureSelectionConfig.style.pictureContainerBackgroundColor);
             }
@@ -154,14 +132,8 @@ public class PictureSelectorWeChatStyleActivity extends PictureSelectorActivity 
             mBottomLayout.setBackgroundColor(pictureBottomBgColor != 0
                     ? pictureBottomBgColor : ContextCompat.getColor(getContext(), R.color.picture_color_grey));
 
-            mCbOriginal.setTextColor(ContextCompat
-                    .getColor(this, R.color.picture_color_white));
             Drawable drawable = ContextCompat.getDrawable(this, R.drawable.picture_icon_wechat_down);
             mIvArrow.setImageDrawable(drawable);
-            if (config.isOriginalControl) {
-                mCbOriginal.setButtonDrawable(ContextCompat
-                        .getDrawable(this, R.drawable.picture_original_wechat_checkbox));
-            }
         }
         super.initPictureSelectorStyle();
         goneParentView();

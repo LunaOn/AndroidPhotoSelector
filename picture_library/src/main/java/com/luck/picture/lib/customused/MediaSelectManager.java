@@ -124,9 +124,6 @@ public class MediaSelectManager {
         uiStyle.picture_adapter_item_video_textLeftDrawable = R.drawable.picture_icon_video;
         uiStyle.picture_adapter_item_audio_textLeftDrawable = R.drawable.picture_icon_audio;
 
-        uiStyle.picture_bottom_originalPictureTextSize = 14;
-        uiStyle.picture_bottom_originalPictureCheckStyle = R.drawable.picture_original_wechat_checkbox;
-        uiStyle.picture_bottom_originalPictureTextColor = Color.parseColor("#FFFFFF");
         uiStyle.picture_top_titleRightTextDefaultBackground = drawableTopCompleteDefaultBtnBackground;
         uiStyle.picture_top_titleRightTextNormalBackground = drawableTopCompleteNormalBtnBackground;
         Context appContext = PictureAppMaster.getInstance().getAppContext();
@@ -137,7 +134,6 @@ public class MediaSelectManager {
             uiStyle.picture_bottom_barHeight = ScreenUtils.dip2px(appContext, 45);
             uiStyle.picture_bottom_previewDefaultText = R.string.picture_preview;
             uiStyle.picture_bottom_previewNormalText = R.string.picture_preview_num;
-            uiStyle.picture_bottom_originalPictureText = R.string.picture_original_image;
             uiStyle.picture_bottom_completeDefaultText = R.string.picture_please_select;
             uiStyle.picture_bottom_completeNormalText = R.string.picture_completed;
             uiStyle.picture_adapter_item_camera_text = R.string.picture_take_picture;
