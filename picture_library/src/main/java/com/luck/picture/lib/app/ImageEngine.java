@@ -1,12 +1,9 @@
-package com.luck.picture.lib.engine;
+package com.luck.picture.lib.app;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-
-import com.luck.picture.lib.listener.OnImageCompleteCallback;
-import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
 
 /**
  * @author：luck
@@ -22,26 +19,6 @@ public interface ImageEngine {
      * @param imageView
      */
     void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView);
-
-    /**
-     * Loading image
-     *
-     * @param context
-     * @param url
-     * @param imageView
-     */
-    void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView, SubsamplingScaleImageView longImageView, OnImageCompleteCallback callback);
-
-    /**
-     * Load network long graph adaption
-     *
-     * @param context
-     * @param url
-     * @param imageView
-     */
-    @Deprecated
-    void loadImage(@NonNull Context context, @NonNull String url, @NonNull ImageView imageView, SubsamplingScaleImageView longImageView);
-
 
     /**
      * Load album catalog pictures

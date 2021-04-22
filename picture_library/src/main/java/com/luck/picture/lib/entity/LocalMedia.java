@@ -32,20 +32,6 @@ public class LocalMedia implements Parcelable {
     private String realPath;
 
     /**
-     * # Check the original button to get the return value
-     * original path
-     */
-    private String originalPath;
-    /**
-     * compress path
-     */
-    private String compressPath;
-    /**
-     * cut path
-     */
-    private String cutPath;
-
-    /**
      * Note: this field is only returned in Android Q version
      * <p>
      * Android Q image or video path
@@ -60,10 +46,6 @@ public class LocalMedia implements Parcelable {
      * # Internal use
      */
     private boolean isChecked;
-    /**
-     * If the cut
-     */
-    private boolean isCut;
     /**
      * media position of list
      */
@@ -83,10 +65,6 @@ public class LocalMedia implements Parcelable {
     private int chooseModel;
 
     /**
-     * If the compressed
-     */
-    private boolean compressed;
-    /**
      * image or video width
      * <p>
      * # If zero occurs, the developer needs to handle it extra
@@ -103,11 +81,6 @@ public class LocalMedia implements Parcelable {
      * file size
      */
     private long size;
-
-    /**
-     * Whether the original image is displayed
-     */
-    private boolean isOriginal;
 
     /**
      * file name
@@ -207,21 +180,7 @@ public class LocalMedia implements Parcelable {
         this.path = path;
     }
 
-    public String getCompressPath() {
-        return compressPath;
-    }
 
-    public void setCompressPath(String compressPath) {
-        this.compressPath = compressPath;
-    }
-
-    public String getCutPath() {
-        return cutPath;
-    }
-
-    public void setCutPath(String cutPath) {
-        this.cutPath = cutPath;
-    }
 
     public String getAndroidQToPath() {
         return androidQToPath;
@@ -255,14 +214,6 @@ public class LocalMedia implements Parcelable {
         isChecked = checked;
     }
 
-    public boolean isCut() {
-        return isCut;
-    }
-
-    public void setCut(boolean cut) {
-        isCut = cut;
-    }
-
     public int getPosition() {
         return position;
     }
@@ -285,14 +236,6 @@ public class LocalMedia implements Parcelable {
 
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
-    }
-
-    public boolean isCompressed() {
-        return compressed;
-    }
-
-    public void setCompressed(boolean compressed) {
-        this.compressed = compressed;
     }
 
     public int getWidth() {
@@ -327,21 +270,6 @@ public class LocalMedia implements Parcelable {
         this.size = size;
     }
 
-    public boolean isOriginal() {
-        return isOriginal;
-    }
-
-    public void setOriginal(boolean original) {
-        isOriginal = original;
-    }
-
-    public String getOriginalPath() {
-        return originalPath;
-    }
-
-    public void setOriginalPath(String originalPath) {
-        this.originalPath = originalPath;
-    }
 
     public String getFileName() {
         return fileName;
@@ -403,22 +331,16 @@ public class LocalMedia implements Parcelable {
         dest.writeLong(this.id);
         dest.writeString(this.path);
         dest.writeString(this.realPath);
-        dest.writeString(this.originalPath);
-        dest.writeString(this.compressPath);
-        dest.writeString(this.cutPath);
         dest.writeString(this.androidQToPath);
         dest.writeLong(this.duration);
         dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isCut ? (byte) 1 : (byte) 0);
         dest.writeInt(this.position);
         dest.writeInt(this.num);
         dest.writeString(this.mimeType);
         dest.writeInt(this.chooseModel);
-        dest.writeByte(this.compressed ? (byte) 1 : (byte) 0);
         dest.writeInt(this.width);
         dest.writeInt(this.height);
         dest.writeLong(this.size);
-        dest.writeByte(this.isOriginal ? (byte) 1 : (byte) 0);
         dest.writeString(this.fileName);
         dest.writeString(this.parentFolderName);
         dest.writeInt(this.orientation);
@@ -432,22 +354,16 @@ public class LocalMedia implements Parcelable {
         this.id = in.readLong();
         this.path = in.readString();
         this.realPath = in.readString();
-        this.originalPath = in.readString();
-        this.compressPath = in.readString();
-        this.cutPath = in.readString();
         this.androidQToPath = in.readString();
         this.duration = in.readLong();
         this.isChecked = in.readByte() != 0;
-        this.isCut = in.readByte() != 0;
         this.position = in.readInt();
         this.num = in.readInt();
         this.mimeType = in.readString();
         this.chooseModel = in.readInt();
-        this.compressed = in.readByte() != 0;
         this.width = in.readInt();
         this.height = in.readInt();
         this.size = in.readLong();
-        this.isOriginal = in.readByte() != 0;
         this.fileName = in.readString();
         this.parentFolderName = in.readString();
         this.orientation = in.readInt();

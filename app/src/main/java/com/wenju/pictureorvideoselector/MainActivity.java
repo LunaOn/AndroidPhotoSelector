@@ -9,7 +9,7 @@ import com.luck.picture.lib.customused.MediaSelectManager;
 import com.luck.picture.lib.customused.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
-import com.luck.picture.lib.model.LocalMediaLoader;
+import com.luck.picture.lib.app.LocalMediaLoader;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.luck.picture.lib.engine;
+package com.luck.picture.lib.app;
 
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;

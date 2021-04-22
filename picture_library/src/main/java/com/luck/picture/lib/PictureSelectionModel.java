@@ -4,19 +4,17 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.luck.picture.lib.animators.AnimationType;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.engine.ImageEngine;
+import com.luck.picture.lib.app.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.style.PictureWindowAnimationStyle;
+import com.luck.picture.lib.config.PictureWindowAnimationStyle;
 import com.luck.picture.lib.tools.DoubleUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 
 import java.util.List;
 
-import androidx.annotation.ColorInt;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -483,14 +481,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-    /**
-     *  isOpenClickSound Whether to open click voice
-     * @return
-     */
-    public PictureSelectionModel isOpenClickSound(boolean openClickSound) {
-        selectionConfig.openClickSound = openClickSound;
-        return this;
-    }
 
     /**
      * 设置摄像头方向(前后 默认后置)
@@ -537,96 +527,6 @@ public class PictureSelectionModel {
     }
 
 
-    /**
-     * 是否开启数字选择模式
-     * #适合qq style 样式使用
-     *
-     * @param isOpenStyleCheckNumMode
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel isOpenStyleCheckNumMode(boolean isOpenStyleCheckNumMode) {
-        selectionConfig.isOpenStyleCheckNumMode = isOpenStyleCheckNumMode;
-        return this;
-    }
-
-    /**
-     * 设置标题栏背景色
-     *
-     * @param color
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setTitleBarBackgroundColor(@ColorInt int color) {
-        selectionConfig.titleBarBackgroundColor = color;
-        return this;
-    }
-
-
-    /**
-     * 状态栏背景色
-     *
-     * @param color
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setStatusBarColorPrimaryDark(@ColorInt int color) {
-        selectionConfig.pictureStatusBarColor = color;
-        return this;
-    }
-
-
-    /**
-     * 设置相册标题右侧向上箭头图标
-     *
-     * @param resId
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setUpArrowDrawable(int resId) {
-        selectionConfig.upResId = resId;
-        return this;
-    }
-
-    /**
-     * 设置相册标题右侧向下箭头图标
-     *
-     * @param resId
-     * @return 使用setPictureStyle方法
-     */
-    @Deprecated
-    public PictureSelectionModel setDownArrowDrawable(int resId) {
-        selectionConfig.downResId = resId;
-        return this;
-    }
-
-
-    /**
-     * Dynamically set the album to start and exit the animation
-     *
-     *  style Activity Launch exit animation theme
-     * @return
-     */
-    public PictureSelectionModel setPictureWindowAnimationStyle(PictureWindowAnimationStyle windowAnimationStyle) {
-        if (windowAnimationStyle != null) {
-            PictureSelectionConfig.windowAnimationStyle = windowAnimationStyle;
-        } else {
-            PictureSelectionConfig.windowAnimationStyle = PictureWindowAnimationStyle.ofDefaultWindowAnimationStyle();
-        }
-        return this;
-    }
-
-    /**
-     * Photo album list animation {}
-     * Use {@link AnimationType#ALPHA_IN_ANIMATION or SLIDE_IN_BOTTOM_ANIMATION} directly.
-     *
-     * @param animationMode
-     * @return
-     */
-    public PictureSelectionModel setRecyclerAnimationMode(int animationMode) {
-        selectionConfig.animationMode = animationMode;
-        return this;
-    }
 
     /**
      * # If you want to handle the Android Q path, if not, just return the uri，

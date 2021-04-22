@@ -3,8 +3,6 @@ package com.luck.picture.lib;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,24 +13,19 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.luck.picture.lib.adapter.PictureImageGridAdapter;
-import com.luck.picture.lib.animators.AlphaInAnimationAdapter;
-import com.luck.picture.lib.animators.AnimationType;
-import com.luck.picture.lib.animators.SlideInBottomAnimationAdapter;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.dialog.PhotoItemSelectedDialog;
-import com.luck.picture.lib.dialog.PictureCustomDialog;
+import com.luck.picture.lib.widget.dialog.PhotoItemSelectedDialog;
+import com.luck.picture.lib.widget.dialog.PictureCustomDialog;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.listener.OnAlbumItemClickListener;
@@ -40,12 +33,11 @@ import com.luck.picture.lib.listener.OnItemClickListener;
 import com.luck.picture.lib.listener.OnPhotoSelectChangedListener;
 import com.luck.picture.lib.listener.OnQueryDataResultListener;
 import com.luck.picture.lib.listener.OnRecyclerViewPreloadMoreListener;
-import com.luck.picture.lib.model.LocalMediaLoader;
-import com.luck.picture.lib.model.LocalMediaPageLoader;
+import com.luck.picture.lib.app.LocalMediaLoader;
+import com.luck.picture.lib.app.LocalMediaPageLoader;
 import com.luck.picture.lib.observable.ImagesObservable;
-import com.luck.picture.lib.permissions.PermissionChecker;
+import com.luck.picture.lib.tools.PermissionChecker;
 import com.luck.picture.lib.thread.PictureThreadUtils;
-import com.luck.picture.lib.tools.AttrsUtils;
 import com.luck.picture.lib.tools.BitmapUtils;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.DoubleUtils;
@@ -63,10 +55,8 @@ import com.luck.picture.lib.widget.RecyclerPreloadView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -192,20 +182,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         StringUtils.tempTextFont(mTvEmpty, config.chooseMode);
         mAdapter = new PictureImageGridAdapter(getContext(), config);
         mAdapter.setOnPhotoSelectChangedListener(this);
-
-        switch (config.animationMode) {
-            case AnimationType
-                    .ALPHA_IN_ANIMATION:
-                mRecyclerView.setAdapter(new AlphaInAnimationAdapter(mAdapter));
-                break;
-            case AnimationType
-                    .SLIDE_IN_BOTTOM_ANIMATION:
-                mRecyclerView.setAdapter(new SlideInBottomAnimationAdapter(mAdapter));
-                break;
-            default:
-                mRecyclerView.setAdapter(mAdapter);
-                break;
-        }
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override

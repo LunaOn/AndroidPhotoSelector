@@ -1,4 +1,4 @@
-package com.luck.picture.lib.dialog;
+package com.luck.picture.lib.widget.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -10,15 +10,15 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.luck.picture.lib.R;
+import com.luck.picture.lib.listener.OnItemClickListener;
+import com.luck.picture.lib.tools.ScreenUtils;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.luck.picture.lib.R;
-import com.luck.picture.lib.listener.OnItemClickListener;
-import com.luck.picture.lib.tools.ScreenUtils;
 
 /**
  * @author：luck

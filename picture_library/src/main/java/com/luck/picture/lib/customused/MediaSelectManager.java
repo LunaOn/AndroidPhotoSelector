@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.R;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.language.LanguageConfig;
@@ -23,8 +22,6 @@ public class MediaSelectManager {
     public final static int CHOOSE_REQUEST = 188;
     private int type = PictureMimeType.TYPE_IMAGE;
     private int maxSelectNum = 8;
-    private int drawableTopCompleteDefaultBtnBackground = R.drawable.picture_send_button_default_bg;
-    private int drawableTopCompleteNormalBtnBackground = R.drawable.picture_send_button_bg;
     private boolean isSingleselect = false;
     private boolean isGif = false;
     private List<LocalMedia> oldList = new ArrayList<>();
@@ -32,13 +29,11 @@ public class MediaSelectManager {
 
 
     public void create(Fragment fragment) {
-        pictureSelector(PictureSelector.create(fragment), type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
-                drawableTopCompleteNormalBtnBackground, isSingleselect, isGif, oldList, requestCode);
+        pictureSelector(PictureSelector.create(fragment), type, maxSelectNum, isSingleselect, isGif, oldList, requestCode);
     }
 
     public void create(Activity activity) {
-        pictureSelector(PictureSelector.create(activity), type, maxSelectNum, drawableTopCompleteDefaultBtnBackground,
-                drawableTopCompleteNormalBtnBackground, isSingleselect, isGif, oldList, requestCode);
+        pictureSelector(PictureSelector.create(activity), type, maxSelectNum, isSingleselect, isGif, oldList, requestCode);
     }
 
     /**
@@ -49,12 +44,11 @@ public class MediaSelectManager {
      * @param oldList 传入选中的图片
      * @param requestCode
      */
-    public static void pictureSelector(PictureSelector pictureSelector, int type, int maxSelectNum, int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground
-            , boolean isSingleselect, boolean isGif, List<LocalMedia> oldList, int requestCode) {
+    public static void pictureSelector(PictureSelector pictureSelector, int type, int maxSelectNum,
+                                       boolean isSingleselect, boolean isGif, List<LocalMedia> oldList, int requestCode) {
         pictureSelector
                 .openGallery(type)
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
-//                .setPictureUIStyle(wechatStyle(drawableTopCompleteDefaultBtnBackground, drawableTopCompleteNormalBtnBackground))
                 .isWeChatStyle(true)// 是否开启微信图片选择风格
                 .setLanguage(LanguageConfig.ENGLISH)// 设置语言，默认中文
                 .isMaxSelectEnabledMask(true)// 选择数到了最大阀值列表是否启用蒙层效果
@@ -159,24 +153,6 @@ public class MediaSelectManager {
 
     public MediaSelectManager setMaxSelectNum(int maxSelectNum) {
         this.maxSelectNum = maxSelectNum;
-        return this;
-    }
-
-    public int getDrawableTopCompleteDefaultBtnBackground() {
-        return drawableTopCompleteDefaultBtnBackground;
-    }
-
-    public MediaSelectManager setDrawableTopCompleteDefaultBtnBackground(int drawableTopCompleteDefaultBtnBackground) {
-        this.drawableTopCompleteDefaultBtnBackground = drawableTopCompleteDefaultBtnBackground;
-        return this;
-    }
-
-    public int getDrawableTopCompleteNormalBtnBackground() {
-        return drawableTopCompleteNormalBtnBackground;
-    }
-
-    public MediaSelectManager setDrawableTopCompleteNormalBtnBackground(int drawableTopCompleteNormalBtnBackground) {
-        this.drawableTopCompleteNormalBtnBackground = drawableTopCompleteNormalBtnBackground;
         return this;
     }
 

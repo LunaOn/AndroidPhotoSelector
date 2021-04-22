@@ -1,4 +1,4 @@
-package com.luck.picture.lib.model;
+package com.luck.picture.lib.app;
 
 import android.content.Context;
 import android.database.Cursor;

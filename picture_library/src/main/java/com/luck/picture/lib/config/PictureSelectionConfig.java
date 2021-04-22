@@ -3,10 +3,9 @@ package com.luck.picture.lib.config;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.luck.picture.lib.engine.ImageEngine;
+import com.luck.picture.lib.app.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
-import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +46,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean enPreviewVideo;
     public boolean enablePreviewAudio;
     public boolean checkNumMode;
-    public boolean openClickSound;
     public boolean returnEmpty;
     public boolean isWithVideoImage;
     public static ImageEngine imageEngine;
@@ -62,7 +60,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean isPageStrategy = true;
     public boolean isFilterInvalidFile;
     public boolean isMaxSelectEnabledMask;
-    public int animationMode = -1;
     public boolean isAutomaticTitleRecyclerTop = true;
     public boolean isCallbackMode;
     public boolean isAndroidQChangeWH;
@@ -101,7 +98,6 @@ public final class PictureSelectionConfig implements Parcelable {
         enPreviewVideo = true;
         enablePreviewAudio = true;
         checkNumMode = false;
-        openClickSound = false;
         isFallbackVersion = false;
         isFallbackVersion2 = true;
         isFallbackVersion3 = true;
@@ -119,7 +115,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isPageStrategy = true;
         isFilterInvalidFile = false;
         isMaxSelectEnabledMask = false;
-        animationMode = -1;
         isAutomaticTitleRecyclerTop = true;
         isCallbackMode = false;
         isAndroidQChangeWH = true;
@@ -187,7 +182,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.enPreviewVideo ? (byte) 1 : (byte) 0);
         dest.writeByte(this.enablePreviewAudio ? (byte) 1 : (byte) 0);
         dest.writeByte(this.checkNumMode ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.openClickSound ? (byte) 1 : (byte) 0);
         dest.writeByte(this.returnEmpty ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isWithVideoImage ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.selectionMedias);
@@ -199,7 +193,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isPageStrategy ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isFilterInvalidFile ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isMaxSelectEnabledMask ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.animationMode);
         dest.writeByte(this.isAutomaticTitleRecyclerTop ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isCallbackMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQChangeWH ? (byte) 1 : (byte) 0);
@@ -240,7 +233,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.enPreviewVideo = in.readByte() != 0;
         this.enablePreviewAudio = in.readByte() != 0;
         this.checkNumMode = in.readByte() != 0;
-        this.openClickSound = in.readByte() != 0;
         this.returnEmpty = in.readByte() != 0;
         this.isWithVideoImage = in.readByte() != 0;
         this.selectionMedias = in.createTypedArrayList(LocalMedia.CREATOR);
@@ -252,7 +244,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isPageStrategy = in.readByte() != 0;
         this.isFilterInvalidFile = in.readByte() != 0;
         this.isMaxSelectEnabledMask = in.readByte() != 0;
-        this.animationMode = in.readInt();
         this.isAutomaticTitleRecyclerTop = in.readByte() != 0;
         this.isCallbackMode = in.readByte() != 0;
         this.isAndroidQChangeWH = in.readByte() != 0;

@@ -1,4 +1,4 @@
-package com.luck.picture.lib.permissions;
+package com.luck.picture.lib.tools;
 
 import android.app.Activity;
 import android.content.Context;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.net.Uri;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -17,7 +16,6 @@ import java.io.OutputStream;
 public class AndroidQTransformUtils {
 
 
-    private OutputStream fileOutputStream;
 
     /**
      * 解析Android Q版本下图片
@@ -55,29 +53,6 @@ public class AndroidQTransformUtils {
             IOUtils.close(outputStream);
         }
         return "";
-    }
-
-    /**
-     * 复制文件至AndroidQ手机相册目录
-     *
-     * @param context
-     * @param inFile
-     * @param outUri
-     */
-    public static boolean copyPathToDCIM(Context context, File inFile, Uri outUri) {
-        InputStream inputStream = null;
-        OutputStream fileOutputStream = null;
-        try {
-            inputStream = new FileInputStream(inFile);
-            fileOutputStream = context.getContentResolver().openOutputStream(outUri);
-            return IOUtils.transfer(inputStream, fileOutputStream);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            IOUtils.close(inputStream);
-            IOUtils.close(fileOutputStream);
-        }
-        return false;
     }
 
 }

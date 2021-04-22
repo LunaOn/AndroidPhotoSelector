@@ -19,24 +19,21 @@ import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.dialog.PictureCustomDialog;
-import com.luck.picture.lib.dialog.PictureLoadingDialog;
-import com.luck.picture.lib.engine.PictureSelectorEngine;
+import com.luck.picture.lib.widget.dialog.PictureCustomDialog;
+import com.luck.picture.lib.widget.dialog.PictureLoadingDialog;
+import com.luck.picture.lib.app.PictureSelectorEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
-import com.luck.picture.lib.immersive.ImmersiveManage;
-import com.luck.picture.lib.immersive.NavBarUtils;
 import com.luck.picture.lib.language.PictureLanguageUtils;
-import com.luck.picture.lib.model.LocalMediaPageLoader;
-import com.luck.picture.lib.permissions.PermissionChecker;
+import com.luck.picture.lib.app.LocalMediaPageLoader;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.MediaUtils;
+import com.luck.picture.lib.tools.PermissionChecker;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.luck.picture.lib.tools.ToastUtils;
-import com.luck.picture.lib.tools.VoiceUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -86,10 +83,10 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
 
 
     public void immersive() {
-        ImmersiveManage.immersiveAboveAPI23(this
-                , colorPrimaryDark
-                , colorPrimary
-                , false);
+//        ImmersiveManage.immersiveAboveAPI23(this
+//                , colorPrimaryDark
+//                , colorPrimary
+//                , false);
     }
 
 
@@ -139,7 +136,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         if (isImmersive()) {
             immersive();
         }
-        NavBarUtils.setNavBarColor(this, colorPrimaryDark);
+//        NavBarUtils.setNavBarColor(this, colorPrimaryDark);
         /*if (PictureSelectionConfig.uiStyle != null) {
             if (PictureSelectionConfig.uiStyle.picture_navBarColor != 0) {
                 NavBarUtils.setNavBarColor(this, PictureSelectionConfig.uiStyle.picture_navBarColor);
@@ -249,9 +246,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             }
         }*/
 
-        if (config.openClickSound) {
-            VoiceUtils.getInstance().init(getContext());
-        }
     }
 
     @Override
@@ -381,17 +375,13 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
                     if (media == null || TextUtils.isEmpty(media.getPath())) {
                         continue;
                     }
-                    boolean isCopyAndroidQToPath = !media.isCut()
-                            && !media.isCompressed()
-                            && TextUtils.isEmpty(media.getAndroidQToPath());
+                    boolean isCopyAndroidQToPath = TextUtils.isEmpty(media.getAndroidQToPath());
                     if (isCopyAndroidQToPath && PictureMimeType.isContent(media.getPath())) {
                         if (!PictureMimeType.isHasHttp(media.getPath())) {
                             String AndroidQToPath = AndroidQTransformUtils.copyPathToAndroidQ(getContext(),
                                     media.getPath(), media.getWidth(), media.getHeight(), media.getMimeType(), config.cameraFileName);
                             media.setAndroidQToPath(AndroidQToPath);
                         }
-                    } else if (media.isCut() && media.isCompressed()) {
-                        media.setAndroidQToPath(media.getCompressPath());
                     }
                 }
                 return images;
@@ -427,9 +417,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
                 PictureSelectionConfig.windowAnimationStyle.activityExitAnimation);
         if (getContext() instanceof PictureSelectorActivity) {
             releaseResultListener();
-            if (config.openClickSound) {
-                VoiceUtils.getInstance().releaseSoundPool();
-            }
         }
     }
 

@@ -1,11 +1,11 @@
-package com.luck.picture.lib.style;
+package com.luck.picture.lib.config;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import androidx.annotation.AnimRes;
-
 import com.luck.picture.lib.R;
+
+import androidx.annotation.AnimRes;
 
 /**
  * @author：luck
@@ -37,17 +37,7 @@ public class PictureWindowAnimationStyle implements Parcelable {
     @AnimRes
     public int activityPreviewExitAnimation;
 
-    /**
-     * 裁剪界面启动动画
-     */
-    @AnimRes
-    public int activityCropEnterAnimation;
 
-    /**
-     * 裁剪界面退出动画
-     */
-    @AnimRes
-    public int activityCropExitAnimation;
 
 
     public PictureWindowAnimationStyle() {
@@ -61,20 +51,8 @@ public class PictureWindowAnimationStyle implements Parcelable {
         this.activityExitAnimation = activityExitAnimation;
         this.activityPreviewEnterAnimation = activityEnterAnimation;
         this.activityPreviewExitAnimation = activityExitAnimation;
-        this.activityCropEnterAnimation = activityEnterAnimation;
-        this.activityCropExitAnimation = activityExitAnimation;
     }
 
-    public PictureWindowAnimationStyle(@AnimRes int activityEnterAnimation,
-                                       @AnimRes int activityExitAnimation,
-                                       @AnimRes int activityPreviewEnterAnimation,
-                                       @AnimRes int activityPreviewExitAnimation) {
-        super();
-        this.activityEnterAnimation = activityEnterAnimation;
-        this.activityExitAnimation = activityExitAnimation;
-        this.activityPreviewEnterAnimation = activityPreviewEnterAnimation;
-        this.activityPreviewExitAnimation = activityPreviewExitAnimation;
-    }
 
     /**
      * 默认WindowAnimationStyle
@@ -85,34 +63,7 @@ public class PictureWindowAnimationStyle implements Parcelable {
         return new PictureWindowAnimationStyle(R.anim.picture_anim_enter, R.anim.picture_anim_exit);
     }
 
-    /**
-     * 自定义WindowAnimationStyle
-     *
-     * @param activityEnterAnimation
-     * @param activityExitAnimation
-     * @return this
-     */
-    public static PictureWindowAnimationStyle ofCustomWindowAnimationStyle(int activityEnterAnimation, int activityExitAnimation) {
-        return new PictureWindowAnimationStyle(activityEnterAnimation, activityExitAnimation);
-    }
 
-    /**
-     * 全局所有动画样式
-     *
-     * @param enterAnimation
-     * @param exitAnimation
-     */
-    public void ofAllAnimation(int enterAnimation, int exitAnimation) {
-        this.activityEnterAnimation = enterAnimation;
-        this.activityExitAnimation = exitAnimation;
-
-        this.activityPreviewEnterAnimation = enterAnimation;
-        this.activityPreviewExitAnimation = exitAnimation;
-
-        this.activityCropEnterAnimation = enterAnimation;
-        this.activityCropExitAnimation = exitAnimation;
-
-    }
 
 
     @Override
@@ -126,8 +77,6 @@ public class PictureWindowAnimationStyle implements Parcelable {
         dest.writeInt(this.activityExitAnimation);
         dest.writeInt(this.activityPreviewEnterAnimation);
         dest.writeInt(this.activityPreviewExitAnimation);
-        dest.writeInt(this.activityCropEnterAnimation);
-        dest.writeInt(this.activityCropExitAnimation);
     }
 
     protected PictureWindowAnimationStyle(Parcel in) {
@@ -135,8 +84,6 @@ public class PictureWindowAnimationStyle implements Parcelable {
         this.activityExitAnimation = in.readInt();
         this.activityPreviewEnterAnimation = in.readInt();
         this.activityPreviewExitAnimation = in.readInt();
-        this.activityCropEnterAnimation = in.readInt();
-        this.activityCropExitAnimation = in.readInt();
     }
 
     public static final Parcelable.Creator<PictureWindowAnimationStyle> CREATOR = new Parcelable.Creator<PictureWindowAnimationStyle>() {

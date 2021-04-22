@@ -17,7 +17,7 @@ import com.luck.picture.lib.R;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.dialog.PictureCustomDialog;
+import com.luck.picture.lib.widget.dialog.PictureCustomDialog;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnPhotoSelectChangedListener;
 import com.luck.picture.lib.tools.AnimUtils;
@@ -25,7 +25,6 @@ import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.MediaUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.luck.picture.lib.tools.ToastUtils;
-import com.luck.picture.lib.tools.VoiceUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -593,7 +592,6 @@ public class PictureImageGridAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             selectData.add(image);
             image.setNum(selectData.size());
-            VoiceUtils.getInstance().play();
             AnimUtils.zoom(contentHolder.ivPicture, config.zoomAnim);
             contentHolder.tvCheck.startAnimation(AnimationUtils.loadAnimation(context, R.anim.picture_anim_modal_in));
         }
