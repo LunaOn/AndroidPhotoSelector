@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,6 @@ import com.luck.picture.lib.model.LocalMediaPageLoader;
 import com.luck.picture.lib.permissions.PermissionChecker;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.AndroidQTransformUtils;
-import com.luck.picture.lib.tools.AttrsUtils;
 import com.luck.picture.lib.tools.MediaUtils;
 import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
@@ -54,8 +54,9 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public abstract class PictureBaseActivity extends AppCompatActivity {
     protected PictureSelectionConfig config;
-    protected boolean  numComplete;
-    protected int colorPrimary, colorPrimaryDark;
+    protected boolean numComplete;
+    protected int colorPrimary = Color.parseColor("#393a3e");
+    private int colorPrimaryDark =  Color.parseColor("#393a3e");
     protected PictureLoadingDialog mLoadingDialog;
     protected List<LocalMedia> selectionMedias;
     protected Handler mHandler = new Handler(Looper.getMainLooper());
@@ -131,7 +132,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         config = PictureSelectionConfig.getInstance();
         PictureLanguageUtils.setAppLanguage(getContext(), config.language);
-        setTheme(config.themeStyleId == 0 ? R.style.picture_default_style : config.themeStyleId);
         super.onCreate(savedInstanceState);
         newCreateEngine();
         newCreateResultCallbackListener();
@@ -139,15 +139,16 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         if (isImmersive()) {
             immersive();
         }
-        if (PictureSelectionConfig.uiStyle != null) {
+        NavBarUtils.setNavBarColor(this, colorPrimaryDark);
+        /*if (PictureSelectionConfig.uiStyle != null) {
             if (PictureSelectionConfig.uiStyle.picture_navBarColor != 0) {
                 NavBarUtils.setNavBarColor(this, PictureSelectionConfig.uiStyle.picture_navBarColor);
             }
-        } else if (PictureSelectionConfig.style != null) {
+        }*//* else if (PictureSelectionConfig.style != null) {
             if (PictureSelectionConfig.style.pictureNavBarColor != 0) {
                 NavBarUtils.setNavBarColor(this, PictureSelectionConfig.style.pictureNavBarColor);
             }
-        }
+        }*/
         int layoutResID = getResourceId();
         if (layoutResID != 0) {
             setContentView(layoutResID);
@@ -204,7 +205,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      */
     private void initConfig() {
         selectionMedias = config.selectionMedias == null ? new ArrayList<>() : config.selectionMedias;
-        if (PictureSelectionConfig.uiStyle != null) {
+        /*if (PictureSelectionConfig.uiStyle != null) {
             if (PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor != 0) {
                 colorPrimary = PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor;
             }
@@ -215,7 +216,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
 
             config.checkNumMode = PictureSelectionConfig.uiStyle.picture_switchSelectNumberStyle;
 
-        } else if (PictureSelectionConfig.style != null) {
+        }*/ /*else if (PictureSelectionConfig.style != null) {
             if (PictureSelectionConfig.style.pictureTitleBarBackgroundColor != 0) {
                 colorPrimary = PictureSelectionConfig.style.pictureTitleBarBackgroundColor;
             }
@@ -224,7 +225,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             }
             numComplete = PictureSelectionConfig.style.isOpenCompletedNumStyle;
             config.checkNumMode = PictureSelectionConfig.style.isOpenCheckNumStyle;
-        } else {
+        }*//* else {
             numComplete = false;
             if (!numComplete) {
                 numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);
@@ -246,7 +247,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             } else {
                 colorPrimaryDark = AttrsUtils.getTypeValueColor(this, R.attr.colorPrimaryDark);
             }
-        }
+        }*/
 
         if (config.openClickSound) {
             VoiceUtils.getInstance().init(getContext());
@@ -474,7 +475,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
             if (!TextUtils.isEmpty(config.cameraFileName)) {
                 boolean isSuffixOfImage = PictureMimeType.isSuffixOfImage(config.cameraFileName);
                 config.cameraFileName = !isSuffixOfImage ? StringUtils.renameSuffix(config.cameraFileName, PictureMimeType.JPEG) : config.cameraFileName;
-                cameraFileName =  StringUtils.rename(config.cameraFileName);
+                cameraFileName = StringUtils.rename(config.cameraFileName);
             }
             if (SdkVersionUtils.checkedAndroid_Q()) {
                 if (TextUtils.isEmpty(config.outPutCameraPath)) {

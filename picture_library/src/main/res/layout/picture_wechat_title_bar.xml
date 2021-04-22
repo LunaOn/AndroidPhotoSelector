@@ -13,8 +13,9 @@
         android:layout_centerVertical="true"
         android:layout_marginEnd="15dp"
         android:gravity="center"
-        android:text="@string/picture_cancel"
-        android:textColor="@color/picture_color_white"
+        android:text="@string/picture_send"
+        android:background="@drawable/picture_send_button_default_bg"
+        android:textColor="@color/picture_wechat_compelet_text_color"
         android:textSize="14sp" />
 
 
@@ -29,10 +30,13 @@
 
     <RelativeLayout
         android:id="@+id/rlAlbum"
+        android:layout_toRightOf="@id/pictureLeftBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:gravity="center_horizontal"
+        android:background="@drawable/picture_album_bg"
         android:orientation="horizontal">
 
         <TextView
@@ -55,6 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/picture_title"
             android:scaleType="centerInside"
+            android:layout_marginLeft="3dp"
             android:src="@drawable/picture_icon_arrow_down" />
 
     </RelativeLayout>

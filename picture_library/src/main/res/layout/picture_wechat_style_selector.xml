@@ -4,11 +4,11 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/picture_color_white"
+    android:background="@android:color/black"
     android:fitsSystemWindows="true"
     tools:context="com.luck.picture.lib.PictureSelectorActivity">
 
-    <include layout="@layout/picture_title_bar" />
+    <include layout="@layout/picture_wechat_title_bar" />
 
 
     <com.luck.picture.lib.widget.RecyclerPreloadView

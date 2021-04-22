@@ -1,18 +1,13 @@
 package com.luck.picture.lib.customused;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.R;
-import com.luck.picture.lib.app.PictureAppMaster;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.language.LanguageConfig;
-import com.luck.picture.lib.style.PictureSelectorUIStyle;
-import com.luck.picture.lib.tools.ScreenUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +54,7 @@ public class MediaSelectManager {
         pictureSelector
                 .openGallery(type)
                 .imageEngine(GlideEngine.createGlideEngine())// 外部传入图片加载引擎，必传项
-                .setPictureUIStyle(ofNewStyle(drawableTopCompleteDefaultBtnBackground, drawableTopCompleteNormalBtnBackground))
+//                .setPictureUIStyle(wechatStyle(drawableTopCompleteDefaultBtnBackground, drawableTopCompleteNormalBtnBackground))
                 .isWeChatStyle(true)// 是否开启微信图片选择风格
                 .setLanguage(LanguageConfig.ENGLISH)// 设置语言，默认中文
                 .isMaxSelectEnabledMask(true)// 选择数到了最大阀值列表是否启用蒙层效果
@@ -71,11 +66,10 @@ public class MediaSelectManager {
                 .selectionMode(isSingleselect ?
                         PictureConfig.SINGLE : PictureConfig.MULTIPLE)
                 .isSingleDirectReturn(true)// 单选模式下是否直接返回，PictureConfig.SINGLE模式下有效
-                .isPreviewImage(true)// 是否可预览图片
-                .isPreviewVideo(true)// 是否可预览视频
                 .isCamera(true)// 是否显示拍照按钮
                 .isGif(isGif)
                 .selectionData(oldList)// 是否传入已选图片
+                .enableNumCheckMode()
                 .forResult(requestCode);
     }
 
@@ -84,61 +78,61 @@ public class MediaSelectManager {
      * 微信样式
      * @return
      */
-    public static PictureSelectorUIStyle ofNewStyle(int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground) {
-        PictureSelectorUIStyle uiStyle = new PictureSelectorUIStyle();
-        uiStyle.isNewSelectStyle = true;
-        uiStyle.picture_statusBarBackgroundColor = Color.parseColor("#393a3e");
-        uiStyle.picture_container_backgroundColor = Color.parseColor("#000000");
-        uiStyle.picture_switchSelectNumberStyle = true;
-        uiStyle.picture_navBarColor = Color.parseColor("#393a3e");
-        uiStyle.picture_check_style = R.drawable.picture_wechat_num_selector;
-        uiStyle.picture_top_leftBack = R.drawable.picture_icon_back;
-        uiStyle.picture_top_titleRightTextColor = new int[]{Color.parseColor("#53575e"), Color.parseColor("#FFFFFF")};
-        uiStyle.picture_top_titleRightTextSize = 14;
-        uiStyle.picture_top_titleTextSize = 16;
-        uiStyle.picture_top_titleArrowUpDrawable = R.drawable.picture_icon_arrow_up;
-        uiStyle.picture_top_titleArrowDownDrawable = R.drawable.picture_icon_arrow_down;
-        uiStyle.picture_top_titleTextColor = Color.parseColor("#FFFFFF");
-        uiStyle.picture_top_titleBarBackgroundColor = Color.parseColor("#393a3e");
-        uiStyle.picture_top_titleAlbumBackground = R.drawable.picture_album_bg;
-
-        uiStyle.picture_album_textSize = 16;
-        uiStyle.picture_album_backgroundStyle = R.drawable.picture_item_select_bg;
-        uiStyle.picture_album_textColor = Color.parseColor("#4d4d4d");
-        uiStyle.picture_album_checkDotStyle = R.drawable.picture_orange_oval;
-
-        uiStyle.picture_adapter_item_camera_backgroundColor = Color.parseColor("#999999");
-        uiStyle.picture_adapter_item_camera_textColor = Color.parseColor("#FFFFFF");
-        uiStyle.picture_adapter_item_camera_textSize = 14;
-        uiStyle.picture_adapter_item_camera_textTopDrawable = R.drawable.picture_icon_camera;
-
-        uiStyle.picture_adapter_item_textSize = 12;
-        uiStyle.picture_adapter_item_textColor = Color.parseColor("#FFFFFF");
-        uiStyle.picture_adapter_item_video_textLeftDrawable = R.drawable.picture_icon_video;
-        uiStyle.picture_adapter_item_audio_textLeftDrawable = R.drawable.picture_icon_audio;
-
-        uiStyle.picture_top_titleRightTextDefaultBackground = drawableTopCompleteDefaultBtnBackground;
-        uiStyle.picture_top_titleRightTextNormalBackground = drawableTopCompleteNormalBtnBackground;
-        Context appContext = PictureAppMaster.getInstance().getAppContext();
-        if (appContext != null) {
-            uiStyle.picture_top_titleBarHeight = ScreenUtils.dip2px(appContext, 48);
-            uiStyle.picture_top_titleRightDefaultText = R.string.picture_send;
-            uiStyle.picture_top_titleRightNormalText = R.string.picture_cancel;
-            uiStyle.picture_adapter_item_camera_text = R.string.picture_take_picture;
-            uiStyle.picture_bottom_selectedText = R.string.picture_select;
-            uiStyle.picture_bottom_selectedCheckStyle = R.drawable.picture_wechat_select_cb;
-            // 如果文本内容设置(%1$d/%2$d)，请开启true
-            uiStyle.isCompleteReplaceNum = true;
-            uiStyle.picture_top_titleArrowLeftPadding = ScreenUtils.dip2px(appContext, 3);
-            uiStyle.picture_bottom_selectedTextColor = Color.parseColor("#FFFFFF");
-            uiStyle.picture_bottom_selectedTextSize = 16;
-            uiStyle.picture_bottom_gallery_height = ScreenUtils.dip2px(appContext, 80);
-            uiStyle.picture_bottom_gallery_backgroundColor = Color.parseColor("#a0393a3e");
-            uiStyle.picture_bottom_gallery_frameBackground = R.drawable.picture_preview_gallery_border_bg;
-        }
-
-        return uiStyle;
-    }
+//    public static PictureSelectorUIStyle wechatStyle(int drawableTopCompleteDefaultBtnBackground, int drawableTopCompleteNormalBtnBackground) {
+//        PictureSelectorUIStyle uiStyle = new PictureSelectorUIStyle();
+//        uiStyle.isNewSelectStyle = true;
+//        uiStyle.picture_statusBarBackgroundColor = Color.parseColor("#393a3e");
+//        uiStyle.picture_container_backgroundColor = Color.parseColor("#000000");
+//        uiStyle.picture_switchSelectNumberStyle = true;
+//        uiStyle.picture_navBarColor = Color.parseColor("#393a3e");
+//        uiStyle.picture_check_style = R.drawable.picture_wechat_num_selector;
+//        uiStyle.picture_top_leftBack = R.drawable.picture_icon_back;
+//        uiStyle.picture_top_titleRightTextColor = new int[]{Color.parseColor("#53575e"), Color.parseColor("#FFFFFF")};
+//        uiStyle.picture_top_titleRightTextSize = 14;
+//        uiStyle.picture_top_titleTextSize = 16;
+//        uiStyle.picture_top_titleArrowUpDrawable = R.drawable.picture_icon_arrow_up;
+//        uiStyle.picture_top_titleArrowDownDrawable = R.drawable.picture_icon_arrow_down;
+//        uiStyle.picture_top_titleTextColor = Color.parseColor("#FFFFFF");
+//        uiStyle.picture_top_titleBarBackgroundColor = Color.parseColor("#393a3e");
+//        uiStyle.picture_top_titleAlbumBackground = R.drawable.picture_album_bg;
+//
+//        uiStyle.picture_album_textSize = 16;
+//        uiStyle.picture_album_backgroundStyle = R.drawable.picture_item_select_bg;
+//        uiStyle.picture_album_textColor = Color.parseColor("#4d4d4d");
+//        uiStyle.picture_album_checkDotStyle = R.drawable.picture_orange_oval;
+//
+//        uiStyle.picture_adapter_item_camera_backgroundColor = Color.parseColor("#999999");
+//        uiStyle.picture_adapter_item_camera_textColor = Color.parseColor("#FFFFFF");
+//        uiStyle.picture_adapter_item_camera_textSize = 14;
+//        uiStyle.picture_adapter_item_camera_textTopDrawable = R.drawable.picture_icon_camera;
+//
+//        uiStyle.picture_adapter_item_textSize = 12;
+//        uiStyle.picture_adapter_item_textColor = Color.parseColor("#FFFFFF");
+//        uiStyle.picture_adapter_item_video_textLeftDrawable = R.drawable.picture_icon_video;
+//        uiStyle.picture_adapter_item_audio_textLeftDrawable = R.drawable.picture_icon_audio;
+//
+//        uiStyle.picture_top_titleRightTextDefaultBackground = drawableTopCompleteDefaultBtnBackground;
+//        uiStyle.picture_top_titleRightTextNormalBackground = drawableTopCompleteNormalBtnBackground;
+//        Context appContext = PictureAppMaster.getInstance().getAppContext();
+//        if (appContext != null) {
+//            uiStyle.picture_top_titleBarHeight = ScreenUtils.dip2px(appContext, 48);
+//            uiStyle.picture_top_titleRightDefaultText = R.string.picture_send;
+//            uiStyle.picture_top_titleRightNormalText = R.string.picture_cancel;
+//            uiStyle.picture_adapter_item_camera_text = R.string.picture_take_picture;
+//            uiStyle.picture_bottom_selectedText = R.string.picture_select;
+//            uiStyle.picture_bottom_selectedCheckStyle = R.drawable.picture_wechat_select_cb;
+//            // 如果文本内容设置(%1$d/%2$d)，请开启true
+//            uiStyle.isCompleteReplaceNum = true;
+////            uiStyle.picture_top_titleArrowLeftPadding = ScreenUtils.dip2px(appContext, 3);
+////            uiStyle.picture_bottom_selectedTextColor = Color.parseColor("#FFFFFF");
+////            uiStyle.picture_bottom_selectedTextSize = 16;
+////            uiStyle.picture_bottom_gallery_height = ScreenUtils.dip2px(appContext, 80);
+////            uiStyle.picture_bottom_gallery_backgroundColor = Color.parseColor("#a0393a3e");
+////            uiStyle.picture_bottom_gallery_frameBackground = R.drawable.picture_preview_gallery_border_bg;
+//        }
+//
+//        return uiStyle;
+//    }
 
     /**
      * @param data

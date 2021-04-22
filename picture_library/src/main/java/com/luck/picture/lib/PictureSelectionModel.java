@@ -10,8 +10,6 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.style.PictureParameterStyle;
-import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 import com.luck.picture.lib.tools.DoubleUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
@@ -19,7 +17,6 @@ import com.luck.picture.lib.tools.SdkVersionUtils;
 import java.util.List;
 
 import androidx.annotation.ColorInt;
-import androidx.annotation.StyleRes;
 import androidx.fragment.app.Fragment;
 
 /**
@@ -38,33 +35,24 @@ public class PictureSelectionModel {
         selectionConfig.chooseMode = chooseMode;
     }
 
-    /**
-     * @param themeStyleId PictureSelector Theme style
-     * @return PictureSelectionModel
-     * Use { R.style#picture_default_style#picture_Sina_style#picture_white_style#picture_QQ_style#picture_WeChat_style}
-     */
-    public PictureSelectionModel theme(@StyleRes int themeStyleId) {
-        selectionConfig.themeStyleId = themeStyleId;
-        return this;
-    }
-
-    /**
-     * Setting PictureSelector UI Style
-     *
-     * @param uiStyle <p>
-     *                {@link PictureSelectorUIStyle}
-     *                </p>
-     * @return
-     */
-    public PictureSelectionModel setPictureUIStyle(PictureSelectorUIStyle uiStyle) {
-        if (uiStyle != null) {
-            PictureSelectionConfig.uiStyle = uiStyle;
-            if (!selectionConfig.isWeChatStyle) {
-                selectionConfig.isWeChatStyle = PictureSelectionConfig.uiStyle.isNewSelectStyle;
-            }
-        }
-        return this;
-    }
+//
+//    /**
+//     * Setting PictureSelector UI Style
+//     *
+//     * @param uiStyle <p>
+//     *                {@link PictureSelectorUIStyle}
+//     *                </p>
+//     * @return
+//     */
+//    public PictureSelectionModel setPictureUIStyle(PictureSelectorUIStyle uiStyle) {
+//        if (uiStyle != null) {
+//            PictureSelectionConfig.uiStyle = uiStyle;
+//            if (!selectionConfig.isWeChatStyle) {
+//                selectionConfig.isWeChatStyle = PictureSelectionConfig.uiStyle.isNewSelectStyle;
+//            }
+//        }
+//        return this;
+//    }
 
     /**
      *  locale Language
@@ -353,7 +341,6 @@ public class PictureSelectionModel {
     }
 
 
-
     /**
      * @param imageSpanCount PictureSelector image span count
      * @return
@@ -514,6 +501,15 @@ public class PictureSelectionModel {
     }
 
     /**
+     * 开启数字模式：开启后选中会显示数字
+     * @return
+     */
+    public PictureSelectionModel enableNumCheckMode() {
+        selectionConfig.checkNumMode = true;
+        return this;
+    }
+
+    /**
      * @param selectionMedia Select the selected picture set
      * @return Use {link .selectionData()}
      */
@@ -604,26 +600,6 @@ public class PictureSelectionModel {
         return this;
     }
 
-
-    /**
-     * 动态设置相册主题样式
-     *
-     * @param style 主题
-     *              <p>{@link PictureSelectorUIStyle}</>
-     * @return
-     */
-    @Deprecated
-    public PictureSelectionModel setPictureStyle(PictureParameterStyle style) {
-        if (style != null) {
-            PictureSelectionConfig.style = style;
-            if (!selectionConfig.isWeChatStyle) {
-                selectionConfig.isWeChatStyle = style.isNewSelectStyle;
-            }
-        } else {
-            PictureSelectionConfig.style = PictureParameterStyle.ofDefaultStyle();
-        }
-        return this;
-    }
 
     /**
      * Dynamically set the album to start and exit the animation

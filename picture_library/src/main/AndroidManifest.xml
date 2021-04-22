@@ -32,18 +32,22 @@
 
         <activity
             android:name=".PictureSelectorActivity"
+            android:theme="@style/picture.default.style"
             android:configChanges="orientation|keyboardHidden|screenSize" />
         <activity
             android:name=".PictureSelectorWeChatStyleActivity"
+            android:theme="@style/picture.default.style"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <activity
             android:name=".PictureVideoPlayActivity"
+            android:theme="@style/picture.default.style"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="sensor" />
 
         <activity
             android:name=".PicturePlayAudioActivity"
+            android:theme="@style/picture.default.style"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
     </application>

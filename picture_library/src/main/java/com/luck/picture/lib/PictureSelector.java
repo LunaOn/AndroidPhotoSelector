@@ -6,9 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 
 import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.luck.picture.lib.style.PictureParameterStyle;
 import com.luck.picture.lib.tools.DoubleUtils;
 
 import java.lang.ref.WeakReference;
@@ -71,27 +69,6 @@ public final class PictureSelector {
         return new PictureSelectionModel(this, chooseMode);
     }
 
-    /**
-     * 外部预览时设置样式
-     *
-     * @param themeStyle
-     * @return
-     */
-    public PictureSelectionModel themeStyle(int themeStyle) {
-        return new PictureSelectionModel(this, PictureMimeType.ofImage())
-                .theme(themeStyle);
-    }
-
-    /**
-     * 外部预览时动态代码设置样式
-     *
-     * @param style
-     * @return
-     */
-    public PictureSelectionModel setPictureStyle(PictureParameterStyle style) {
-        return new PictureSelectionModel(this, PictureMimeType.ofImage())
-                .setPictureStyle(style);
-    }
 
     /**
      * @param data

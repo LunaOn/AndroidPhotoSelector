@@ -60,11 +60,11 @@ public class PictureVideoPlayActivity extends PictureBaseActivity implements
 
     @Override
     protected void initPictureSelectorStyle() {
-        if (PictureSelectionConfig.style != null) {
+        /*if (PictureSelectionConfig.style != null) {
             if (PictureSelectionConfig.style.pictureLeftBackIcon != 0) {
                 ibLeftBack.setImageResource(PictureSelectionConfig.style.pictureLeftBackIcon);
             }
-        }
+        }*/
     }
 
     @Override

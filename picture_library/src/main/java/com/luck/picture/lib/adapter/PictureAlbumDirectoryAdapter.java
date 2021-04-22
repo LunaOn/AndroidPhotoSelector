@@ -1,25 +1,23 @@
 package com.luck.picture.lib.adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import android.util.TypedValue;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.luck.picture.lib.R;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.listener.OnAlbumItemClickListener;
-import com.luck.picture.lib.tools.AttrsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author：luck
@@ -65,15 +63,12 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
         int checkedNum = folder.getCheckedNum();
         holder.tvSign.setVisibility(checkedNum > 0 ? View.VISIBLE : View.INVISIBLE);
         holder.itemView.setSelected(isChecked);
-        if (PictureSelectionConfig.uiStyle != null) {
-            if (PictureSelectionConfig.uiStyle.picture_album_backgroundStyle != 0) {
-                holder.itemView.setBackgroundResource(PictureSelectionConfig.uiStyle.picture_album_backgroundStyle);
-            }
-        } else if (PictureSelectionConfig.style != null) {
+        holder.itemView.setBackgroundResource(R.drawable.picture_item_select_bg);
+        /*else if (PictureSelectionConfig.style != null) {
             if (PictureSelectionConfig.style.pictureAlbumStyle != 0) {
                 holder.itemView.setBackgroundResource(PictureSelectionConfig.style.pictureAlbumStyle);
             }
-        }
+        }*/
         if (chooseMode == PictureMimeType.ofAudio()) {
             holder.ivFirstImage.setImageResource(R.drawable.picture_audio_placeholder);
         } else {
@@ -115,7 +110,11 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
             ivFirstImage = itemView.findViewById(R.id.first_image);
             tvFolderName = itemView.findViewById(R.id.tv_folder_name);
             tvSign = itemView.findViewById(R.id.tv_sign);
-            if (PictureSelectionConfig.uiStyle != null) {
+            tvSign.setBackgroundResource(R.drawable.picture_orange_oval);
+            tvFolderName.setTextColor(Color.parseColor("#4d4d4d"));
+            tvFolderName.setTextSize(16);
+
+           /* if (PictureSelectionConfig.uiStyle != null) {
                 if (PictureSelectionConfig.uiStyle.picture_album_checkDotStyle != 0) {
                     tvSign.setBackgroundResource(PictureSelectionConfig.uiStyle.picture_album_checkDotStyle);
                 }
@@ -125,7 +124,7 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
                 if (PictureSelectionConfig.uiStyle.picture_album_textSize > 0) {
                     tvFolderName.setTextSize(PictureSelectionConfig.uiStyle.picture_album_textSize);
                 }
-            } else if (PictureSelectionConfig.style != null) {
+            }*//* else if (PictureSelectionConfig.style != null) {
                 if (PictureSelectionConfig.style.pictureFolderCheckedDotStyle != 0) {
                     tvSign.setBackgroundResource(PictureSelectionConfig.style.pictureFolderCheckedDotStyle);
                 }
@@ -135,7 +134,7 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
                 if (PictureSelectionConfig.style.folderTextSize > 0) {
                     tvFolderName.setTextSize(PictureSelectionConfig.style.folderTextSize);
                 }
-            } else {
+            } *//* else {
                 Drawable folderCheckedDotDrawable = AttrsUtils.getTypeValueDrawable(itemView.getContext(), R.attr.picture_folder_checked_dot, R.drawable.picture_orange_oval);
                 tvSign.setBackground(folderCheckedDotDrawable);
                 int folderTextColor = AttrsUtils.getTypeValueColor(itemView.getContext(), R.attr.picture_folder_textColor);
@@ -146,7 +145,7 @@ public class PictureAlbumDirectoryAdapter extends RecyclerView.Adapter<PictureAl
                 if (folderTextSize > 0) {
                     tvFolderName.setTextSize(TypedValue.COMPLEX_UNIT_PX, folderTextSize);
                 }
-            }
+            }*/
         }
     }
 

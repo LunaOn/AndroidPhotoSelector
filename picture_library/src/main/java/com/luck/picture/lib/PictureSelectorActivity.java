@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -284,124 +285,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
 
     @Override
     public void initPictureSelectorStyle() {
-        if (PictureSelectionConfig.uiStyle != null) {
-            if (PictureSelectionConfig.uiStyle.picture_top_titleArrowDownDrawable != 0) {
-                Drawable drawable = ContextCompat.getDrawable(this, PictureSelectionConfig.uiStyle.picture_top_titleArrowDownDrawable);
-                mIvArrow.setImageDrawable(drawable);
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_top_titleTextColor != 0) {
-                mTvPictureTitle.setTextColor(PictureSelectionConfig.uiStyle.picture_top_titleTextColor);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_top_titleTextSize != 0) {
-                mTvPictureTitle.setTextSize(PictureSelectionConfig.uiStyle.picture_top_titleTextSize);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_top_titleRightTextColor.length > 0) {
-                ColorStateList colorStateList = AttrsUtils.getColorStateList(PictureSelectionConfig.uiStyle.picture_top_titleRightTextColor);
-                if (colorStateList != null) {
-                    mTvPictureRight.setTextColor(colorStateList);
-                }
-            }
-            if (PictureSelectionConfig.uiStyle.picture_top_titleRightTextSize != 0) {
-                mTvPictureRight.setTextSize(PictureSelectionConfig.uiStyle.picture_top_titleRightTextSize);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_top_leftBack != 0) {
-                mIvPictureLeftBack.setImageResource(PictureSelectionConfig.uiStyle.picture_top_leftBack);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_container_backgroundColor != 0) {
-                container.setBackgroundColor(PictureSelectionConfig.uiStyle.picture_container_backgroundColor);
-            }
-            if (PictureSelectionConfig.uiStyle.picture_top_titleRightDefaultText != 0) {
-                mTvPictureRight.setText(PictureSelectionConfig.uiStyle.picture_top_titleRightDefaultText);
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_top_titleArrowLeftPadding != 0) {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIvArrow.getLayoutParams();
-                params.leftMargin = PictureSelectionConfig.uiStyle.picture_top_titleArrowLeftPadding;
-            }
-
-            if (PictureSelectionConfig.uiStyle.picture_top_titleBarHeight > 0) {
-                ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
-                params.height = PictureSelectionConfig.uiStyle.picture_top_titleBarHeight;
-            }
-
-        } else if (PictureSelectionConfig.style != null) {
-            if (PictureSelectionConfig.style.pictureTitleDownResId != 0) {
-                Drawable drawable = ContextCompat.getDrawable(this, PictureSelectionConfig.style.pictureTitleDownResId);
-                mIvArrow.setImageDrawable(drawable);
-            }
-            if (PictureSelectionConfig.style.pictureTitleTextColor != 0) {
-                mTvPictureTitle.setTextColor(PictureSelectionConfig.style.pictureTitleTextColor);
-            }
-            if (PictureSelectionConfig.style.pictureTitleTextSize != 0) {
-                mTvPictureTitle.setTextSize(PictureSelectionConfig.style.pictureTitleTextSize);
-            }
-
-            if (PictureSelectionConfig.style.pictureRightDefaultTextColor != 0) {
-                mTvPictureRight.setTextColor(PictureSelectionConfig.style.pictureRightDefaultTextColor);
-            } else {
-                if (PictureSelectionConfig.style.pictureCancelTextColor != 0) {
-                    mTvPictureRight.setTextColor(PictureSelectionConfig.style.pictureCancelTextColor);
-                }
-            }
-            if (PictureSelectionConfig.style.pictureRightTextSize != 0) {
-                mTvPictureRight.setTextSize(PictureSelectionConfig.style.pictureRightTextSize);
-            }
-
-            if (PictureSelectionConfig.style.pictureLeftBackIcon != 0) {
-                mIvPictureLeftBack.setImageResource(PictureSelectionConfig.style.pictureLeftBackIcon);
-            }
-            if (PictureSelectionConfig.style.pictureContainerBackgroundColor != 0) {
-                container.setBackgroundColor(PictureSelectionConfig.style.pictureContainerBackgroundColor);
-            }
-            if (!TextUtils.isEmpty(PictureSelectionConfig.style.pictureRightDefaultText)) {
-                mTvPictureRight.setText(PictureSelectionConfig.style.pictureRightDefaultText);
-            }
-
-            if (PictureSelectionConfig.style.pictureTitleRightArrowLeftPadding != 0) {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIvArrow.getLayoutParams();
-                params.leftMargin = PictureSelectionConfig.style.pictureTitleRightArrowLeftPadding;
-            }
-
-            if (PictureSelectionConfig.style.pictureTitleBarHeight > 0) {
-                ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
-                params.height = PictureSelectionConfig.style.pictureTitleBarHeight;
-            }
-        } else {
-            int titleColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_title_textColor);
-            if (titleColor != 0) {
-                mTvPictureTitle.setTextColor(titleColor);
-            }
-            int rightTitleColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_right_textColor);
-            if (rightTitleColor != 0) {
-                mTvPictureRight.setTextColor(rightTitleColor);
-            }
-            int containerBackgroundColor = AttrsUtils.getTypeValueColor(getContext(), R.attr.picture_container_backgroundColor);
-            if (containerBackgroundColor != 0) {
-                container.setBackgroundColor(containerBackgroundColor);
-            }
-            Drawable leftDrawable = AttrsUtils.getTypeValueDrawable(getContext(), R.attr.picture_leftBack_icon, R.drawable.picture_icon_back);
-            mIvPictureLeftBack.setImageDrawable(leftDrawable);
-
-            if (config.downResId != 0) {
-                Drawable drawable = ContextCompat.getDrawable(this, config.downResId);
-                mIvArrow.setImageDrawable(drawable);
-            } else {
-                Drawable downDrawable = AttrsUtils.getTypeValueDrawable(getContext(), R.attr.picture_arrow_down_icon, R.drawable.picture_icon_arrow_down);
-                mIvArrow.setImageDrawable(downDrawable);
-            }
-            int pictureTitleRightArrowLeftPadding = AttrsUtils.getTypeValueSizeForInt(getContext(), R.attr.picture_titleRightArrow_LeftPadding);
-            if (pictureTitleRightArrowLeftPadding != 0) {
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mIvArrow.getLayoutParams();
-                params.leftMargin = pictureTitleRightArrowLeftPadding;
-            }
-
-            int titleBarHeight = AttrsUtils.getTypeValueSizeForInt(getContext(), R.attr.picture_titleBar_height);
-            if (titleBarHeight > 0) {
-                ViewGroup.LayoutParams params = mTitleBar.getLayoutParams();
-                params.height = titleBarHeight;
-            }
-        }
         mTitleBar.setBackgroundColor(colorPrimary);
         mAdapter.bindSelectData(selectionMedias);
     }
@@ -431,6 +314,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
         if (numComplete) {
             initCompleteText(0);
         }
+        Log.d(TAG, "isNumComplete: " + numComplete);
     }
 
     /**
@@ -438,6 +322,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
      */
     @Override
     protected void initCompleteText(int startCount) {
+        Log.d(TAG, "initCompleteText: " + startCount);
     }
 
 
@@ -1527,142 +1412,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
             }
         }
         return isEnterNext;
-    }
-
-    /**
-     * Single picture clipping callback
-     *
-     * @param data
-     */
-    private void singleCropHandleResult(Intent data) {
-//        if (data == null) {
-//            return;
-//        }
-//        Uri resultUri = UCrop.getOutput(data);
-//        if (resultUri == null) {
-//            return;
-//        }
-//        List<LocalMedia> result = new ArrayList<>();
-//        String cutPath = resultUri.getPath();
-//        if (mAdapter != null) {
-//            List<LocalMedia> list = data.getParcelableArrayListExtra(PictureConfig.EXTRA_SELECT_LIST);
-//            if (list != null) {
-//                mAdapter.bindSelectData(list);
-//                mAdapter.notifyDataSetChanged();
-//            }
-//            List<LocalMedia> mediaList = mAdapter.getSelectedData();
-//            LocalMedia media = mediaList != null && mediaList.size() > 0 ? mediaList.get(0) : null;
-//            if (media != null) {
-//                config.originalPath = media.getPath();
-//                media.setCutPath(cutPath);
-//                media.setChooseModel(config.chooseMode);
-//                boolean isCutPathEmpty = !TextUtils.isEmpty(cutPath);
-//                if (SdkVersionUtils.checkedAndroid_Q()
-//                        && PictureMimeType.isContent(media.getPath())) {
-//                    if (isCutPathEmpty) {
-//                        media.setSize(new File(cutPath).length());
-//                    } else {
-//                        media.setSize(!TextUtils.isEmpty(media.getRealPath()) ? new File(media.getRealPath()).length() : 0);
-//                    }
-//                    media.setAndroidQToPath(cutPath);
-//                } else {
-//                    media.setSize(isCutPathEmpty ? new File(cutPath).length() : 0);
-//                }
-//                media.setCut(isCutPathEmpty);
-//                result.add(media);
-//                handlerResult(result);
-//            } else {
-//                // Preview screen selects the image and crop the callback
-//                media = list != null && list.size() > 0 ? list.get(0) : null;
-//                if (media != null) {
-//                    config.originalPath = media.getPath();
-//                    media.setCutPath(cutPath);
-//                    media.setChooseModel(config.chooseMode);
-//                    boolean isCutPathEmpty = !TextUtils.isEmpty(cutPath);
-//                    if (SdkVersionUtils.checkedAndroid_Q()
-//                            && PictureMimeType.isContent(media.getPath())) {
-//                        if (isCutPathEmpty) {
-//                            media.setSize(new File(cutPath).length());
-//                        } else {
-//                            media.setSize(!TextUtils.isEmpty(media.getRealPath()) ? new File(media.getRealPath()).length() : 0);
-//                        }
-//                        media.setAndroidQToPath(cutPath);
-//                    } else {
-//                        media.setSize(isCutPathEmpty ? new File(cutPath).length() : 0);
-//                    }
-//                    media.setCut(isCutPathEmpty);
-//                    result.add(media);
-//                    handlerResult(result);
-//                }
-//            }
-//        }
-    }
-
-    /**
-     * Multiple picture crop
-     *
-     * @param data
-     */
-    protected void multiCropHandleResult(Intent data) {
-//        if (data == null) {
-//            return;
-//        }
-//        List<CutInfo> mCuts = UCrop.getMultipleOutput(data);
-//        if (mCuts == null || mCuts.size() == 0) {
-//            return;
-//        }
-//        int size = mCuts.size();
-//        boolean isAndroidQ = SdkVersionUtils.checkedAndroid_Q();
-//        List<LocalMedia> list = data.getParcelableArrayListExtra(PictureConfig.EXTRA_SELECT_LIST);
-//        if (list != null) {
-//            mAdapter.bindSelectData(list);
-//            mAdapter.notifyDataSetChanged();
-//        }
-//        int oldSize = mAdapter != null ? mAdapter.getSelectedData().size() : 0;
-//        if (oldSize == size) {
-//            List<LocalMedia> result = mAdapter.getSelectedData();
-//            for (int i = 0; i < size; i++) {
-//                CutInfo c = mCuts.get(i);
-//                LocalMedia media = result.get(i);
-//                media.setCut(!TextUtils.isEmpty(c.getCutPath()));
-//                media.setPath(c.getPath());
-//                media.setMimeType(c.getMimeType());
-//                media.setCutPath(c.getCutPath());
-//                media.setWidth(c.getImageWidth());
-//                media.setHeight(c.getImageHeight());
-//                media.setAndroidQToPath(isAndroidQ ? c.getCutPath() : media.getAndroidQToPath());
-//                media.setSize(!TextUtils.isEmpty(c.getCutPath()) ? new File(c.getCutPath()).length() : media.getSize());
-//            }
-//            handlerResult(result);
-//        } else {
-//            // Fault-tolerant processing
-//            List<LocalMedia> result = new ArrayList<>();
-//            for (int i = 0; i < size; i++) {
-//                CutInfo c = mCuts.get(i);
-//                LocalMedia media = new LocalMedia();
-//                media.setId(c.getId());
-//                media.setCut(!TextUtils.isEmpty(c.getCutPath()));
-//                media.setPath(c.getPath());
-//                media.setCutPath(c.getCutPath());
-//                media.setMimeType(c.getMimeType());
-//                media.setWidth(c.getImageWidth());
-//                media.setHeight(c.getImageHeight());
-//                media.setDuration(c.getDuration());
-//                media.setChooseModel(config.chooseMode);
-//                media.setAndroidQToPath(isAndroidQ ? c.getCutPath() : c.getAndroidQToPath());
-//                if (!TextUtils.isEmpty(c.getCutPath())) {
-//                    media.setSize(new File(c.getCutPath()).length());
-//                } else {
-//                    if (SdkVersionUtils.checkedAndroid_Q() && PictureMimeType.isContent(c.getPath())) {
-//                        media.setSize(!TextUtils.isEmpty(c.getRealPath()) ? new File(c.getRealPath()).length() : 0);
-//                    } else {
-//                        media.setSize(new File(c.getPath()).length());
-//                    }
-//                }
-//                result.add(media);
-//            }
-//            handlerResult(result);
-//        }
     }
 
     /**

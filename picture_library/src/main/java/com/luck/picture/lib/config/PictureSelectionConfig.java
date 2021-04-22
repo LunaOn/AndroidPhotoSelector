@@ -3,18 +3,13 @@ package com.luck.picture.lib.config;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.luck.picture.lib.R;
 import com.luck.picture.lib.engine.ImageEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.listener.OnResultCallbackListener;
-import com.luck.picture.lib.style.PictureParameterStyle;
-import com.luck.picture.lib.style.PictureSelectorUIStyle;
 import com.luck.picture.lib.style.PictureWindowAnimationStyle;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.StyleRes;
 
 /**
  * @author：luck
@@ -25,15 +20,11 @@ import androidx.annotation.StyleRes;
 public final class PictureSelectionConfig implements Parcelable {
     public int chooseMode = PictureMimeType.ofImage();
     public boolean isSingleDirectReturn;
-    public static PictureSelectorUIStyle uiStyle;
-    public static PictureParameterStyle style;
     public static PictureWindowAnimationStyle windowAnimationStyle = PictureWindowAnimationStyle.ofDefaultWindowAnimationStyle();
     public String suffixType;
     public String specifiedFormat;
     public boolean isCameraAroundState;
     public boolean isAndroidQTransform;
-    @StyleRes
-    public int themeStyleId = R.style.picture_default_style;
     public int selectionMode = PictureConfig.MULTIPLE;
     public int maxSelectNum = 9;
     public int minSelectNum = 0;
@@ -63,16 +54,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public static OnResultCallbackListener<LocalMedia> listener;
     public List<LocalMedia> selectionMedias;
     public String cameraFileName;
-    @Deprecated
-    public boolean isOpenStyleCheckNumMode;
-    @Deprecated
-    public int titleBarBackgroundColor;
-    @Deprecated
-    public int pictureStatusBarColor;
-    @Deprecated
-    public int upResId;
-    @Deprecated
-    public int downResId;
     public String outPutCameraPath;
 
     public String cameraPath;
@@ -96,10 +77,7 @@ public final class PictureSelectionConfig implements Parcelable {
 
     protected void initDefaultValue() {
         chooseMode = PictureMimeType.ofImage();
-        themeStyleId = R.style.picture_default_style;
         selectionMode = PictureConfig.MULTIPLE;
-        uiStyle = null;
-        style = null;
         maxSelectNum = 9;
         minSelectNum = 0;
         maxVideoSelectNum = 1;
@@ -134,11 +112,6 @@ public final class PictureSelectionConfig implements Parcelable {
         cameraFileName = "";
         specifiedFormat = "";
         selectionMedias = new ArrayList<>();
-        titleBarBackgroundColor = 0;
-        pictureStatusBarColor = 0;
-        upResId = 0;
-        downResId = 0;
-        isOpenStyleCheckNumMode = false;
         outPutCameraPath = "";
         cameraPath = "";
         cameraMimeType = -1;
@@ -192,7 +165,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeString(this.specifiedFormat);
         dest.writeByte(this.isCameraAroundState ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQTransform ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.themeStyleId);
         dest.writeInt(this.selectionMode);
         dest.writeInt(this.maxSelectNum);
         dest.writeInt(this.minSelectNum);
@@ -220,11 +192,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isWithVideoImage ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.selectionMedias);
         dest.writeString(this.cameraFileName);
-        dest.writeByte(this.isOpenStyleCheckNumMode ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.titleBarBackgroundColor);
-        dest.writeInt(this.pictureStatusBarColor);
-        dest.writeInt(this.upResId);
-        dest.writeInt(this.downResId);
         dest.writeString(this.outPutCameraPath);
         dest.writeString(this.cameraPath);
         dest.writeInt(this.cameraMimeType);
@@ -251,7 +218,6 @@ public final class PictureSelectionConfig implements Parcelable {
 //        this.buttonFeatures = in.readInt();
         this.isCameraAroundState = in.readByte() != 0;
         this.isAndroidQTransform = in.readByte() != 0;
-        this.themeStyleId = in.readInt();
         this.selectionMode = in.readInt();
         this.maxSelectNum = in.readInt();
         this.minSelectNum = in.readInt();
@@ -279,11 +245,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isWithVideoImage = in.readByte() != 0;
         this.selectionMedias = in.createTypedArrayList(LocalMedia.CREATOR);
         this.cameraFileName = in.readString();
-        this.isOpenStyleCheckNumMode = in.readByte() != 0;
-        this.titleBarBackgroundColor = in.readInt();
-        this.pictureStatusBarColor = in.readInt();
-        this.upResId = in.readInt();
-        this.downResId = in.readInt();
         this.outPutCameraPath = in.readString();
         this.cameraPath = in.readString();
         this.cameraMimeType = in.readInt();
