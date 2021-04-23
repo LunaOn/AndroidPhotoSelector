@@ -110,16 +110,6 @@ public final class PictureMimeType {
     }
 
     /**
-     * isVideo
-     *
-     * @param url
-     * @return
-     */
-    public static boolean isUrlHasVideo(String url) {
-        return url.endsWith(".mp4");
-    }
-
-    /**
      * isAudio
      *
      * @param mimeType
@@ -139,29 +129,7 @@ public final class PictureMimeType {
         return mimeType != null && mimeType.startsWith(MIME_TYPE_PREFIX_IMAGE);
     }
 
-    /**
-     * Determine if it is JPG.
-     *
-     * @param is image file mimeType
-     */
-    public static boolean isJPEG(String mimeType) {
-        if (TextUtils.isEmpty(mimeType)) {
-            return false;
-        }
-        return mimeType.startsWith(MIME_TYPE_JPEG) || mimeType.startsWith(MIME_TYPE_JPG);
-    }
 
-    /**
-     * Determine if it is JPG.
-     *
-     * @param is image file mimeType
-     */
-    public static boolean isJPG(String mimeType) {
-        if (TextUtils.isEmpty(mimeType)) {
-            return false;
-        }
-        return mimeType.startsWith(MIME_TYPE_JPG);
-    }
 
 
     /**

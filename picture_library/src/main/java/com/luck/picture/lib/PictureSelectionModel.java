@@ -33,24 +33,6 @@ public class PictureSelectionModel {
         selectionConfig.chooseMode = chooseMode;
     }
 
-//
-//    /**
-//     * Setting PictureSelector UI Style
-//     *
-//     * @param uiStyle <p>
-//     *                {@link PictureSelectorUIStyle}
-//     *                </p>
-//     * @return
-//     */
-//    public PictureSelectionModel setPictureUIStyle(PictureSelectorUIStyle uiStyle) {
-//        if (uiStyle != null) {
-//            PictureSelectionConfig.uiStyle = uiStyle;
-//            if (!selectionConfig.isWeChatStyle) {
-//                selectionConfig.isWeChatStyle = PictureSelectionConfig.uiStyle.isNewSelectStyle;
-//            }
-//        }
-//        return this;
-//    }
 
     /**
      *  locale Language
