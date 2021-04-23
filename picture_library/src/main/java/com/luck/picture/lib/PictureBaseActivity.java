@@ -15,17 +15,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.luck.picture.lib.app.PictureAppMaster;
+import com.luck.picture.lib.app.LocalMediaPageLoader;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.config.PictureSelectionConfig;
-import com.luck.picture.lib.widget.dialog.PictureCustomDialog;
-import com.luck.picture.lib.widget.dialog.PictureLoadingDialog;
-import com.luck.picture.lib.app.PictureSelectorEngine;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.language.PictureLanguageUtils;
-import com.luck.picture.lib.app.LocalMediaPageLoader;
 import com.luck.picture.lib.thread.PictureThreadUtils;
 import com.luck.picture.lib.tools.AndroidQTransformUtils;
 import com.luck.picture.lib.tools.MediaUtils;
@@ -34,6 +30,8 @@ import com.luck.picture.lib.tools.PictureFileUtils;
 import com.luck.picture.lib.tools.SdkVersionUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.luck.picture.lib.tools.ToastUtils;
+import com.luck.picture.lib.widget.dialog.PictureCustomDialog;
+import com.luck.picture.lib.widget.dialog.PictureLoadingDialog;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,7 +51,7 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
     protected PictureSelectionConfig config;
     protected boolean numComplete;
     protected int colorPrimary = Color.parseColor("#393a3e");
-    private int colorPrimaryDark =  Color.parseColor("#393a3e");
+    private int colorPrimaryDark = Color.parseColor("#393a3e");
     protected PictureLoadingDialog mLoadingDialog;
     protected List<LocalMedia> selectionMedias;
     protected Handler mHandler = new Handler(Looper.getMainLooper());
@@ -130,22 +128,10 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         config = PictureSelectionConfig.getInstance();
         PictureLanguageUtils.setAppLanguage(getContext(), config.language);
         super.onCreate(savedInstanceState);
-        newCreateEngine();
-        newCreateResultCallbackListener();
         initConfig();
         if (isImmersive()) {
             immersive();
         }
-//        NavBarUtils.setNavBarColor(this, colorPrimaryDark);
-        /*if (PictureSelectionConfig.uiStyle != null) {
-            if (PictureSelectionConfig.uiStyle.picture_navBarColor != 0) {
-                NavBarUtils.setNavBarColor(this, PictureSelectionConfig.uiStyle.picture_navBarColor);
-            }
-        }*//* else if (PictureSelectionConfig.style != null) {
-            if (PictureSelectionConfig.style.pictureNavBarColor != 0) {
-                NavBarUtils.setNavBarColor(this, PictureSelectionConfig.style.pictureNavBarColor);
-            }
-        }*/
         int layoutResID = getResourceId();
         if (layoutResID != 0) {
             setContentView(layoutResID);
@@ -153,30 +139,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
         initWidgets();
         initPictureSelectorStyle();
         isOnSaveInstanceState = false;
-    }
-
-    /**
-     * Get the image loading engine again, provided that the user implements the IApp interface in the Application
-     */
-    private void newCreateEngine() {
-        if (PictureSelectionConfig.imageEngine == null) {
-            PictureSelectorEngine baseEngine = PictureAppMaster.getInstance().getPictureSelectorEngine();
-            if (baseEngine != null) PictureSelectionConfig.imageEngine = baseEngine.createEngine();
-        }
-    }
-
-    /**
-     * Retrieve the result callback listener, provided that the user implements the IApp interface in the Application
-     */
-    private void newCreateResultCallbackListener() {
-        if (config.isCallbackMode) {
-            if (PictureSelectionConfig.listener == null) {
-                PictureSelectorEngine baseEngine = PictureAppMaster.getInstance().getPictureSelectorEngine();
-                if (baseEngine != null) {
-                    PictureSelectionConfig.listener = baseEngine.getResultCallbackListener();
-                }
-            }
-        }
     }
 
     @Override
@@ -202,50 +164,6 @@ public abstract class PictureBaseActivity extends AppCompatActivity {
      */
     private void initConfig() {
         selectionMedias = config.selectionMedias == null ? new ArrayList<>() : config.selectionMedias;
-        /*if (PictureSelectionConfig.uiStyle != null) {
-            if (PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor != 0) {
-                colorPrimary = PictureSelectionConfig.uiStyle.picture_top_titleBarBackgroundColor;
-            }
-            if (PictureSelectionConfig.uiStyle.picture_statusBarBackgroundColor != 0) {
-                colorPrimaryDark = PictureSelectionConfig.uiStyle.picture_statusBarBackgroundColor;
-            }
-            numComplete = PictureSelectionConfig.uiStyle.picture_switchSelectTotalStyle;
-
-            config.checkNumMode = PictureSelectionConfig.uiStyle.picture_switchSelectNumberStyle;
-
-        }*/ /*else if (PictureSelectionConfig.style != null) {
-            if (PictureSelectionConfig.style.pictureTitleBarBackgroundColor != 0) {
-                colorPrimary = PictureSelectionConfig.style.pictureTitleBarBackgroundColor;
-            }
-            if (PictureSelectionConfig.style.pictureStatusBarColor != 0) {
-                colorPrimaryDark = PictureSelectionConfig.style.pictureStatusBarColor;
-            }
-            numComplete = PictureSelectionConfig.style.isOpenCompletedNumStyle;
-            config.checkNumMode = PictureSelectionConfig.style.isOpenCheckNumStyle;
-        }*//* else {
-            numComplete = false;
-            if (!numComplete) {
-                numComplete = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_numComplete);
-            }
-
-            config.checkNumMode = config.isOpenStyleCheckNumMode;
-            if (!config.checkNumMode) {
-                config.checkNumMode = AttrsUtils.getTypeValueBoolean(this, R.attr.picture_style_checkNumMode);
-            }
-
-            if (config.titleBarBackgroundColor != 0) {
-                colorPrimary = config.titleBarBackgroundColor;
-            } else {
-                colorPrimary = AttrsUtils.getTypeValueColor(this, R.attr.colorPrimary);
-            }
-
-            if (config.pictureStatusBarColor != 0) {
-                colorPrimaryDark = config.pictureStatusBarColor;
-            } else {
-                colorPrimaryDark = AttrsUtils.getTypeValueColor(this, R.attr.colorPrimaryDark);
-            }
-        }*/
-
     }
 
     @Override

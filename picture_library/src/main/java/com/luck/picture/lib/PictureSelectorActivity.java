@@ -1050,12 +1050,6 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                         }
                     }
                     break;
-//                case UCrop.REQUEST_CROP:
-//                    singleCropHandleResult(data);
-//                    break;
-//                case UCrop.REQUEST_MULTI_CROP:
-//                    multiCropHandleResult(data);
-//                    break;
                 case PictureConfig.REQUEST_CAMERA:
                     dispatchHandleCamera(data);
                     break;

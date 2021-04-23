@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.luck.picture.lib.customused.MediaSelectManager;
-import com.luck.picture.lib.customused.PictureMimeType;
+import com.luck.picture.lib.app.MediaSelectManager;
+import com.luck.picture.lib.app.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.entity.LocalMediaFolder;
 import com.luck.picture.lib.app.LocalMediaLoader;

@@ -61,7 +61,6 @@ public final class PictureSelectionConfig implements Parcelable {
     public boolean isFilterInvalidFile;
     public boolean isMaxSelectEnabledMask;
     public boolean isAutomaticTitleRecyclerTop = true;
-    public boolean isCallbackMode;
     public boolean isAndroidQChangeWH;
     public boolean isAndroidQChangeVideoWH;
     public boolean isQuickCapture = true;
@@ -116,7 +115,6 @@ public final class PictureSelectionConfig implements Parcelable {
         isFilterInvalidFile = false;
         isMaxSelectEnabledMask = false;
         isAutomaticTitleRecyclerTop = true;
-        isCallbackMode = false;
         isAndroidQChangeWH = true;
         isAndroidQChangeVideoWH = false;
         isQuickCapture = true;
@@ -194,7 +192,6 @@ public final class PictureSelectionConfig implements Parcelable {
         dest.writeByte(this.isFilterInvalidFile ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isMaxSelectEnabledMask ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAutomaticTitleRecyclerTop ? (byte) 1 : (byte) 0);
-        dest.writeByte(this.isCallbackMode ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQChangeWH ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isAndroidQChangeVideoWH ? (byte) 1 : (byte) 0);
         dest.writeByte(this.isQuickCapture ? (byte) 1 : (byte) 0);
@@ -245,7 +242,6 @@ public final class PictureSelectionConfig implements Parcelable {
         this.isFilterInvalidFile = in.readByte() != 0;
         this.isMaxSelectEnabledMask = in.readByte() != 0;
         this.isAutomaticTitleRecyclerTop = in.readByte() != 0;
-        this.isCallbackMode = in.readByte() != 0;
         this.isAndroidQChangeWH = in.readByte() != 0;
         this.isAndroidQChangeVideoWH = in.readByte() != 0;
         this.isQuickCapture = in.readByte() != 0;

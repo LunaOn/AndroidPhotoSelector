@@ -498,21 +498,6 @@ public class PictureSelectionModel {
         selectionConfig.checkNumMode = true;
         return this;
     }
-
-    /**
-     * @param selectionMedia Select the selected picture set
-     * @return Use {link .selectionData()}
-     */
-    @Deprecated
-    public PictureSelectionModel selectionMedia(List<LocalMedia> selectionMedia) {
-        if (selectionConfig.selectionMode == PictureConfig.SINGLE && selectionConfig.isSingleDirectReturn) {
-            selectionConfig.selectionMedias = null;
-        } else {
-            selectionConfig.selectionMedias = selectionMedia;
-        }
-        return this;
-    }
-
     /**
      * @param selectionData Select the selected picture set
      * @return
@@ -525,8 +510,6 @@ public class PictureSelectionModel {
         }
         return this;
     }
-
-
 
     /**
      * # If you want to handle the Android Q path, if not, just return the uri，
@@ -586,7 +569,6 @@ public class PictureSelectionModel {
             }
             Intent intent = new Intent(activity, selectionConfig.isWeChatStyle ? PictureSelectorWeChatStyleActivity.class
                     : PictureSelectorActivity.class);
-            selectionConfig.isCallbackMode = false;
             Fragment fragment = selector.getFragment();
             if (fragment != null) {
                 fragment.startActivityForResult(intent, requestCode);

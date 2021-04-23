@@ -1,4 +1,4 @@
-package com.luck.picture.lib.customused;
+package com.luck.picture.lib.app;
 
 /**
  * Author: chuanmo

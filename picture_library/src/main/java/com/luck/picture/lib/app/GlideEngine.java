@@ -1,4 +1,4 @@
-package com.luck.picture.lib.customused;
+package com.luck.picture.lib.app;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.luck.picture.lib.R;
-import com.luck.picture.lib.app.ImageEngine;
 
 import androidx.annotation.NonNull;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
