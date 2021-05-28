@@ -1,5 +1,6 @@
 package com.luck.picture.lib.app;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -224,8 +225,9 @@ public final class LocalMediaLoader {
                                 continue;
                             }
                         }
+                        Uri uri = ContentUris.withAppendedId(QUERY_URI, id);
                         LocalMedia image = new LocalMedia
-                                (id, url, absolutePath, fileName, folderName, duration, config.chooseMode, mimeType, width, height, size, bucketId);
+                                (uri, url, absolutePath, fileName, folderName, duration, config.chooseMode, mimeType, width, height, size, bucketId);
                         LocalMediaFolder folder = getImageFolder(url, folderName, imageFolders);
                         folder.setBucketId(image.getBucketId());
                         List<LocalMedia> images = folder.getData();

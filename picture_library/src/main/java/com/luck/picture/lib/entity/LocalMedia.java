@@ -1,6 +1,7 @@
 package com.luck.picture.lib.entity;
 
 
+import android.net.Uri;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -15,9 +16,9 @@ import com.luck.picture.lib.config.PictureConfig;
 
 public class LocalMedia implements Parcelable {
     /**
-     * file to ID
+     * uri
      */
-    private long id;
+    private Uri uri;
     /**
      * original path
      */
@@ -122,33 +123,11 @@ public class LocalMedia implements Parcelable {
     private boolean isMaxSelectEnabledMask;
 
     public LocalMedia() {
-
     }
 
-    public LocalMedia(String path, long duration, int chooseModel, String mimeType) {
-        this.path = path;
-        this.duration = duration;
-        this.chooseModel = chooseModel;
-        this.mimeType = mimeType;
-    }
-
-    public LocalMedia(long id, String path, String fileName, String parentFolderName, long duration, int chooseModel,
-                      String mimeType, int width, int height, long size) {
-        this.id = id;
-        this.path = path;
-        this.fileName = fileName;
-        this.parentFolderName = parentFolderName;
-        this.duration = duration;
-        this.chooseModel = chooseModel;
-        this.mimeType = mimeType;
-        this.width = width;
-        this.height = height;
-        this.size = size;
-    }
-
-    public LocalMedia(long id, String path, String absolutePath, String fileName, String parentFolderName, long duration, int chooseModel,
+    public LocalMedia(Uri uri, String path, String absolutePath, String fileName, String parentFolderName, long duration, int chooseModel,
                       String mimeType, int width, int height, long size, long bucketId) {
-        this.id = id;
+        this.uri = uri;
         this.path = path;
         this.realPath = absolutePath;
         this.fileName = fileName;
@@ -162,15 +141,41 @@ public class LocalMedia implements Parcelable {
         this.bucketId = bucketId;
     }
 
-    public LocalMedia(String path, long duration,
-                      boolean isChecked, int position, int num, int chooseModel) {
-        this.path = path;
-        this.duration = duration;
-        this.isChecked = isChecked;
-        this.position = position;
-        this.num = num;
-        this.chooseModel = chooseModel;
+
+    protected LocalMedia(Parcel in) {
+        uri = in.readParcelable(Uri.class.getClassLoader());
+        path = in.readString();
+        realPath = in.readString();
+        androidQToPath = in.readString();
+        duration = in.readLong();
+        isChecked = in.readByte() != 0;
+        position = in.readInt();
+        num = in.readInt();
+        mimeType = in.readString();
+        chooseModel = in.readInt();
+        width = in.readInt();
+        height = in.readInt();
+        size = in.readLong();
+        fileName = in.readString();
+        parentFolderName = in.readString();
+        orientation = in.readInt();
+        loadLongImageStatus = in.readInt();
+        isLongImage = in.readByte() != 0;
+        bucketId = in.readLong();
+        isMaxSelectEnabledMask = in.readByte() != 0;
     }
+
+    public static final Creator<LocalMedia> CREATOR = new Creator<LocalMedia>() {
+        @Override
+        public LocalMedia createFromParcel(Parcel in) {
+            return new LocalMedia(in);
+        }
+
+        @Override
+        public LocalMedia[] newArray(int size) {
+            return new LocalMedia[size];
+        }
+    };
 
     public String getPath() {
         return path;
@@ -179,8 +184,6 @@ public class LocalMedia implements Parcelable {
     public void setPath(String path) {
         this.path = path;
     }
-
-
 
     public String getAndroidQToPath() {
         return androidQToPath;
@@ -270,6 +273,13 @@ public class LocalMedia implements Parcelable {
         this.size = size;
     }
 
+    public Uri getUri() {
+        return uri;
+    }
+
+    public void setUri(Uri uri) {
+        this.uri = uri;
+    }
 
     public String getFileName() {
         return fileName;
@@ -277,15 +287,6 @@ public class LocalMedia implements Parcelable {
 
     public void setFileName(String fileName) {
         this.fileName = fileName;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getParentFolderName() {
@@ -328,60 +329,25 @@ public class LocalMedia implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.id);
-        dest.writeString(this.path);
-        dest.writeString(this.realPath);
-        dest.writeString(this.androidQToPath);
-        dest.writeLong(this.duration);
-        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.position);
-        dest.writeInt(this.num);
-        dest.writeString(this.mimeType);
-        dest.writeInt(this.chooseModel);
-        dest.writeInt(this.width);
-        dest.writeInt(this.height);
-        dest.writeLong(this.size);
-        dest.writeString(this.fileName);
-        dest.writeString(this.parentFolderName);
-        dest.writeInt(this.orientation);
-        dest.writeInt(this.loadLongImageStatus);
-        dest.writeByte(this.isLongImage ? (byte) 1 : (byte) 0);
-        dest.writeLong(this.bucketId);
-        dest.writeByte(this.isMaxSelectEnabledMask ? (byte) 1 : (byte) 0);
+        dest.writeParcelable(uri, flags);
+        dest.writeString(path);
+        dest.writeString(realPath);
+        dest.writeString(androidQToPath);
+        dest.writeLong(duration);
+        dest.writeByte((byte) (isChecked ? 1 : 0));
+        dest.writeInt(position);
+        dest.writeInt(num);
+        dest.writeString(mimeType);
+        dest.writeInt(chooseModel);
+        dest.writeInt(width);
+        dest.writeInt(height);
+        dest.writeLong(size);
+        dest.writeString(fileName);
+        dest.writeString(parentFolderName);
+        dest.writeInt(orientation);
+        dest.writeInt(loadLongImageStatus);
+        dest.writeByte((byte) (isLongImage ? 1 : 0));
+        dest.writeLong(bucketId);
+        dest.writeByte((byte) (isMaxSelectEnabledMask ? 1 : 0));
     }
-
-    protected LocalMedia(Parcel in) {
-        this.id = in.readLong();
-        this.path = in.readString();
-        this.realPath = in.readString();
-        this.androidQToPath = in.readString();
-        this.duration = in.readLong();
-        this.isChecked = in.readByte() != 0;
-        this.position = in.readInt();
-        this.num = in.readInt();
-        this.mimeType = in.readString();
-        this.chooseModel = in.readInt();
-        this.width = in.readInt();
-        this.height = in.readInt();
-        this.size = in.readLong();
-        this.fileName = in.readString();
-        this.parentFolderName = in.readString();
-        this.orientation = in.readInt();
-        this.loadLongImageStatus = in.readInt();
-        this.isLongImage = in.readByte() != 0;
-        this.bucketId = in.readLong();
-        this.isMaxSelectEnabledMask = in.readByte() != 0;
-    }
-
-    public static final Creator<LocalMedia> CREATOR = new Creator<LocalMedia>() {
-        @Override
-        public LocalMedia createFromParcel(Parcel source) {
-            return new LocalMedia(source);
-        }
-
-        @Override
-        public LocalMedia[] newArray(int size) {
-            return new LocalMedia[size];
-        }
-    };
 }

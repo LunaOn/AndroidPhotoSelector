@@ -64,8 +64,6 @@ public class PictureWindowAnimationStyle implements Parcelable {
     }
 
 
-
-
     @Override
     public int describeContents() {
         return 0;

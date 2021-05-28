@@ -1,5 +1,6 @@
 package com.luck.picture.lib.app;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -285,6 +286,7 @@ public final class LocalMediaPageLoader {
                             data.moveToFirst();
                             do {
                                 long id = data.getLong(idColumn);
+                                Uri uri = ContentUris.withAppendedId(QUERY_URI, id);
                                 String absolutePath = data.getString(dataColumn);
                                 String url = SdkVersionUtils.checkedAndroid_Q() ? getRealPathAndroid_Q(id) : absolutePath;
                                 if (config.isFilterInvalidFile) {
@@ -352,7 +354,7 @@ public final class LocalMediaPageLoader {
                                 }
 
                                 LocalMedia image = new LocalMedia
-                                        (id, url, absolutePath, fileName, folderName, duration, config.chooseMode, mimeType, width, height, size, bucket_id);
+                                        (uri, url, absolutePath, fileName, folderName, duration, config.chooseMode, mimeType, width, height, size, bucket_id);
 
                                 result.add(image);
 

@@ -1162,8 +1162,9 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                             MediaUtils.getVideoSizeForUri(getContext(), Uri.parse(config.cameraPath), media);
                             duration = MediaUtils.extractDuration(getContext(), SdkVersionUtils.checkedAndroid_Q(), config.cameraPath);
                         }
-                        int lastIndexOf = config.cameraPath.lastIndexOf("/") + 1;
-                        media.setId(lastIndexOf > 0 ? ValueOf.toLong(config.cameraPath.substring(lastIndexOf)) : -1);
+//                        int lastIndexOf = config.cameraPath.lastIndexOf("/") + 1;
+//                        media.setId(lastIndexOf > 0 ? ValueOf.toLong(config.cameraPath.substring(lastIndexOf)) : -1);
+                        media.setUri(Uri.parse(config.cameraPath));
                         media.setRealPath(path);
                         // Custom photo has been in the application sandbox into the file
                         String mediaPath = intent != null ? intent.getStringExtra(PictureConfig.EXTRA_MEDIA_PATH) : null;
@@ -1185,8 +1186,7 @@ public class PictureSelectorActivity extends PictureBaseActivity implements View
                             media.setWidth(newSize[0]);
                             media.setHeight(newSize[1]);
                         }
-                        // Taking a photo generates a temporary id
-                        media.setId(System.currentTimeMillis());
+                        media.setUri(Uri.fromFile(cameraFile));
                     }
                     media.setPath(config.cameraPath);
                     media.setDuration(duration);
